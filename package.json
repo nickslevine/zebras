@@ -9,6 +9,10 @@
   "keywords": [],
   "author": "Nick Levine",
   "license": "ISC",
+  "repository": "https://github.com/nickslevine/zebras",
+  "keywords": [
+    "data", "dataframe", "data-science", "data-analysis", "pandas","csv", "r"
+  ],
   "dependencies": {
     "cli-table3": "^0.5.1",
     "ramda": "^0.26.1"

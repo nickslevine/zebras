@@ -1,12 +1,17 @@
 # zebras - data analysis library for javascript
 
+<div style="text-align:center"><img src ="code_example.png" /></div>
+
 Zebras is a data manipulation and analysis library written in JavaScript offering the convenience of pandas or R. 
 
 Unlike pandas, zebras is purely functional. All zebras functions accept data as an argument and return a new data structure transformed. 'Dataframes' are simply arrays of JS objects without any special methods. 
 
-Zebras is built on top of [Ramda](https://github.com/Ramda/ramda). Think of zebras as a collection of Ramda functions and compositions thereof curated for common data processing and analysis tasks. 
+Zebras is built on top of [Ramda](https://github.com/Ramda/ramda). Think of zebras as a collection of Ramda functions and compositions of them curated and repackaged for common data processing and data analysis tasks. 
 
 As in Ramda, all zebras functions are curried, making them easier to chain together. This means that, for example, `zebras.sort(col, df)` is equivalent to `zebras.sort(col)(df)`. 
+
+## To Install
+`npm install zebras --save`
 
 ## Example Usage
 ```javascript
@@ -110,6 +115,9 @@ Print last n rows of dataframe:
 
 #### Correlation between two series
 `z.corr(arr1,arr2)`
+
+#### Percent changes
+`z.pctChange(arr)`
 
 #### Calculate rolling statistics (works with z.min, z.max, z.mean, z.median, z.std or any user-supplied function that takes an array as a single argument)
 `z.rolling(func, n, arr)`
