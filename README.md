@@ -54,79 +54,79 @@ Print last n rows of dataframe:
 
 ### Manipulating dataframes
 
-Filter rows:
+#### Filter rows
 `z.filter(func, df)`
 
-Sort rows by a column:  
+#### Sort rows by a column
 `z.sortByCol(columnName, direction, df)`
 `direction = 'asc'` for ascending and `direction = 'desc'` for descending
 
-Sort rows using custom sorting function: 
+#### Sort rows using custom sorting function
 `z.sort(func, df)`
 
-Convert columns to numerical type:
+#### Convert columns to numerical type
 `z.parseNums(columnNamesArray, df)`
 
-Convert columns to datestamp: 
+#### Convert columns to datestamp
 `z.parseDates(columnNamesArray, df)`
 
-Select a subset of columns:
+#### Select a subset of columns
 `z.pickCols(columnNamesArray, df)`
 
-Concatenate two dataframes:
+#### Concatenate two dataframes
 `z.concat(df1, df2)`
 
-Get rows by index:
+#### Get rows by index
 `z.slice(start, end, df)`
 
-Add a new column to a dataframe from an array:
+#### Add a new column to a dataframe from an array
 `z.addCol(columnName, arr, df)`
 
-Create a new array based on columns from existing array:
+#### Create a new array based on columns from existing array
 `z.deriveCol(func, df)`
 
 ### Analyzing series
 
-Extract a series to an array from a dataframe:
+#### Extract a series to an array from a dataframe
 `z.getCol(columnName, df)`
 
-Min of series: 
+#### Min of series:
 `z.min(arr)`
 
-Max of series:
+#### Max of series
 `z.max(arr)`
 
-Range of series:
+#### Range of series
 `z.getRange(arr)`
 
-Mean of series:
+#### Mean of series
 `z.mean(arr)`
 
-Median of series:
+#### Median of series
 `z.median(arr)`
 
-Standard deviation of series:
+#### Standard deviation of series
 `z.std(arr)`
 
-Correlation between two series:
+#### Correlation between two series
 `z.corr(arr1,arr2)`
 
-Calcualte rolling statistics (works with z.min, z.max, z.mean, z.median, z.std or any user-supplied function that takes an array as a single argument):
+#### Calculate rolling statistics (works with z.min, z.max, z.mean, z.median, z.std or any user-supplied function that takes an array as a single argument)
 `z.rolling(func, n, arr)`
 
-Get unique values: 
+#### Get unique values:
 `z.unique(arr)`
 
-Count number of unique values:
+#### Count number of unique values
 `z.countUnique(arr)`
 
-Count number of occurences of each value:
+#### Count number of occurences of each value
 `z.valueCounts(arr)`
 
-Create groupBy object:
+#### Create groupBy object
 `z.groupBy(func, df)`
 
 ### Composition
 
-Pipe functions together:
+#### Pipe functions together
 `z.pipe([functions], df)`
