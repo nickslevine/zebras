@@ -1,6 +1,6 @@
 # zebras - data analysis library for javascript
 
-<div style="text-align:center"><img src ="code_example.png" /></div>
+<div style="text-align:center; width: 50%"><img src ="code_example.png" /></div>
 
 Zebras is a data manipulation and analysis library written in JavaScript offering the convenience of pandas or R. 
 
