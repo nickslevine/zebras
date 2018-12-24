@@ -4,11 +4,14 @@
 
 Zebras is a data manipulation and analysis library written in JavaScript offering the convenience of pandas or R. 
 
+Useful for JS data analysis and visualization projects in notebooks on [ObservableHQ](https://beta.observablehq.com/) or using the [JS Jupyter kernel](https://github.com/n-riesco/ijavascript). 
+
 Unlike pandas, zebras is purely functional. All zebras functions accept data as an argument and return a new data structure transformed. 'Dataframes' are simply arrays of JS objects without any special methods. 
 
-Zebras is built on top of [Ramda](https://github.com/Ramda/ramda). Think of zebras as a collection of Ramda functions and compositions of them curated and repackaged for common data processing and data analysis tasks. 
+Zebras is built on top of [Ramda](https://github.com/Ramda/ramda). Think of zebras as a collection of Ramda functions, and compositions of them, curated and repackaged for common data processing and data analysis tasks. 
 
 As in Ramda, all zebras functions are curried, making them easier to chain together. This means that, for example, `zebras.sort(col, df)` is equivalent to `zebras.sort(col)(df)`. 
+
 
 ## To Install
 `npm install zebras --save`
@@ -42,19 +45,19 @@ In the documentation, `df` signifies an array of Javascript objects, while `arr`
 
 ### IO
 
-Read a CSV file:
+#### Read a CSV file
 `z.readCSV(filepath)`
 
-Write a CSV file:
+#### Write a CSV file
 `z.toCSV(filepath, df)`
 
-Print dataframe:
+#### Print dataframe
 `z.print(df)`
 
-Print first n rows of dataframe:
+#### Print first n rows of dataframe
 `z.head(n, df)`
 
-Print last n rows of dataframe:
+#### Print last n rows of dataframe
 `z.tail(n, df)`
 
 ### Manipulating dataframes
