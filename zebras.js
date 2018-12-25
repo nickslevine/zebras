@@ -69,7 +69,7 @@ const parseDates = R.curry((cols, df) => {
 })
 
 const pickCols = R.curry((cols, df) => {
-  return R.pick(cols, df)
+  return R.map(R.pick(cols), df)
 })
 
 const getCol = R.curry((col, df) => {
@@ -186,19 +186,19 @@ const print = R.curry((df) => {
    ...rows 
   );
   console.log(printTable.toString())
-  return ""
+  return printTable.toString()
 })
 
 const head = (n, df) => {
   const truncated = R.take(n, df);
   console.log(print(truncated));
-  return "";
+  return print(truncated);
 }
 
 const tail = (n, df) => {
   const truncated = R.takeLast(n, df);
   console.log(print(truncated));
-  return "";
+  return print(truncated);
 }
 
 const pctChange = R.curry((arr) => {
