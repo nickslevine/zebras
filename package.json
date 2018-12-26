@@ -1,9 +1,9 @@
 {
   "name": "zebras",
-  "version": "0.0.4",
+  "version": "0.0.8",
   "description": "Functional JS data analysis library built with Ramda",
   "main": "zebras.js",
-  "unpkg": "zebras-umd.js",
+  "unpkg": "zebras.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

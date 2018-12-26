@@ -185,13 +185,13 @@ const print = R.curry((df) => {
   printTable.push(
    ...rows 
   );
-  console.log(printTable.toString())
-  return printTable.toString()
+  //console.log("\n" + printTable.toString())
+  return "\n" + printTable.toString()
 })
 
 const head = (n, df) => {
   const truncated = R.take(n, df);
-  console.log(print(truncated));
+  //console.log(print(truncated));
   return print(truncated);
 }
 
