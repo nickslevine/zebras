@@ -1,6 +1,6 @@
 {
   "name": "zebras",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Functional JS data analysis library built with Ramda",
   "main": "zebras.js",
   "unpkg": "zebras.js",

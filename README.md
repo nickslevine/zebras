@@ -158,7 +158,14 @@ z.parseDates(columnNamesArray, df)
 z.pickCols(columnNamesArray, df)
 ```
 
-:point_right: Use this function to 'delete' columns - give it an array with the names of the columns you want to retain. 
+:point_right: Use this function to select a subset of columns - give it an array with the names of the columns you want to retain. 
+
+#### Delete a column
+```javascript
+z.dropCol(columnName, df)
+```
+
+:point_right: Returns a new dataframe lacking the referenced column.
 
 #### Concatenate two dataframes
 ```javascript
