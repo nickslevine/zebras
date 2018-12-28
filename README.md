@@ -280,6 +280,21 @@ z.countUnique(arr)
 z.valueCounts(arr)
 ```
 
+#### Calculate summary statistics for a numerical series
+```javascript
+z.describe(arr)
+```
+
+:point_right: Returns a single-row df with count, unique count, min, max, median, mean and standard deviation of a numerical series.
+
+```
+┌───────┬─────────────┬──────────┬─────────┬─────────┬─────────┬─────────┐
+│ count │ countUnique │ min      │ max     │ median  │ mean    │ std     │
+├───────┼─────────────┼──────────┼─────────┼─────────┼─────────┼─────────┤
+│ 17356 │ 17196       │ -0.20467 │ 0.11580 │ 0.00046 │ 0.00033 │ 0.00962 │
+└───────┴─────────────┴──────────┴─────────┴─────────┴─────────┴─────────┘
+```
+
 #### Create groupBy object
 ```javascript
 z.groupBy(func, df)

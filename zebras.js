@@ -226,6 +226,18 @@ const rolling = (func, n, arr) => {
   return result;
 }
 
+const describe = (arr) => {
+  return [{
+    count: arr.length,
+    countUnique: countUnique(arr),
+    min: min(arr).toFixed(5),
+    max: max(arr).toFixed(5),
+    median: median(arr).toFixed(5),
+    mean: mean(arr).toFixed(5),
+    std: std(arr).toFixed(5)
+  }]
+}
+
 module.exports = {
   readCSV: readCSV,
   toCSV: toCSV,
@@ -257,5 +269,6 @@ module.exports = {
   rolling: rolling,
   parseDates: parseDates,
   sort: sort,
-  sortByCol: sortByCol
+  sortByCol: sortByCol,
+  describe: describe
 }
