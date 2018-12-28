@@ -14,6 +14,10 @@ As in Ramda, all zebras functions are curried, making them easier to chain toget
 
 **An interactive introduction to the zebras library - using S&P 500 data - is available [as an Observable notebook](https://beta.observablehq.com/@nickslevine/introduction-to-zebras-a-data-analysis-library-for-javascr).**
 
+**See the project roadmap on the zebras wiki [here](https://github.com/nickslevine/zebras/wiki/Zebras---Project-Roadmap).**
+
+**A guide to using Zebras in a JS Jupyter notebook can be found on the zebras wiki [here](https://github.com/nickslevine/zebras/wiki/Zebras-in-a-Jupyter-Notebook).**
+
 ## To Install
 ### Locally with Node / Jupyter
 ```sh
