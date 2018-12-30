@@ -238,6 +238,55 @@ const describe = (arr) => {
   }]
 }
 
+const merge = (dfLeft, dfRight, leftOn, rightOn, leftSuffix, rightSuffix) => {
+  const colsLeft = R.keys(dfLeft[0])
+  const colsRight = R.keys(dfRight[0])
+  const intersection = R.filter(x => !(R.includes(x, [leftOn, rightOn])), R.intersection(colsLeft, colsRight))
+
+  const renameCol = (oldColName, suffix, {[oldColName]: old, ...others}) => {
+    return ({
+      [oldColName+suffix]: old, ...others
+    })
+  }
+  
+  const renameDuplicateColumns = (cols, arr, suffix) => {
+    for (let c of cols){
+      arr = arr.map(r => renameCol(c, suffix, r))
+    }
+    return arr
+  }
+
+  const dfLeftUpdated = renameDuplicateColumns(intersection, dfLeft, leftSuffix)
+  const dfRightUpdated = renameDuplicateColumns(intersection, dfRight, rightSuffix)
+  const colsLeftUpdated = R.keys(dfLeftUpdated[0])
+  const colsRightUpdated = R.keys(dfRightUpdated[0])
+
+
+  const colsAll = Array.from(new Set([...colsLeftUpdated, ...colsRightUpdated]))
+  const dfLeftGrouped = R.groupBy(R.prop(leftOn), dfLeftUpdated)
+  const dfRightGrouped = R.groupBy(R.prop(rightOn), dfRightUpdated)
+  const index = R.keys(dfLeftGrouped)
+  const fillRow = (row, cols) => {
+    const rowCols = R.keys(row);
+    const diff = R.difference(cols, rowCols)
+    for (let c of diff) {
+      row[c] = undefined
+    }
+    return row
+  }
+  return index.map(i => {
+      try {
+        return fillRow({...dfLeftGrouped[i]['0'], ...dfRightGrouped[i]['0']}, colsAll)
+   
+      } 
+      catch (err) {
+        return fillRow({...dfLeftGrouped[i]['0']}, colsAll)
+      }
+    })
+}
+
+
+
 module.exports = {
   readCSV: readCSV,
   toCSV: toCSV,
@@ -270,5 +319,6 @@ module.exports = {
   parseDates: parseDates,
   sort: sort,
   sortByCol: sortByCol,
-  describe: describe
+  describe: describe,
+  merge: merge
 }

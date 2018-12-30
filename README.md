@@ -200,6 +200,14 @@ const fahrenheit = z.deriveCol((r) => r.tempCelsius * 1.8 + 32, df) // => [ 32, 
 const dfWithFahrenheit = z.addCol('tempFahrenheit', fahrenheit, df) // => new df includes the 'tempFahrenheit' column
 ```
 
+#### Join two dataframes on a column
+
+```javascript
+z.merge(dfLeft, dfRight, leftOn, rightOn, leftSuffix, rightSuffix)
+```
+
+:point_right: Performs a left join on two dataframes. The 'On' arguments set which column in each df to join on. The 'Suffix' arguments determine what the suffix should be when the two dataframes have overlapping column names besides the one being joined on. 
+
 ### Analyzing series
 
 #### Extract a series to an array from a dataframe
