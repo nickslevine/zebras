@@ -129,6 +129,8 @@ const dfFiltered = z.filter((r) => r >= 10, df)
 z.sortByCol(columnName, direction, df)
 ```
 :point_right: Set the `direction` argument to `'asc'` for ascending and `'desc'` for descending
+
+
 #### Sort dataframe rows using custom sorting function
 ```javascript
 z.sort(func, df)
@@ -311,6 +313,53 @@ z.describe(arr)
 ```javascript
 z.groupBy(func, df)
 ```
+
+:point_right: Takes a function and returns a groupBy object grouped according to the function. The form of a groupBy object is a JS object whose keys are the groups and whose values are dataframes containing the group's rows. For example:
+
+```javascript
+const df = [{'Day': 'Monday', 'value': 10}, {'Day': 'Tuesday', 'value': 5}, {'Day': 'Monday', 'value': 7}]
+const dfGrouped = z.groupBy(x => x.Day, df)
+// dfGrouped = {
+//  'Monday': [{'Day': 'Monday', 'value': 10}, {'Day': 'Monday', 'value': 7}], 
+//  'Tuesday': [{'Day': 'Tuesday', 'value': 5}]
+// }
+```
+
+##### groupBy object functions
+```javascript
+z.gbMin(col, groupByObject)
+z.gbMax(col, groupByObject)
+z.gbCount(col, groupByObject)
+z.gbSum(col, groupByObject)
+z.gbMean(col, groupByObject)
+z.gbStd(col, groupByObject)
+z.gbDescribe(col, groupByObject)
+```
+
+:point_right: Use these functions on groupBy objects - the output of z.groupBy() - to ananalyze groups. The 'col' argument determines the column within the groups to be analyzed. GroupBy functions return a df with the calculated statistics. For example: 
+
+```javascript
+z.gbDescribe('Returns', stocksGroupedByDay) // => daily S&P 500 stock returns grouped by day of the week
+```
+
+The output:
+
+```
+┌───────────┬──────────────────────┬─────────────────────┬───────┬────────────────────┬────────────────────────┬──────────────────────┐
+│ group     │ min                  │ max                 │ count │ sum                │ mean                   │ std                  │
+├───────────┼──────────────────────┼─────────────────────┼───────┼────────────────────┼────────────────────────┼──────────────────────┤
+│ Tuesday   │ -0.05739484160042896 │ 0.10789005893857007 │ 3536  │ 1.4631920539924885 │ 0.0004137986578033056  │ 0.009621681367601694 │
+├───────────┼──────────────────────┼─────────────────────┼───────┼────────────────────┼────────────────────────┼──────────────────────┤
+│ Wednesday │ -0.09034977815503076 │ 0.09099355156869016 │ 3536  │ 2.7012204306809346 │ 0.0007639198050568254  │ 0.009228777204500336 │
+├───────────┼──────────────────────┼─────────────────────┼───────┼────────────────────┼────────────────────────┼──────────────────────┤
+│ Thursday  │ -0.07616709530292798 │ 0.06921270776786637 │ 3489  │ 1.3406664392802377 │ 0.00038425521332193684 │ 0.009238397490985052 │
+├───────────┼──────────────────────┼─────────────────────┼───────┼────────────────────┼────────────────────────┼──────────────────────┤
+│ Friday    │ -0.0676830448776905  │ 0.06324760362753801 │ 3467  │ 2.2649118001249873 │ 0.0006532771272353583  │ 0.008747752776127474 │
+├───────────┼──────────────────────┼─────────────────────┼───────┼────────────────────┼────────────────────────┼──────────────────────┤
+│ Monday    │ -0.20466930860972155 │ 0.11580036960722695 │ 3328  │ -1.98570062292691  │ -0.0005966648506390956 │ 0.011098986740715711 │
+└───────────┴──────────────────────┴─────────────────────┴───────┴────────────────────┴────────────────────────┴──────────────────────┘ 
+```
+
 
 ### Composition
 

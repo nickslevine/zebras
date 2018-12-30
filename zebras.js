@@ -285,6 +285,77 @@ const merge = (dfLeft, dfRight, leftOn, rightOn, leftSuffix, rightSuffix) => {
     })
 }
 
+const gbSum = (col, groupByObj) => {
+  const groups = R.keys(groupByObj);
+  const result = groups.map((i) => {
+    const df = groupByObj[i];
+    const arr = getCol(col, df);
+    const arrFiltered = R.reject(isNaN, arr)
+    return {group: i, sum: R.sum(arrFiltered)}
+  }) 
+  return result 
+}
+
+const gbMean = (col, groupByObj) => {
+  const summed = gbSum(col, groupByObj);
+  const result = summed.map((i) => {
+    const count = groupByObj[i.group].length;
+    return {group: i.group, mean: i.sum/count}
+  })
+  return result
+}
+
+const gbStd = (col, groupByObj) => {
+  const groups = R.keys(groupByObj)
+  const result = groups.map((g) => {
+    const arr = R.reject(isNaN, getCol(col, groupByObj[g]))
+    const avg = R.mean(arr);
+    const arrSquaredDiffs = R.map((x)=>Math.pow(x-avg, 2), arr)
+    const sumSquaredDiffs = R.sum(arrSquaredDiffs)
+    return {group: g, std: Math.sqrt(sumSquaredDiffs / (arr.length - 1))}
+  })
+  return result
+}
+
+const gbCount = (col, groupByObj) => {
+  const groups = R.keys(groupByObj);
+  const result = groups.map((g) => {
+    return {group: g, count: groupByObj[g].length} 
+  }
+  )
+  return result 
+}
+
+const gbMin = (col, groupByObj) => {
+  const groups = R.keys(groupByObj)
+  const result = groups.map((g) => {
+    return {group: g, min: R.reduce((acc, value) => R.min(acc, value[col]), Infinity, groupByObj[g])}
+  })
+  return result
+}
+
+const gbMax = (col, groupByObj) => {
+  const groups = R.keys(groupByObj)
+  const result = groups.map((g) => {
+    return {group: g, max: R.reduce((acc, value) => R.max(acc, value[col]), -Infinity, groupByObj[g])}
+  })
+  return result
+}
+
+const gbDescribe = (col, groupByObj) => {
+  const mins = gbMin(col, groupByObj)
+  const maxes = gbMax(col, groupByObj)
+  const counts = gbCount(col, groupByObj)
+  const sums = gbSum(col, groupByObj)
+  const means = gbMean(col, groupByObj)
+  const stds = gbStd(col, groupByObj)
+  const df1 =  merge(mins, maxes, 'group', 'group', '--', '--')
+  const df2 =  merge(df1, counts, 'group', 'group', '--', '--')
+  const df3 =  merge(df2, sums, 'group', 'group', '--', '--')
+  const df4 =  merge(df3, means, 'group', 'group', '--', '--')
+  const df5 =  merge(df4, stds, 'group', 'group', '--', '--')
+  return df5
+}
 
 
 module.exports = {
@@ -320,5 +391,12 @@ module.exports = {
   sort: sort,
   sortByCol: sortByCol,
   describe: describe,
-  merge: merge
+  merge: merge,
+  gbSum: gbSum,
+  gbMean: gbMean,
+  gbCount: gbCount,
+  gbMin: gbMin,
+  gbMax: gbMax,
+  gbStd: gbStd, 
+  gbDescribe: gbDescribe
 }
