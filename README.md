@@ -234,6 +234,16 @@ z.min(arr)
 z.max(arr)
 ```
 
+#### Sum of series:
+```javascript
+z.sum(arr)
+```
+
+#### Product of series:
+```javascript
+z.prod(arr)
+```
+
 #### Range of series
 ```javascript
 z.getRange(arr)
@@ -277,7 +287,15 @@ const prcChanges = z.pctChange(arr) // => [NaN, .5, .333, .25, 1, .1]
 ```javascript
 z.rolling(func, n, arr)
 ```
-:point_right: Calculate statistics over a moving window. Works with z.min, z.max, z.mean, z.median, z.std or any user-supplied function that takes an array as a single argument.
+:point_right: Calculate statistics over a moving window. Works with z.min, z.max, z.mean, z.std, z.sum, z.prod, or any other function that takes an array as a single argument.
+
+#### Calculate cumulative statistics
+
+```javascript
+z.cumulative(func, arr)
+```
+
+:point_right: Calculate statistics over a cumulative window from the start of the array. Works wtih z.min, z.max, z.mean, z.std, z.sum, z.prod, etc., or any other function that takes an array as a single argument.
 
 #### Get unique values in a series
 ```javascript

@@ -148,6 +148,16 @@ const min = R.curry((arr) => {
   return R.apply(Math.min, filteredArr) 
 })
 
+const sum = R.curry((arr) => {
+  const filteredArr = R.reject(isNaN, arr)
+  return R.sum(filteredArr)
+})
+
+const prod = R.curry((arr) => {
+  const filteredArr = R.reject(isNaN, arr)
+  return R.product(filteredArr)
+})
+
 const getRange = R.curry((arr) => {
   return [min(arr), max(arr)];
 })
@@ -222,6 +232,15 @@ const rolling = (func, n, arr) => {
       const truncated = R.slice(i-n+1, i+1, arr)
       return func(truncated)
     }
+  }, iRange)
+  return result;
+}
+
+const cumulative = (func, arr) => {
+  const iRange = R.range(0, arr.length);
+  const result = R.map((i) => {
+    const truncated = R.slice(0, i + 1, arr);
+    return func(truncated)
   }, iRange)
   return result;
 }
@@ -398,5 +417,8 @@ module.exports = {
   gbMin: gbMin,
   gbMax: gbMax,
   gbStd: gbStd, 
-  gbDescribe: gbDescribe
+  gbDescribe: gbDescribe,
+  cumulative: cumulative,
+  sum: sum,
+  prod: prod
 }
