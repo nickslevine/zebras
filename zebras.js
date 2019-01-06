@@ -97,6 +97,30 @@ const std = R.curry((arr) => {
   return Math.sqrt(R.divide(summed, R.subtract(n,1)))
 })
 
+const skew = R.curry((arr) => {
+  const filteredArr = R.reject(isNaN, arr)
+  const sampleStd = std(filteredArr);
+  const stdCubed = Math.pow(sampleStd, 3);
+  const sampleMean = R.mean(filteredArr)
+  const diffs = R.map(x=>x-sampleMean, filteredArr)
+  const diffsCubed = R.map(x=>Math.pow(x,3), diffs)
+  const summed = R.sum(diffsCubed)
+  const n = R.length(filteredArr)
+  return (summed / n) / stdCubed
+})
+
+const kurt = R.curry((arr) => {
+  const filteredArr = R.reject(isNaN, arr)
+  const sampleStd = std(filteredArr);
+  const stdFourth = Math.pow(sampleStd, 4);
+  const sampleMean = R.mean(filteredArr)
+  const diffs = R.map(x=>x-sampleMean, filteredArr)
+  const diffsFourth = R.map(x=>Math.pow(x,4), diffs)
+  const summed = R.sum(diffsFourth)
+  const n = R.length(filteredArr)
+  return ((summed / n) / stdFourth) - 3
+})
+
 const corr = R.curry((arr1,arr2) => {
   if (R.length(arr1) != R.length(arr2)) {
     return "Arrays are not the same length";
@@ -218,6 +242,18 @@ const pctChange = R.curry((arr) => {
       return NaN
     } else {
       return (arr[i] / arr[i-1]) - 1
+    }
+  }, iRange)
+  return result 
+})
+
+const diff = R.curry((arr) => {
+  const iRange = R.range(0, arr.length)
+  const result = R.map((i) => {
+    if (i==0) {
+      return NaN
+    } else {
+      return arr[i] - arr[i-1]
     }
   }, iRange)
   return result 
@@ -420,5 +456,8 @@ module.exports = {
   gbDescribe: gbDescribe,
   cumulative: cumulative,
   sum: sum,
-  prod: prod
+  prod: prod,
+  diff: diff,
+  skew: skew,
+  kurt: kurt
 }

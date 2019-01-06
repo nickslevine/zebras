@@ -266,6 +266,15 @@ z.median(arr)
 z.std(arr)
 ```
 
+#### Skew of a series
+```javascript
+z.skew(arr)
+```
+
+#### Kurtosis of a series
+```javascript
+z.kurt(arr)
+```
 #### Correlation between two series
 ```javascript
 z.corr(arr1,arr2)
@@ -282,6 +291,13 @@ z.pctChange(arr)
 const arr = [10, 15, 20, 25, 50, 55]
 const prcChanges = z.pctChange(arr) // => [NaN, .5, .333, .25, 1, .1]
 ```
+
+#### Differences
+```javascript
+z.diff(arr)
+```
+
+:point_right: Returns a new series with the differences between the values in the order of the input series. 
 
 #### Calculate rolling statistics 
 ```javascript
