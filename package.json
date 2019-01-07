@@ -24,6 +24,9 @@
     "ramda": "^0.26.1"
   },
   "devDependencies": {
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "prettier": "^1.15.3"
   },
   "prettier": {
@@ -34,5 +37,11 @@
     "trailingComma": "es5",
     "bracketSpacing": true,
     "arrowParens": "avoid"
+  },
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "rules": {
+      "semi": "never"
+    }
   }
 }
