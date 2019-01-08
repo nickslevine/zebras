@@ -5,7 +5,8 @@
   "main": "zebras.js",
   "unpkg": "zebras.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:docs": "jsdoc --configure .jsdoc.json"
   },
   "keywords": [
     "data",
@@ -24,9 +25,11 @@
     "ramda": "^0.26.1"
   },
   "devDependencies": {
+    "docdash": "^1.0.2",
     "eslint": "^5.12.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
+    "jsdoc": "^3.5.5",
     "prettier": "^1.15.3"
   },
   "prettier": {
