@@ -13,7 +13,6 @@ const Table = require("cli-table3")
  *
  * @func
  * @memberOf Z
- * @sig String => df
  * @param {String} filepath File path for the CSV file to read
  * @return {df} Zebras dataframe
  * @example
@@ -38,7 +37,6 @@ const readCSV = R.curry(filepath => {
  *
  * @function
  * @memberOf Z
- * @sig String -> df -> undefined
  * @param {df} df Zebras dataframe to write
  * @param {String} filepath File path for the CSV file to write
  * @return {undefined}
@@ -62,7 +60,6 @@ const toCSV = R.curry((filepath, df) => {
  *
  * @func
  * @memberOf Z
- * @sig df => String
  * @param {df} dataframe to print
  * @return {String} Entire dataframe as an ASCII table
  * @example
@@ -92,18 +89,66 @@ const print = R.curry(df => {
     head: headers,
   })
   printTable.push(...rows)
-  //console.log("\n" + printTable.toString())
   return "\n" + printTable.toString()
 })
 
+/**
+ * Filter dataframe rows by using a filtering function.
+ *
+ * Accepts a test function that determines which rows of the supplied
+ * dataframe are returned.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Function} predicate A filtering function
+ * @param {df} dataframe Zebras dataframe to filter
+ * @return {df} Zebras dataframe
+ * @example
+ *
+ * const df = [{"label": "A", "value": 2}, {"label": "B", "value": 10}, {"label": "C", "value": 30}]
+ * Z.filter(r => r >= 10, df)
+ * // [{"label": "B", "value": 10}, {"label": "C", "value": 30}]
+ */
 const filter = R.curry((func, df) => {
   return R.filter(func, df)
 })
 
+/**
+ * Sort dataframe rows using custom sorting function.
+ *
+ * Accepts a sorting function that determines the order of rows in the returned
+ * dataframe.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Function} comparator A sorting function
+ * @param {df} dataframe Zebras dataframe to sort
+ * @return {df} Zebras dataframe
+ * @example
+ *
+ * const df = [{"label": "A", "value": 7}, {"label": "B", "value": 2}, {"label": "C", "value": 75}]
+ * Z.sort((a, b) => b.value - a.value, df)
+ * // [{ label: "C", value: 75 },{ label: "A", value: 7 },{ label: "B", value: 2 }]
+ */
 const sort = R.curry((func, df) => {
   return R.sort(func, df)
 })
 
+/**
+ * Sort dataframe rows by a column
+ *
+ * @func
+ * @memberOf Z
+ * @param {String} columnName Name of the column to sort by
+ * @param {String} direction Determines direction, pass `asc` for ascending and `desc` for descending
+ * @param {df} dataframe Zebras dataframe to sort
+ * @return {df} Zebras dataframe
+ * @example
+ *
+ * const df = [{"label": "A", "value": 7}, {"label": "B", "value": 2}, {"label": "C", "value": 75}]
+ * Z.sortByCol("value", "asc", df)
+ * // [{"label": "B", "value": 2}, {"label": "A", "value": 7}, {"label": "C", "value": 75}]
+ */
 const sortByCol = R.curry((col, direction, df) => {
   return R.sort((a, b) => {
     if (direction == "asc") {
@@ -114,6 +159,20 @@ const sortByCol = R.curry((col, direction, df) => {
   }, df)
 })
 
+/**
+ * Convert columns to numerical type (floats)
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} columnNames Array of column names to convert
+ * @param {df} dataframe Zebras dataframe to parse
+ * @return {df} Zebras dataframe
+ * @example
+ *
+ * const df = [{"label": "A", "value": "7"}, {"label": "B", "value": "2"}, {"label": "C", "value": "75"}]
+ * Z.parseNums(["value"], df)
+ * // [{"label": "B", "value": 2}, {"label": "A", "value": 7}, {"label": "C", "value": 75}]
+ */
 const parseNums = R.curry((cols, df) => {
   const convertRow = r => {
     const converter = (value, key, obj) => {
@@ -128,6 +187,20 @@ const parseNums = R.curry((cols, df) => {
   return R.map(convertRow, df)
 })
 
+/**
+ * Convert columns to datestamp
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} columnNames Array of column names to convert
+ * @param {df} dataframe Zebras dataframe to parse
+ * @return {df} Zebras dataframe
+ * @example
+ *
+ * const df = [{"label": "A", "value": "2010-12-13"}, {"label": "B", "value": "2010-12-15"}, {"label": "C", "value": "2010-12-17"}]
+ * Z.parseDates(["value"], df)
+ * // [{"label": "A", "value": 1292198400000}, {"label": "B", "value": 1292371200000}, {"label": "C", "value": 1292544000000}]
+ */
 const parseDates = R.curry((cols, df) => {
   const convertRow = r => {
     const converter = (value, key, obj) => {
@@ -142,24 +215,111 @@ const parseDates = R.curry((cols, df) => {
   return R.map(convertRow, df)
 })
 
+/**
+ * Select a subset of columns
+ *
+ * Accepts an array with the names of the columns to retain.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} columnNames Array of column names to pick
+ * @param {df} dataframe Zebras dataframe
+ * @return {df} Zebras dataframe
+ * @example
+ *
+ * const df = [{"label": "A", "value": 7}, {"label": "B", "value": 2}, {"label": "C", "value": 75}]
+ * Z.pickCols(["value"], df)
+ * // [{"value": 7}, {"value": 2}, {"value": 75}]
+ */
 const pickCols = R.curry((cols, df) => {
   return R.map(R.pick(cols), df)
 })
 
+/**
+ * Delete a column
+ *
+ * @func
+ * @memberOf Z
+ * @param {String} columnName Name of the column to delete
+ * @param {df} dataframe Zebras dataframe
+ * @return {df} Zebras dataframe
+ * @example
+ *
+ * const df = [{"label": "A", "value": 7}, {"label": "B", "value": 2}, {"label": "C", "value": 75}]
+ * Z.dropCol(["label"], df)
+ * // [{"value": 7}, {"value": 2}, {"value": 75}]
+ */
+const dropCol = R.curry((col, df) => {
+  return R.map(R.dissoc(col), df)
+})
+
+/**
+ * Extract a series to an array from a dataframe
+ *
+ * @func
+ * @memberOf Z
+ * @param {String} columnName Name of the column to extract
+ * @param {df} dataframe Zebras dataframe
+ * @return {Array} Series array
+ * @example
+ *
+ * const df = [{"label": "A", "value": "2010-12-13"}, {"label": "B", "value": "2010-12-15"}, {"label": "C", "value": "2010-12-17"}]
+ * Z.getCol("label", df)
+ * // ["2010-12-13", "2010-12-15", "2010-12-17"]
+ */
 const getCol = R.curry((col, df) => {
   return R.map(R.prop(col), df)
 })
 
+/**
+ * Mean of series
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} series Series to calculate mean for
+ * @return {Number}
+ * @example
+ *
+ * const series = [7, 2, 30, 56, 75]
+ * Z.mean(series)
+ * // 34
+ */
 const mean = R.curry(arr => {
   const filteredArr = R.reject(isNaN, arr)
   return R.mean(filteredArr)
 })
 
+/**
+ * Median of series
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} series Series to calculate median for
+ * @return {Number}
+ * @example
+ *
+ * const series = [7, 2, 30, 56, 75]
+ * Z.median(series)
+ * // 30
+ */
 const median = R.curry(arr => {
   const filteredArr = R.reject(isNaN, arr)
   return R.median(filteredArr)
 })
 
+/**
+ * Standard deviation of series
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} series Series to calculate standard deviation for
+ * @return {Number}
+ * @example
+ *
+ * const series = [7, 2, 30, 56, 75]
+ * Z.std(series)
+ * // 31.36080356113344
+ */
 const std = R.curry(arr => {
   const filteredArr = R.reject(isNaN, arr)
   const sampleMean = R.mean(filteredArr)
@@ -170,6 +330,19 @@ const std = R.curry(arr => {
   return Math.sqrt(R.divide(summed, R.subtract(n, 1)))
 })
 
+/**
+ * Skew of a series
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} series Series to calculate skew for
+ * @return {Number}
+ * @example
+ *
+ * const series = [7, 2, 30, 56, 75]
+ * Z.skew(series)
+ * // 0.17542841315728933
+ */
 const skew = R.curry(arr => {
   const filteredArr = R.reject(isNaN, arr)
   const sampleStd = std(filteredArr)
@@ -182,6 +355,19 @@ const skew = R.curry(arr => {
   return summed / n / stdCubed
 })
 
+/**
+ * Kurtosis of a series
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} series Series to calculate kurtosis for
+ * @return {Number}
+ * @example
+ *
+ * const series = [7, 2, 30, 56, 75]
+ * Z.kurt(series)
+ * // -2.040541067936147
+ */
 const kurt = R.curry(arr => {
   const filteredArr = R.reject(isNaN, arr)
   const sampleStd = std(filteredArr)
@@ -194,6 +380,49 @@ const kurt = R.curry(arr => {
   return summed / n / stdFourth - 3
 })
 
+/**
+ * Percent changes
+ *
+ * Returns a new series with the percent changes between the values
+ * in order of the input series.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} series Series to calculate percent changes for
+ * @return {Array}
+ * @example
+ *
+ * const series = [10, 15, 20, 25, 50, 55]
+ * Z.pctChange(series)
+ * // [NaN, 0.5, 0.33333333333333326, 0.25, 1, 0.10000000000000009]
+ */
+const pctChange = R.curry(arr => {
+  const iRange = R.range(0, arr.length)
+  const result = R.map(i => {
+    if (i == 0) {
+      return NaN
+    } else {
+      return arr[i] / arr[i - 1] - 1
+    }
+  }, iRange)
+  return result
+})
+
+/**
+ * Correlation between two series
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} series1 First series
+ * @param {Array} series2 Second series
+ * @return {Number}
+ * @example
+ *
+ * const series1 = [10, 15, 20, 25, 50, 55]
+ * const series2 = [12, 18, 34, 52, 71, 86]
+ * Z.corr(series1, series2)
+ * // 0.969035563335365
+ */
 const corr = R.curry((arr1, arr2) => {
   if (R.length(arr1) != R.length(arr2)) {
     return "Arrays are not the same length"
@@ -212,14 +441,65 @@ const corr = R.curry((arr1, arr2) => {
   }
 })
 
+/**
+ * Pipe functions together by performing left-to-right function composition.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} functions
+ * @param {df} dataframe Zebras dataframe
+ * @return {any} Result of the composed functions applied to dataframe
+ * @example
+ *
+ * const data = [
+ *   {"Date": "1997-01-01", "Value": "12"},
+ *   {"Date": "1997-01-02", "Value": "14"},
+ *   {"Date": "1997-01-03", "Value": "7"},
+ *   {"Date": "1997-01-04", "Value": "112"}
+ * ]
+ * Z.pipe([
+ *   Z.parseNums(["Value"]), // converts "Value" column to floats
+ *   Z.getCol("Value"), // extracts "Value" column to array
+ *   Z.mean() // calculates mean of "Value" array
+ * ])(data)
+ * // 36.25
+ */
 const pipe = R.curry((funcs, df) => {
   return R.pipe(...funcs)(df)
 })
 
+/**
+ * Concatenate two dataframes
+ *
+ * @func
+ * @memberOf Z
+ * @param {df} dataframe1 Zebras dataframe
+ * @param {df} dataframe2 Zebras dataframe
+ * @return {df} Zebras dataframe
+ * @example
+ *
+ * const df1 = [{"label": "A", "value": 7}, {"label": "B", "value": 2}]
+ * const df2 = [{"label": "C", "value": 17}, {"label": "D", "value": 2}]
+ * Z.concat(df1, df2)
+ * // [{"label": "A", "value": 7}, {"label": "B", "value": 2}, {"label": "C", "value": 17}, {"label": "D", "value": 2}]
+ */
 const concat = R.curry((df1, df2) => {
   return R.concat(df1, df2)
 })
 
+/**
+ * Create an object grouped by according to the supplied function
+ *
+ * @func
+ * @memberOf Z
+ * @param {Function} fn Function returning string key
+ * @return {Object}
+ * @example
+ *
+ * const df = [{'Day': 'Monday', 'value': 10}, {'Day': 'Tuesday', 'value': 5}, {'Day': 'Monday', 'value': 7}]
+ * Z.groupBy(x => x.Day, df)
+ * // {"Monday": [{"Day": "Monday", "value": 10}, {"Day": "Monday", "value": 7}], "Tuesday": [{"Day": "Tuesday", "value": 5}]}
+ */
 const groupBy = R.curry((func, df) => {
   return R.groupBy(func, df)
 })
@@ -260,10 +540,6 @@ const countUnique = R.curry(arr => {
   return R.length(R.uniq(arr))
 })
 
-const dropCol = R.curry((col, df) => {
-  return R.map(R.dissoc(col), df)
-})
-
 const valueCounts = R.curry(arr => {
   return R.countBy(R.identity, arr)
 })
@@ -291,18 +567,6 @@ const tail = (n, df) => {
   console.log(print(truncated))
   return print(truncated)
 }
-
-const pctChange = R.curry(arr => {
-  const iRange = R.range(0, arr.length)
-  const result = R.map(i => {
-    if (i == 0) {
-      return NaN
-    } else {
-      return arr[i] / arr[i - 1] - 1
-    }
-  }, iRange)
-  return result
-})
 
 const diff = R.curry(arr => {
   const iRange = R.range(0, arr.length)

@@ -6,7 +6,8 @@
   "unpkg": "zebras.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:docs": "jsdoc --configure .jsdoc.json"
+    "build:docs": "jsdoc --configure .jsdoc.json",
+    "watch:docs": "onchange 'zebras.js' -- npm run build:docs"
   },
   "keywords": [
     "data",
@@ -30,6 +31,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "jsdoc": "^3.5.5",
+    "onchange": "^5.2.0",
     "prettier": "^1.15.3"
   },
   "prettier": {
