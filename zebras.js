@@ -93,6 +93,66 @@ const print = R.curry(df => {
 })
 
 /**
+ * Print first n rows of dataframe.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Number} n Number of rows to print
+ * @param {df} dataframe
+ * @return {String} First `n` rows of dataframe as an ASCII table
+ * @see Z.print, Z.tail
+ * @example
+ *
+ * Z.head(3, df)
+ *
+ * // will output an ASCII table like this:
+ * ┌────────────┬───────┬───────┬───────┬───────┬───────────┬─────────┐
+ * │ Date       │ Open  │ High  │ Low   │ Close │ Adj Close │ Volume  │
+ * ├────────────┼───────┼───────┼───────┼───────┼───────────┼─────────┤
+ * │ 1950-01-05 │ 16.93 │ 16.93 │ 16.93 │ 16.93 │ 16.93     │ 2550000 │
+ * ├────────────┼───────┼───────┼───────┼───────┼───────────┼─────────┤
+ * │ 1950-01-06 │ 16.98 │ 16.98 │ 16.98 │ 16.98 │ 16.98     │ 2010000 │
+ * ├────────────┼───────┼───────┼───────┼───────┼───────────┼─────────┤
+ * │ 1950-01-09 │ 17.08 │ 17.08 │ 17.08 │ 17.08 │ 17.08     │ 2520000 │
+ * └────────────┴───────┴───────┴───────┴───────┴───────────┴─────────┘
+ *
+ */
+const head = (n, df) => {
+  const truncated = R.take(n, df)
+  return print(truncated)
+}
+
+/**
+ * Print last n rows of dataframe.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Number} n Number of rows to print
+ * @param {df} dataframe
+ * @return {String} Last `n` rows of dataframe as an ASCII table
+ * @see Z.print, Z.head
+ * @example
+ *
+ * Z.tail(3, df)
+ *
+ * // will output an ASCII table like this:
+ * ┌────────────┬───────┬───────┬───────┬───────┬───────────┬─────────┐
+ * │ Date       │ Open  │ High  │ Low   │ Close │ Adj Close │ Volume  │
+ * ├────────────┼───────┼───────┼───────┼───────┼───────────┼─────────┤
+ * │ 1950-01-05 │ 16.93 │ 16.93 │ 16.93 │ 16.93 │ 16.93     │ 2550000 │
+ * ├────────────┼───────┼───────┼───────┼───────┼───────────┼─────────┤
+ * │ 1950-01-06 │ 16.98 │ 16.98 │ 16.98 │ 16.98 │ 16.98     │ 2010000 │
+ * ├────────────┼───────┼───────┼───────┼───────┼───────────┼─────────┤
+ * │ 1950-01-09 │ 17.08 │ 17.08 │ 17.08 │ 17.08 │ 17.08     │ 2520000 │
+ * └────────────┴───────┴───────┴───────┴───────┴───────────┴─────────┘
+ *
+ */
+const tail = (n, df) => {
+  const truncated = R.takeLast(n, df)
+  return print(truncated)
+}
+
+/**
  * Filter dataframe rows by using a filtering function.
  *
  * Accepts a test function that determines which rows of the supplied
@@ -100,7 +160,7 @@ const print = R.curry(df => {
  *
  * @func
  * @memberOf Z
- * @param {Function} predicate A filtering function
+ * @param {Function} func A filtering function
  * @param {df} dataframe Zebras dataframe to filter
  * @return {df} Zebras dataframe
  * @example
@@ -121,7 +181,7 @@ const filter = R.curry((func, df) => {
  *
  * @func
  * @memberOf Z
- * @param {Function} comparator A sorting function
+ * @param {Function} func A sorting function
  * @param {df} dataframe Zebras dataframe to sort
  * @return {df} Zebras dataframe
  * @example
@@ -135,7 +195,7 @@ const sort = R.curry((func, df) => {
 })
 
 /**
- * Sort dataframe rows by a column
+ * Sort dataframe rows by a column.
  *
  * @func
  * @memberOf Z
@@ -160,7 +220,7 @@ const sortByCol = R.curry((col, direction, df) => {
 })
 
 /**
- * Convert columns to numerical type (floats)
+ * Convert columns to numerical type (floats).
  *
  * @func
  * @memberOf Z
@@ -188,7 +248,7 @@ const parseNums = R.curry((cols, df) => {
 })
 
 /**
- * Convert columns to datestamp
+ * Convert columns to datestamp.
  *
  * @func
  * @memberOf Z
@@ -216,7 +276,7 @@ const parseDates = R.curry((cols, df) => {
 })
 
 /**
- * Select a subset of columns
+ * Select a subset of columns.
  *
  * Accepts an array with the names of the columns to retain.
  *
@@ -236,7 +296,7 @@ const pickCols = R.curry((cols, df) => {
 })
 
 /**
- * Delete a column
+ * Delete a column.
  *
  * @func
  * @memberOf Z
@@ -254,7 +314,7 @@ const dropCol = R.curry((col, df) => {
 })
 
 /**
- * Extract a series to an array from a dataframe
+ * Extract a series to an array from a dataframe.
  *
  * @func
  * @memberOf Z
@@ -272,11 +332,11 @@ const getCol = R.curry((col, df) => {
 })
 
 /**
- * Mean of series
+ * Mean of series.
  *
  * @func
  * @memberOf Z
- * @param {Array} series Series to calculate mean for
+ * @param {Array} arr Series to calculate mean for
  * @return {Number}
  * @example
  *
@@ -290,11 +350,11 @@ const mean = R.curry(arr => {
 })
 
 /**
- * Median of series
+ * Median of series.
  *
  * @func
  * @memberOf Z
- * @param {Array} series Series to calculate median for
+ * @param {Array} arr Series to calculate median for
  * @return {Number}
  * @example
  *
@@ -308,11 +368,11 @@ const median = R.curry(arr => {
 })
 
 /**
- * Standard deviation of series
+ * Standard deviation of series.
  *
  * @func
  * @memberOf Z
- * @param {Array} series Series to calculate standard deviation for
+ * @param {Array} arr Series to calculate standard deviation for
  * @return {Number}
  * @example
  *
@@ -331,11 +391,11 @@ const std = R.curry(arr => {
 })
 
 /**
- * Skew of a series
+ * Skew of a series.
  *
  * @func
  * @memberOf Z
- * @param {Array} series Series to calculate skew for
+ * @param {Array} arr Series to calculate skew for
  * @return {Number}
  * @example
  *
@@ -356,11 +416,11 @@ const skew = R.curry(arr => {
 })
 
 /**
- * Kurtosis of a series
+ * Kurtosis of a series.
  *
  * @func
  * @memberOf Z
- * @param {Array} series Series to calculate kurtosis for
+ * @param {Array} arr Series to calculate kurtosis for
  * @return {Number}
  * @example
  *
@@ -388,7 +448,7 @@ const kurt = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @param {Array} series Series to calculate percent changes for
+ * @param {Array} arr Series to calculate percent changes for
  * @return {Array}
  * @example
  *
@@ -409,7 +469,7 @@ const pctChange = R.curry(arr => {
 })
 
 /**
- * Correlation between two series
+ * Correlation between two series.
  *
  * @func
  * @memberOf Z
@@ -446,7 +506,7 @@ const corr = R.curry((arr1, arr2) => {
  *
  * @func
  * @memberOf Z
- * @param {Array} functions
+ * @param {Array} functions Array of functions to compose
  * @param {df} dataframe Zebras dataframe
  * @return {any} Result of the composed functions applied to dataframe
  * @example
@@ -469,7 +529,7 @@ const pipe = R.curry((funcs, df) => {
 })
 
 /**
- * Concatenate two dataframes
+ * Concatenate two dataframes.
  *
  * @func
  * @memberOf Z
@@ -488,15 +548,16 @@ const concat = R.curry((df1, df2) => {
 })
 
 /**
- * Create an object grouped by according to the supplied function
+ * Create an object grouped by according to the supplied function.
  *
  * @func
  * @memberOf Z
- * @param {Function} fn Function returning string key
+ * @param {Function} func Function returning string key
+ * @param {df} dataframe Zebras dataframe
  * @return {Object}
  * @example
  *
- * const df = [{'Day': 'Monday', 'value': 10}, {'Day': 'Tuesday', 'value': 5}, {'Day': 'Monday', 'value': 7}]
+ * const df = [{"Day": "Monday", "value": 10}, {"Day": "Tuesday", "value": 5}, {"Day": "Monday", "value": 7}]
  * Z.groupBy(x => x.Day, df)
  * // {"Monday": [{"Day": "Monday", "value": 10}, {"Day": "Monday", "value": 7}], "Tuesday": [{"Day": "Tuesday", "value": 5}]}
  */
@@ -504,46 +565,184 @@ const groupBy = R.curry((func, df) => {
   return R.groupBy(func, df)
 })
 
+/**
+ * Get dataframe rows by index.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Number} start The start index (inclusive).
+ * @param {Number} end The end index (exclusive).
+ * @param {df} dataframe Zebras dataframe
+ * @return {df} Zebras dataframe
+ * @example
+ *
+ * const df = [{"label": "A", "value": 7}, {"label": "B", "value": 2}, {"label": "C", "value": 75}]
+ * Z.slice(1, 2, df)
+ * // [{"label": "B", "value": 2}]
+ */
 const slice = R.curry((start, end, df) => {
   return R.slice(start, end, df)
 })
 
+/**
+ * Get unique values in a series.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} arr Array of values
+ * @return {Array}
+ * @example
+ *
+ * const series = [7, 7, 2, 30, 30, 56, 75]
+ * Z.unique(series)
+ * // [7, 2, 30, 56, 75]
+ */
 const unique = R.curry(arr => {
   return R.uniq(arr)
 })
 
-const max = R.curry(arr => {
-  const filteredArr = R.reject(isNaN, arr)
-  return R.apply(Math.max, filteredArr)
-})
-
-const min = R.curry(arr => {
-  const filteredArr = R.reject(isNaN, arr)
-  return R.apply(Math.min, filteredArr)
-})
-
+/**
+ * Sum of series.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} arr Array of values
+ * @return {Number}
+ * @example
+ *
+ * const series = [7, 2, 30, 56, 75]
+ * Z.sum(series)
+ * // 170
+ */
 const sum = R.curry(arr => {
   const filteredArr = R.reject(isNaN, arr)
   return R.sum(filteredArr)
 })
 
+/**
+ * Product of series.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} arr Array of values
+ * @return {Number}
+ * @example
+ *
+ * const series = [7, 2, 30, 56, 75]
+ * Z.prod(series)
+ * // 1764000
+ */
 const prod = R.curry(arr => {
   const filteredArr = R.reject(isNaN, arr)
   return R.product(filteredArr)
 })
 
+/**
+ * Min of series.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} arr Array of values
+ * @return {Number}
+ * @example
+ *
+ * const series = [7, 2, 30, 56, 75]
+ * Z.min(series)
+ * // 2
+ */
+const min = R.curry(arr => {
+  const filteredArr = R.reject(isNaN, arr)
+  return R.apply(Math.min, filteredArr)
+})
+
+/**
+ * Max of series.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} arr Array of values
+ * @return {Number}
+ * @example
+ *
+ * const series = [7, 2, 30, 56, 75]
+ * Z.max(series)
+ * // 75
+ */
+const max = R.curry(arr => {
+  const filteredArr = R.reject(isNaN, arr)
+  return R.apply(Math.max, filteredArr)
+})
+
+/**
+ * Range of series.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} arr Array of values
+ * @return {Array} Array with min and max
+ * @example
+ *
+ * const series = [7, 2, 30, 56, 75]
+ * Z.range(series)
+ * // [2, 75]
+ */
 const getRange = R.curry(arr => {
   return [min(arr), max(arr)]
 })
 
+/**
+ * Count number of unique values in a series.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} arr Array of values
+ * @return {Number}
+ * @example
+ *
+ * const series = [7, 2, 30, 30, 56, 75]
+ * Z.countUnique(series)
+ * // 5
+ */
 const countUnique = R.curry(arr => {
   return R.length(R.uniq(arr))
 })
 
+/**
+ * Count number of occurences of each value in a series.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} arr Array of values
+ * @return {Object}
+ * @example
+ *
+ * const series = [7, 2, 30, 30, 56, 75]
+ * Z.valueCounts(series)
+ * // {"2": 1, "30": 2, "56": 1, "7": 1, "75": 1}
+ */
 const valueCounts = R.curry(arr => {
   return R.countBy(R.identity, arr)
 })
 
+/**
+ * Add a new column to a dataframe from an array.
+ *
+ * Use this function to add an array as a new column in a dataframe.
+ * Make sure the array has the same length as the number of rows in the dataframe.
+ *
+ * @func
+ * @memberOf Z
+ * @param {String} columnName Name of the column do add
+ * @param {Array} arr Array of values for the new column
+ * @param {df} dataframe Zebras dataframe to add the new column to
+ * @return {df}
+ * @example
+ *
+ * const df = [{"label": "A", "value": 7}, {"label": "B", "value": 2}]
+ * const series = ["2010-12-15", "2010-12-16"]
+ * Z.valueCounts("date", series, df)
+ * // [{"date": "2010-12-15", "label": "A", "value": 7}, {"date": "2010-12-16", "label": "B", "value": 2}]
+ */
 const addCol = R.curry((col, arr, df) => {
   if (R.equals(R.length(df), R.length(arr))) {
     return df.map((row, i) => R.assoc(col, arr[i], row))
@@ -552,22 +751,41 @@ const addCol = R.curry((col, arr, df) => {
   }
 })
 
+/**
+ * Create a new array based on columns from existing array.
+ *
+ * Use to create new columns derived from existing columns in a dataframe.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Function} func Function to create the new column
+ * @param {df} dataframe Zebras dataframe to add the new column to
+ * @return {df}
+ * @example
+ *
+ * const temps = [{"date": "1990-05-06", "tempCelsius": 0}, {"date": "1990-05-07", "tempCelsius": 4}]
+ * const fahrenheit = Z.deriveCol((r) => r.tempCelsius * 1.8 + 32, temps)
+ * Z.addCol("tempFahrenheit", fahrenheit, temps)
+ * // [{"date": "1990-05-06", "tempCelsius": 0, "tempFahrenheit": 32}, {"date": "1990-05-07", "tempCelsius": 4, "tempFahrenheit": 39.2}]
+ */
 const deriveCol = R.curry((func, df) => {
   return R.map(func, df)
 })
 
-const head = (n, df) => {
-  const truncated = R.take(n, df)
-  //console.log(print(truncated));
-  return print(truncated)
-}
-
-const tail = (n, df) => {
-  const truncated = R.takeLast(n, df)
-  console.log(print(truncated))
-  return print(truncated)
-}
-
+/**
+ * Returns a new series with the differences between the values in the order of
+ * the input series.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Array} arr Series to calculate differences for
+ * @return {Array}
+ * @example
+ *
+ * const series = [7, 2, 30, 30, 56, 75]
+ * Z.diff(series)
+ * // [NaN, -5, 28, 0, 26, 19]
+ */
 const diff = R.curry(arr => {
   const iRange = R.range(0, arr.length)
   const result = R.map(i => {
@@ -580,6 +798,25 @@ const diff = R.curry(arr => {
   return result
 })
 
+/**
+ * Calculate rolling statistics
+ *
+ * Calculate statistics over a moving window.
+ * Works with Z.min, Z.max, Z.mean, Z.std, Z.sum, Z.prod, or any other function
+ * that takes an array as a single argument.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Function} func Function to caclulate rolling statistics
+ * @param {Number} n Range (?)
+ * @param {Array} arr Series to calculate rolling statistics for
+ * @return {Number}
+ * @example
+ *
+ * const series = [7, 2, 30, 30, 56, 75]
+ * Z.rolling(Z.mean, 2, series)
+ * // ["NotANumber", 4.5, 16, 30, 43, 65.5]
+ */
 const rolling = (func, n, arr) => {
   const iRange = R.range(0, arr.length)
   const result = R.map(i => {
@@ -593,6 +830,24 @@ const rolling = (func, n, arr) => {
   return result
 }
 
+/**
+ * Calculate cumulative statistics.
+ *
+ * Calculate statistics over a cumulative window from the start of the array.
+ * Works wtih z.min, z.max, z.mean, z.std, z.sum, z.prod, etc., or any other
+ * function that takes an array as a single argument.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Function} func Function to caclulate cumulative statistics
+ * @param {Array} arr Series to calculate cumulative statistics for
+ * @return {Number}
+ * @example
+ *
+ * const series = [7, 2, 30, 30, 56, 75]
+ * Z.cumulative(Z.mean, series)
+ * // [7, 4.5, 13, 17.25, 25, 33.333333333333336]
+ */
 const cumulative = (func, arr) => {
   const iRange = R.range(0, arr.length)
   const result = R.map(i => {
@@ -602,6 +857,23 @@ const cumulative = (func, arr) => {
   return result
 }
 
+/**
+ * Calculate summary statistics for a numerical series.
+ *
+ * Returns a single-row df with count, unique count, min, max, median, mean and
+ * standard deviation of a numerical series.
+ *
+ * @func
+ * @memberOf Z
+ * @param {Function} func Function to caclulate cumulative statistics
+ * @param {Array} arr Series to calculate cumulative statistics for
+ * @return {Number}
+ * @example
+ *
+ * const series = [7, 2, 30, 30, 56, 75]
+ * Z.describe(series)
+ * // [{"count": 6, "countUnique": 5, "max": "75.00000", "mean": "33.33333", "median": "30.00000", "min": "2.00000", "std": "28.09745"}]
+ */
 const describe = arr => {
   return [
     {
@@ -616,6 +888,34 @@ const describe = arr => {
   ]
 }
 
+/**
+ * Join two dataframes on a column.
+ *
+ * Performs a left join on two dataframes.
+ * The 'On' arguments set which column in each df to join on.
+ * The 'Suffix' arguments determine what the suffix should be when the two
+ * dataframes have overlapping column names besides the one being joined on.
+ *
+ * @func
+ * @memberOf Z
+ * @param {df} dfLeft First dataframe
+ * @param {df} dfRight Second dataframe
+ * @param {String} leftOn Left column to join on
+ * @param {String} rightOn Right column to join on
+ * @param {String} leftSuffix Left suffix for overlapping column names
+ * @param {String} rightSuffix Right suffix for overlapping column names
+ * @return {df} Joined dataframe
+ * @example
+ *
+ * const df1 = [{"label": "A", "value": 7}, {"label": "B", "value": 2}, {"label": "C", "value": 75}]
+ * const df2 = [{"label": "A", "value": "2010-12-13"}, {"label": "B", "value": "2010-12-15"}, {"label": "C", "value": "2010-12-17"}]
+ * Z.merge(df1, df2, "label", "label", "_df1", "_df2")
+ * // [
+ * //   { label: "A", value_df1: 7, value_df2: "2010-12-13" },
+ * //   { label: "B", value_df1: 2, value_df2: "2010-12-15" },
+ * //   { label: "C", value_df1: 75, value_df2: "2010-12-17" },
+ * // ]
+ */
 const merge = (dfLeft, dfRight, leftOn, rightOn, leftSuffix, rightSuffix) => {
   const colsLeft = R.keys(dfLeft[0])
   const colsRight = R.keys(dfRight[0])
@@ -671,6 +971,23 @@ const merge = (dfLeft, dfRight, leftOn, rightOn, leftSuffix, rightSuffix) => {
   })
 }
 
+/**
+ * Calculate sums for grouped objects.
+ *
+ * Use it on groupBy objects - the output of Z.groupBy() - to analyze groups.
+ *
+ * @func
+ * @memberOf Z
+ * @param {String} col Column within the groups to be analyzed
+ * @param {Object} groupByObj Object grouped by a column
+ * @return {df} Dataframe with the calculated statistics
+ * @see Z.groupBy, Z.gbMin, Z.gbMax, Z.gbCount, Z.gbMean, Z.gbStd, Z.gbDescribe
+ * @example
+ *
+ * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
+ * gbSum("value", groupBy(d => d.label, df))
+ * // [{"group": "A", "sum": 10}, {"group": "B", "sum": 7}, {"group": "C", "sum": 75}]
+ */
 const gbSum = (col, groupByObj) => {
   const groups = R.keys(groupByObj)
   const result = groups.map(i => {
@@ -682,6 +999,23 @@ const gbSum = (col, groupByObj) => {
   return result
 }
 
+/**
+ * Calculate mean for grouped objects.
+ *
+ * Use it on groupBy objects - the output of Z.groupBy() - to analyze groups.
+ *
+ * @func
+ * @memberOf Z
+ * @param {String} col Column within the groups to be analyzed
+ * @param {Object} groupByObj Object grouped by a column
+ * @return {df} Dataframe with the calculated statistics
+ * @see Z.groupBy, Z.gbMin, Z.gbMax, Z.gbCount, Z.gbSum, Z.gbStd, Z.gbDescribe
+ * @example
+ *
+ * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
+ * gbMean("value", groupBy(d => d.label, df))
+ * // [{"group": "A", "mean": 5}, {"group": "B", "mean": 3.5}, {"group": "C", "mean": 75}]
+ */
 const gbMean = (col, groupByObj) => {
   const summed = gbSum(col, groupByObj)
   const result = summed.map(i => {
@@ -691,6 +1025,23 @@ const gbMean = (col, groupByObj) => {
   return result
 }
 
+/**
+ * Calculate std for grouped objects.
+ *
+ * Use it on groupBy objects - the output of Z.groupBy() - to analyze groups.
+ *
+ * @func
+ * @memberOf Z
+ * @param {String} col Column within the groups to be analyzed
+ * @param {Object} groupByObj Object grouped by a column
+ * @return {df} Dataframe with the calculated statistics
+ * @see Z.groupBy, Z.gbMin, Z.gbMax, Z.gbCount, Z.gbSum, Z.gbMean, Z.gbDescribe
+ * @example
+ *
+ * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
+ * gbStd("value", groupBy(d => d.label, df))
+ * // [{"group": "A", "std": 2.8284271247461903}, {"group": "B", "std": 2.1213203435596424}, {"group": "C", "std": NaN}]
+ */
 const gbStd = (col, groupByObj) => {
   const groups = R.keys(groupByObj)
   const result = groups.map(g => {
@@ -703,6 +1054,23 @@ const gbStd = (col, groupByObj) => {
   return result
 }
 
+/**
+ * Calculate count for grouped objects.
+ *
+ * Use it on groupBy objects - the output of Z.groupBy() - to analyze groups.
+ *
+ * @func
+ * @memberOf Z
+ * @param {String} col Column within the groups to be analyzed
+ * @param {Object} groupByObj Object grouped by a column
+ * @return {df} Dataframe with the calculated statistics
+ * @see Z.groupBy, Z.gbMin, Z.gbMax, Z.gbStd, Z.gbSum, Z.gbMean, Z.gbDescribe
+ * @example
+ *
+ * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
+ * gbCount("value", groupBy(d => d.label, df))
+ * // [{"count": 2, "group": "A"}, {"count": 2, "group": "B"}, {"count": 1, "group": "C"}]
+ */
 const gbCount = (col, groupByObj) => {
   const groups = R.keys(groupByObj)
   const result = groups.map(g => {
@@ -711,6 +1079,23 @@ const gbCount = (col, groupByObj) => {
   return result
 }
 
+/**
+ * Calculate min for grouped objects.
+ *
+ * Use it on groupBy objects - the output of Z.groupBy() - to analyze groups.
+ *
+ * @func
+ * @memberOf Z
+ * @param {String} col Column within the groups to be analyzed
+ * @param {Object} groupByObj Object grouped by a column
+ * @return {df} Dataframe with the calculated statistics
+ * @see Z.groupBy, Z.gbStd, Z.gbMax, Z.gbCount, Z.gbSum, Z.gbMean, Z.gbDescribe
+ * @example
+ *
+ * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
+ * gbMin("value", groupBy(d => d.label, df))
+ * // [{"group": "A", "min": 3}, {"group": "B", "min": 2}, {"group": "C", "min": 75}]
+ */
 const gbMin = (col, groupByObj) => {
   const groups = R.keys(groupByObj)
   const result = groups.map(g => {
@@ -726,6 +1111,23 @@ const gbMin = (col, groupByObj) => {
   return result
 }
 
+/**
+ * Calculate max for grouped objects.
+ *
+ * Use it on groupBy objects - the output of Z.groupBy() - to analyze groups.
+ *
+ * @func
+ * @memberOf Z
+ * @param {String} col Column within the groups to be analyzed
+ * @param {Object} groupByObj Object grouped by a column
+ * @return {df} Dataframe with the calculated statistics
+ * @see Z.groupBy, Z.gbStd, Z.gbMin, Z.gbCount, Z.gbSum, Z.gbMean, Z.gbDescribe
+ * @example
+ *
+ * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
+ * gbMax("value", groupBy(d => d.label, df))
+ * // [{"group": "A", "max": 7}, {"group": "B", "max": 5}, {"group": "C", "max": 75}]
+ */
 const gbMax = (col, groupByObj) => {
   const groups = R.keys(groupByObj)
   const result = groups.map(g => {
@@ -741,6 +1143,27 @@ const gbMax = (col, groupByObj) => {
   return result
 }
 
+/**
+ * Describe grouped objects.
+ *
+ * Use it on groupBy objects - the output of Z.groupBy() - to analyze groups.
+ *
+ * @func
+ * @memberOf Z
+ * @param {String} col Column within the groups to be analyzed
+ * @param {Object} groupByObj Object grouped by a column
+ * @return {df} Dataframe with the calculated statistics
+ * @see Z.groupBy, Z.gbStd, Z.gbMin, Z.gbCount, Z.gbSum, Z.gbMean, Z.max
+ * @example
+ *
+ * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
+ * gbDescribe("value", groupBy(d => d.label, df))
+ * // [
+ * //   { count: 2, group: "A", max: 7, mean: 5, min: 3, std: 2.8284271247461903, sum: 10 },
+ * //   { count: 2, group: "B", max: 5, mean: 3.5, min: 2, std: 2.1213203435596424, sum: 7 },
+ * //   { count: 1, group: "C", max: 75, mean: 75, min: 75, std: NaN, sum: 75 },
+ * // ]
+ */
 const gbDescribe = (col, groupByObj) => {
   const mins = gbMin(col, groupByObj)
   const maxes = gbMax(col, groupByObj)
