@@ -61,4 +61,4 @@ const avgSpeed = z.pipe([
 
 ## Documentation
 
-[See the full documentation here.](https://nickslevine.github.io/zebras/Z.html)
+[See the full documentation here.](https://nickslevine.github.io/zebras/)
