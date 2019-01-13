@@ -756,7 +756,7 @@ const max = R.curry(arr => {
  * @example
  *
  * const series = [7, 2, 30, 56, 75]
- * Z.range(series)
+ * Z.getRange(series)
  * // [2, 75]
  */
 const getRange = R.curry(arr => {
