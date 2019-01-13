@@ -104,10 +104,10 @@ const print = R.curry(df => {
  * @param {Number} n Number of rows to print
  * @param {df} dataframe
  * @return {String} First `n` rows of dataframe as an ASCII table
- * @see Z.print, Z.tail
+ * @see Z.print, Z.printTail
  * @example
  *
- * Z.head(3, df)
+ * Z.printHead(3, df)
  *
  * // will output an ASCII table like this:
  * ┌────────────┬───────┬───────┬───────┬───────┬───────────┬─────────┐
@@ -121,7 +121,7 @@ const print = R.curry(df => {
  * └────────────┴───────┴───────┴───────┴───────┴───────────┴─────────┘
  *
  */
-const head = (n, df) => {
+const printHead = (n, df) => {
   const truncated = R.take(n, df)
   return print(truncated)
 }
@@ -135,10 +135,10 @@ const head = (n, df) => {
  * @param {Number} n Number of rows to print
  * @param {df} dataframe
  * @return {String} Last `n` rows of dataframe as an ASCII table
- * @see Z.print, Z.head
+ * @see Z.print, Z.printHead
  * @example
  *
- * Z.tail(3, df)
+ * Z.printTail(3, df)
  *
  * // will output an ASCII table like this:
  * ┌────────────┬───────┬───────┬───────┬───────┬───────────┬─────────┐
@@ -150,6 +150,49 @@ const head = (n, df) => {
  * ├────────────┼───────┼───────┼───────┼───────┼───────────┼─────────┤
  * │ 1950-01-09 │ 17.08 │ 17.08 │ 17.08 │ 17.08 │ 17.08     │ 2520000 │
  * └────────────┴───────┴───────┴───────┴───────┴───────────┴─────────┘
+ *
+ */
+const printTail = (n, df) => {
+  const truncated = R.takeLast(n, df)
+  return print(truncated)
+}
+
+
+/**
+ * Return dataframe with first n rows of input dataframe.
+ *
+ * @func
+ * @memberOf Z
+ * @category Manipulation 
+ * @param {Number} n Number of rows to print
+ * @param {df} dataframe
+ * @return {df} Zebras dataframe
+ * @see Z.slice, Z.tail
+ * @example
+ *
+ * Z.head(3, df)
+ * // returns a new dataframe with the first 3 lines of `df`
+ *
+ */
+const head = (n, df) => {
+  const truncated = R.take(n, df)
+  return truncated
+}
+
+/**
+ * Return a dataframe with the last n rows of input dataframe.
+ *
+ * @func
+ * @memberOf Z
+ * @category Manipulation 
+ * @param {Number} n Number of rows to print
+ * @param {df} dataframe
+ * @return {df} Zebras dataframe 
+ * @see Z.slice, z.head
+ * @example
+ *
+ * Z.tail(3, df)
+ * // returns a new dataframe with the last 3 lines of `df`
  *
  */
 const tail = (n, df) => {
@@ -1250,8 +1293,8 @@ module.exports = {
   addCol: addCol,
   deriveCol: deriveCol,
   print: print,
-  head: head,
-  tail: tail,
+  printHead: printHead,
+  printTail: printTail,
   pctChange: pctChange,
   rolling: rolling,
   parseDates: parseDates,
@@ -1272,4 +1315,6 @@ module.exports = {
   diff: diff,
   skew: skew,
   kurt: kurt,
+  head: head,
+  tail: tail
 }
