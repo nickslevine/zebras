@@ -13,6 +13,7 @@ const Table = require("cli-table3")
  *
  * @func
  * @memberOf Z
+ * @category IO
  * @param {String} filepath File path for the CSV file to read
  * @return {df} Zebras dataframe
  * @example
@@ -35,8 +36,9 @@ const readCSV = R.curry(filepath => {
 /**
  * Synchronously writes a dataframe to a CSV file.
  *
- * @function
+ * @func
  * @memberOf Z
+ * @category IO
  * @param {df} df Zebras dataframe to write
  * @param {String} filepath File path for the CSV file to write
  * @return {undefined}
@@ -60,6 +62,7 @@ const toCSV = R.curry((filepath, df) => {
  *
  * @func
  * @memberOf Z
+ * @category IO
  * @param {df} dataframe to print
  * @return {String} Entire dataframe as an ASCII table
  * @example
@@ -97,6 +100,7 @@ const print = R.curry(df => {
  *
  * @func
  * @memberOf Z
+ * @category IO
  * @param {Number} n Number of rows to print
  * @param {df} dataframe
  * @return {String} First `n` rows of dataframe as an ASCII table
@@ -127,6 +131,7 @@ const head = (n, df) => {
  *
  * @func
  * @memberOf Z
+ * @category IO
  * @param {Number} n Number of rows to print
  * @param {df} dataframe
  * @return {String} Last `n` rows of dataframe as an ASCII table
@@ -160,6 +165,7 @@ const tail = (n, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Manipulation
  * @param {Function} func A filtering function
  * @param {df} dataframe Zebras dataframe to filter
  * @return {df} Zebras dataframe
@@ -181,6 +187,7 @@ const filter = R.curry((func, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Manipulation
  * @param {Function} func A sorting function
  * @param {df} dataframe Zebras dataframe to sort
  * @return {df} Zebras dataframe
@@ -199,6 +206,7 @@ const sort = R.curry((func, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Manipulation
  * @param {String} columnName Name of the column to sort by
  * @param {String} direction Determines direction, pass `asc` for ascending and `desc` for descending
  * @param {df} dataframe Zebras dataframe to sort
@@ -224,6 +232,7 @@ const sortByCol = R.curry((col, direction, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Manipulation
  * @param {Array} columnNames Array of column names to convert
  * @param {df} dataframe Zebras dataframe to parse
  * @return {df} Zebras dataframe
@@ -252,6 +261,7 @@ const parseNums = R.curry((cols, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Manipulation
  * @param {Array} columnNames Array of column names to convert
  * @param {df} dataframe Zebras dataframe to parse
  * @return {df} Zebras dataframe
@@ -282,6 +292,7 @@ const parseDates = R.curry((cols, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Manipulation
  * @param {Array} columnNames Array of column names to pick
  * @param {df} dataframe Zebras dataframe
  * @return {df} Zebras dataframe
@@ -300,6 +311,7 @@ const pickCols = R.curry((cols, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Manipulation
  * @param {String} columnName Name of the column to delete
  * @param {df} dataframe Zebras dataframe
  * @return {df} Zebras dataframe
@@ -318,6 +330,7 @@ const dropCol = R.curry((col, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {String} col Name of the column to extract
  * @param {df} dataframe Zebras dataframe
  * @return {Array} Series array
@@ -336,6 +349,7 @@ const getCol = R.curry((col, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Series to calculate mean for
  * @return {Number}
  * @example
@@ -354,6 +368,7 @@ const mean = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Series to calculate median for
  * @return {Number}
  * @example
@@ -372,6 +387,7 @@ const median = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Series to calculate standard deviation for
  * @return {Number}
  * @example
@@ -395,6 +411,7 @@ const std = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Series to calculate skew for
  * @return {Number}
  * @example
@@ -420,6 +437,7 @@ const skew = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Series to calculate kurtosis for
  * @return {Number}
  * @example
@@ -448,6 +466,7 @@ const kurt = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Series to calculate percent changes for
  * @return {Array}
  * @example
@@ -473,6 +492,7 @@ const pctChange = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} series1 First series
  * @param {Array} series2 Second series
  * @return {Number}
@@ -506,6 +526,7 @@ const corr = R.curry((arr1, arr2) => {
  *
  * @func
  * @memberOf Z
+ * @category Composition
  * @param {Array} functions Array of functions to compose
  * @param {df} dataframe Zebras dataframe
  * @return {any} Result of the composed functions applied to dataframe
@@ -533,6 +554,7 @@ const pipe = R.curry((funcs, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Manipulation
  * @param {df} dataframe1 Zebras dataframe
  * @param {df} dataframe2 Zebras dataframe
  * @return {df} Zebras dataframe
@@ -552,6 +574,7 @@ const concat = R.curry((df1, df2) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Function} func Function returning string key
  * @param {df} dataframe Zebras dataframe
  * @return {Object}
@@ -570,6 +593,7 @@ const groupBy = R.curry((func, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Manipulation
  * @param {Number} start The start index (inclusive).
  * @param {Number} end The end index (exclusive).
  * @param {df} dataframe Zebras dataframe
@@ -589,6 +613,7 @@ const slice = R.curry((start, end, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Array of values
  * @return {Array}
  * @example
@@ -606,6 +631,7 @@ const unique = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Array of values
  * @return {Number}
  * @example
@@ -624,6 +650,7 @@ const sum = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Array of values
  * @return {Number}
  * @example
@@ -642,6 +669,7 @@ const prod = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Array of values
  * @return {Number}
  * @example
@@ -660,6 +688,7 @@ const min = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Array of values
  * @return {Number}
  * @example
@@ -678,6 +707,7 @@ const max = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Array of values
  * @return {Array} Array with min and max
  * @example
@@ -695,6 +725,7 @@ const getRange = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Array of values
  * @return {Number}
  * @example
@@ -712,6 +743,7 @@ const countUnique = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Array of values
  * @return {Object}
  * @example
@@ -732,6 +764,7 @@ const valueCounts = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Manipulation
  * @param {String} columnName Name of the column do add
  * @param {Array} arr Array of values for the new column
  * @param {df} dataframe Zebras dataframe to add the new column to
@@ -758,6 +791,7 @@ const addCol = R.curry((col, arr, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Manipulation
  * @param {Function} func Function to create the new column
  * @param {df} dataframe Zebras dataframe to add the new column to
  * @return {df}
@@ -778,6 +812,7 @@ const deriveCol = R.curry((func, df) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Array} arr Series to calculate differences for
  * @return {Array}
  * @example
@@ -807,6 +842,7 @@ const diff = R.curry(arr => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Function} func Function to caclulate rolling statistics
  * @param {Number} n Range (?)
  * @param {Array} arr Series to calculate rolling statistics for
@@ -839,6 +875,7 @@ const rolling = (func, n, arr) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Function} func Function to caclulate cumulative statistics
  * @param {Array} arr Series to calculate cumulative statistics for
  * @return {Number}
@@ -865,6 +902,7 @@ const cumulative = (func, arr) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {Function} func Function to caclulate cumulative statistics
  * @param {Array} arr Series to calculate cumulative statistics for
  * @return {Number}
@@ -898,6 +936,7 @@ const describe = arr => {
  *
  * @func
  * @memberOf Z
+ * @category Manipulation
  * @param {df} dfLeft First dataframe
  * @param {df} dfRight Second dataframe
  * @param {String} leftOn Left column to join on
@@ -978,6 +1017,7 @@ const merge = (dfLeft, dfRight, leftOn, rightOn, leftSuffix, rightSuffix) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
@@ -1006,6 +1046,7 @@ const gbSum = (col, groupByObj) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
@@ -1032,6 +1073,7 @@ const gbMean = (col, groupByObj) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
@@ -1061,6 +1103,7 @@ const gbStd = (col, groupByObj) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
@@ -1086,6 +1129,7 @@ const gbCount = (col, groupByObj) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
@@ -1118,6 +1162,7 @@ const gbMin = (col, groupByObj) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
@@ -1150,6 +1195,7 @@ const gbMax = (col, groupByObj) => {
  *
  * @func
  * @memberOf Z
+ * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
