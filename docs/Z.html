@@ -200,7 +200,7 @@ Make sure the array has the same length as the number of rows in the dataframe.<
     
     <pre class="prettyprint"><code>const df = [{"label": "A", "value": 7}, {"label": "B", "value": 2}]
 const series = ["2010-12-15", "2010-12-16"]
-Z.valueCounts("date", series, df)
+Z.addCol("date", series, df)
 // [{"date": "2010-12-15", "label": "A", "value": 7}, {"date": "2010-12-16", "label": "B", "value": 2}]</code></pre>
 
 
@@ -2019,7 +2019,7 @@ Z.filter(r => r >= 10, df)
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
-gbCount("value", groupBy(d => d.label, df))
+Z.gbCount("value", groupBy(d => d.label, df))
 // [{"count": 2, "group": "A"}, {"count": 2, "group": "B"}, {"count": 1, "group": "C"}]</code></pre>
 
 
@@ -2212,7 +2212,7 @@ gbCount("value", groupBy(d => d.label, df))
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
-gbDescribe("value", groupBy(d => d.label, df))
+Z.gbDescribe("value", groupBy(d => d.label, df))
 // [
 //   { count: 2, group: "A", max: 7, mean: 5, min: 3, std: 2.8284271247461903, sum: 10 },
 //   { count: 2, group: "B", max: 5, mean: 3.5, min: 2, std: 2.1213203435596424, sum: 7 },
@@ -2409,7 +2409,7 @@ gbDescribe("value", groupBy(d => d.label, df))
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
-gbMax("value", groupBy(d => d.label, df))
+Z.gbMax("value", groupBy(d => d.label, df))
 // [{"group": "A", "max": 7}, {"group": "B", "max": 5}, {"group": "C", "max": 75}]</code></pre>
 
 
@@ -2602,7 +2602,7 @@ gbMax("value", groupBy(d => d.label, df))
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
-gbMean("value", groupBy(d => d.label, df))
+Z.gbMean("value", groupBy(d => d.label, df))
 // [{"group": "A", "mean": 5}, {"group": "B", "mean": 3.5}, {"group": "C", "mean": 75}]</code></pre>
 
 
@@ -2795,7 +2795,7 @@ gbMean("value", groupBy(d => d.label, df))
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
-gbMin("value", groupBy(d => d.label, df))
+Z.gbMin("value", groupBy(d => d.label, df))
 // [{"group": "A", "min": 3}, {"group": "B", "min": 2}, {"group": "C", "min": 75}]</code></pre>
 
 
@@ -2988,7 +2988,7 @@ gbMin("value", groupBy(d => d.label, df))
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
-gbStd("value", groupBy(d => d.label, df))
+Z.gbStd("value", groupBy(d => d.label, df))
 // [{"group": "A", "std": 2.8284271247461903}, {"group": "B", "std": 2.1213203435596424}, {"group": "C", "std": NaN}]</code></pre>
 
 
@@ -3181,7 +3181,7 @@ gbStd("value", groupBy(d => d.label, df))
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
-gbSum("value", groupBy(d => d.label, df))
+Z.gbSum("value", groupBy(d => d.label, df))
 // [{"group": "A", "sum": 10}, {"group": "B", "sum": 7}, {"group": "C", "sum": 75}]</code></pre>
 
 
@@ -3300,7 +3300,7 @@ gbSum("value", groupBy(d => d.label, df))
 
     
 
-    <h4 class="name" id=".getCol"><span class="type-signature">(static) </span>getCol<span class="signature">(columnName, dataframe)</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    <h4 class="name" id=".getCol"><span class="type-signature">(static) </span>getCol<span class="signature">(col, dataframe)</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
 
@@ -3366,7 +3366,7 @@ gbSum("value", groupBy(d => d.label, df))
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>const df = [{"label": "A", "value": "2010-12-13"}, {"label": "B", "value": "2010-12-15"}, {"label": "C", "value": "2010-12-17"}]
-Z.getCol("label", df)
+Z.getCol("value", df)
 // ["2010-12-13", "2010-12-15", "2010-12-17"]</code></pre>
 
 
@@ -3397,7 +3397,7 @@ Z.getCol("label", df)
 
         <tr>
             
-                <td class="name"><code>columnName</code></td>
+                <td class="name"><code>col</code></td>
             
 
             <td class="type">
@@ -8506,7 +8506,7 @@ Z.valueCounts(series)
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Jan 12 2019 18:23:18 GMT+0100 (CET) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jan 13 2019 14:45:30 GMT+0100 (CET) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
