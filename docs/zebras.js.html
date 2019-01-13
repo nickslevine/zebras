@@ -1,4 +1,49 @@
-const fs = require("fs")
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>zebras.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="Z.html">Z</a><ul class='methods'><li data-type='method'><a href="Z.html#.addCol">addCol</a></li><li data-type='method'><a href="Z.html#.concat">concat</a></li><li data-type='method'><a href="Z.html#.corr">corr</a></li><li data-type='method'><a href="Z.html#.countUnique">countUnique</a></li><li data-type='method'><a href="Z.html#.cumulative">cumulative</a></li><li data-type='method'><a href="Z.html#.deriveCol">deriveCol</a></li><li data-type='method'><a href="Z.html#.describe">describe</a></li><li data-type='method'><a href="Z.html#.diff">diff</a></li><li data-type='method'><a href="Z.html#.dropCol">dropCol</a></li><li data-type='method'><a href="Z.html#.filter">filter</a></li><li data-type='method'><a href="Z.html#.gbCount">gbCount</a></li><li data-type='method'><a href="Z.html#.gbDescribe">gbDescribe</a></li><li data-type='method'><a href="Z.html#.gbMax">gbMax</a></li><li data-type='method'><a href="Z.html#.gbMean">gbMean</a></li><li data-type='method'><a href="Z.html#.gbMin">gbMin</a></li><li data-type='method'><a href="Z.html#.gbStd">gbStd</a></li><li data-type='method'><a href="Z.html#.gbSum">gbSum</a></li><li data-type='method'><a href="Z.html#.getCol">getCol</a></li><li data-type='method'><a href="Z.html#.getRange">getRange</a></li><li data-type='method'><a href="Z.html#.groupBy">groupBy</a></li><li data-type='method'><a href="Z.html#.head">head</a></li><li data-type='method'><a href="Z.html#.kurt">kurt</a></li><li data-type='method'><a href="Z.html#.max">max</a></li><li data-type='method'><a href="Z.html#.mean">mean</a></li><li data-type='method'><a href="Z.html#.median">median</a></li><li data-type='method'><a href="Z.html#.merge">merge</a></li><li data-type='method'><a href="Z.html#.min">min</a></li><li data-type='method'><a href="Z.html#.parseDates">parseDates</a></li><li data-type='method'><a href="Z.html#.parseNums">parseNums</a></li><li data-type='method'><a href="Z.html#.pctChange">pctChange</a></li><li data-type='method'><a href="Z.html#.pickCols">pickCols</a></li><li data-type='method'><a href="Z.html#.pipe">pipe</a></li><li data-type='method'><a href="Z.html#.print">print</a></li><li data-type='method'><a href="Z.html#.prod">prod</a></li><li data-type='method'><a href="Z.html#.readCSV">readCSV</a></li><li data-type='method'><a href="Z.html#.rolling">rolling</a></li><li data-type='method'><a href="Z.html#.skew">skew</a></li><li data-type='method'><a href="Z.html#.slice">slice</a></li><li data-type='method'><a href="Z.html#.sort">sort</a></li><li data-type='method'><a href="Z.html#.sortByCol">sortByCol</a></li><li data-type='method'><a href="Z.html#.std">std</a></li><li data-type='method'><a href="Z.html#.sum">sum</a></li><li data-type='method'><a href="Z.html#.tail">tail</a></li><li data-type='method'><a href="Z.html#.toCSV">toCSV</a></li><li data-type='method'><a href="Z.html#.unique">unique</a></li><li data-type='method'><a href="Z.html#.valueCounts">valueCounts</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">zebras.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const fs = require("fs")
 const R = require("ramda")
 const Table = require("cli-table3")
 
@@ -13,7 +58,6 @@ const Table = require("cli-table3")
  *
  * @func
  * @memberOf Z
- * @category IO
  * @param {String} filepath File path for the CSV file to read
  * @return {df} Zebras dataframe
  * @example
@@ -36,9 +80,8 @@ const readCSV = R.curry(filepath => {
 /**
  * Synchronously writes a dataframe to a CSV file.
  *
- * @func
+ * @function
  * @memberOf Z
- * @category IO
  * @param {df} df Zebras dataframe to write
  * @param {String} filepath File path for the CSV file to write
  * @return {undefined}
@@ -62,7 +105,6 @@ const toCSV = R.curry((filepath, df) => {
  *
  * @func
  * @memberOf Z
- * @category IO
  * @param {df} dataframe to print
  * @return {String} Entire dataframe as an ASCII table
  * @example
@@ -100,7 +142,6 @@ const print = R.curry(df => {
  *
  * @func
  * @memberOf Z
- * @category IO
  * @param {Number} n Number of rows to print
  * @param {df} dataframe
  * @return {String} First `n` rows of dataframe as an ASCII table
@@ -131,7 +172,6 @@ const head = (n, df) => {
  *
  * @func
  * @memberOf Z
- * @category IO
  * @param {Number} n Number of rows to print
  * @param {df} dataframe
  * @return {String} Last `n` rows of dataframe as an ASCII table
@@ -165,7 +205,6 @@ const tail = (n, df) => {
  *
  * @func
  * @memberOf Z
- * @category Manipulation
  * @param {Function} func A filtering function
  * @param {df} dataframe Zebras dataframe to filter
  * @return {df} Zebras dataframe
@@ -187,7 +226,6 @@ const filter = R.curry((func, df) => {
  *
  * @func
  * @memberOf Z
- * @category Manipulation
  * @param {Function} func A sorting function
  * @param {df} dataframe Zebras dataframe to sort
  * @return {df} Zebras dataframe
@@ -206,7 +244,6 @@ const sort = R.curry((func, df) => {
  *
  * @func
  * @memberOf Z
- * @category Manipulation
  * @param {String} columnName Name of the column to sort by
  * @param {String} direction Determines direction, pass `asc` for ascending and `desc` for descending
  * @param {df} dataframe Zebras dataframe to sort
@@ -232,7 +269,6 @@ const sortByCol = R.curry((col, direction, df) => {
  *
  * @func
  * @memberOf Z
- * @category Manipulation
  * @param {Array} columnNames Array of column names to convert
  * @param {df} dataframe Zebras dataframe to parse
  * @return {df} Zebras dataframe
@@ -261,7 +297,6 @@ const parseNums = R.curry((cols, df) => {
  *
  * @func
  * @memberOf Z
- * @category Manipulation
  * @param {Array} columnNames Array of column names to convert
  * @param {df} dataframe Zebras dataframe to parse
  * @return {df} Zebras dataframe
@@ -292,7 +327,6 @@ const parseDates = R.curry((cols, df) => {
  *
  * @func
  * @memberOf Z
- * @category Manipulation
  * @param {Array} columnNames Array of column names to pick
  * @param {df} dataframe Zebras dataframe
  * @return {df} Zebras dataframe
@@ -311,7 +345,6 @@ const pickCols = R.curry((cols, df) => {
  *
  * @func
  * @memberOf Z
- * @category Manipulation
  * @param {String} columnName Name of the column to delete
  * @param {df} dataframe Zebras dataframe
  * @return {df} Zebras dataframe
@@ -330,7 +363,6 @@ const dropCol = R.curry((col, df) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {String} col Name of the column to extract
  * @param {df} dataframe Zebras dataframe
  * @return {Array} Series array
@@ -349,7 +381,6 @@ const getCol = R.curry((col, df) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Series to calculate mean for
  * @return {Number}
  * @example
@@ -368,7 +399,6 @@ const mean = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Series to calculate median for
  * @return {Number}
  * @example
@@ -387,7 +417,6 @@ const median = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Series to calculate standard deviation for
  * @return {Number}
  * @example
@@ -411,7 +440,6 @@ const std = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Series to calculate skew for
  * @return {Number}
  * @example
@@ -437,7 +465,6 @@ const skew = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Series to calculate kurtosis for
  * @return {Number}
  * @example
@@ -466,7 +493,6 @@ const kurt = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Series to calculate percent changes for
  * @return {Array}
  * @example
@@ -492,7 +518,6 @@ const pctChange = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} series1 First series
  * @param {Array} series2 Second series
  * @return {Number}
@@ -526,7 +551,6 @@ const corr = R.curry((arr1, arr2) => {
  *
  * @func
  * @memberOf Z
- * @category Composition
  * @param {Array} functions Array of functions to compose
  * @param {df} dataframe Zebras dataframe
  * @return {any} Result of the composed functions applied to dataframe
@@ -554,7 +578,6 @@ const pipe = R.curry((funcs, df) => {
  *
  * @func
  * @memberOf Z
- * @category Manipulation
  * @param {df} dataframe1 Zebras dataframe
  * @param {df} dataframe2 Zebras dataframe
  * @return {df} Zebras dataframe
@@ -574,7 +597,6 @@ const concat = R.curry((df1, df2) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Function} func Function returning string key
  * @param {df} dataframe Zebras dataframe
  * @return {Object}
@@ -593,7 +615,6 @@ const groupBy = R.curry((func, df) => {
  *
  * @func
  * @memberOf Z
- * @category Manipulation
  * @param {Number} start The start index (inclusive).
  * @param {Number} end The end index (exclusive).
  * @param {df} dataframe Zebras dataframe
@@ -613,7 +634,6 @@ const slice = R.curry((start, end, df) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Array of values
  * @return {Array}
  * @example
@@ -631,7 +651,6 @@ const unique = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Array of values
  * @return {Number}
  * @example
@@ -650,7 +669,6 @@ const sum = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Array of values
  * @return {Number}
  * @example
@@ -669,7 +687,6 @@ const prod = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Array of values
  * @return {Number}
  * @example
@@ -688,7 +705,6 @@ const min = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Array of values
  * @return {Number}
  * @example
@@ -707,7 +723,6 @@ const max = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Array of values
  * @return {Array} Array with min and max
  * @example
@@ -725,7 +740,6 @@ const getRange = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Array of values
  * @return {Number}
  * @example
@@ -743,7 +757,6 @@ const countUnique = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Array of values
  * @return {Object}
  * @example
@@ -764,7 +777,6 @@ const valueCounts = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Manipulation
  * @param {String} columnName Name of the column do add
  * @param {Array} arr Array of values for the new column
  * @param {df} dataframe Zebras dataframe to add the new column to
@@ -791,7 +803,6 @@ const addCol = R.curry((col, arr, df) => {
  *
  * @func
  * @memberOf Z
- * @category Manipulation
  * @param {Function} func Function to create the new column
  * @param {df} dataframe Zebras dataframe to add the new column to
  * @return {df}
@@ -812,7 +823,6 @@ const deriveCol = R.curry((func, df) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Array} arr Series to calculate differences for
  * @return {Array}
  * @example
@@ -842,7 +852,6 @@ const diff = R.curry(arr => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Function} func Function to caclulate rolling statistics
  * @param {Number} n Range (?)
  * @param {Array} arr Series to calculate rolling statistics for
@@ -856,7 +865,7 @@ const diff = R.curry(arr => {
 const rolling = (func, n, arr) => {
   const iRange = R.range(0, arr.length)
   const result = R.map(i => {
-    if (i + 1 < n) {
+    if (i + 1 &lt; n) {
       return "NotANumber"
     } else {
       const truncated = R.slice(i - n + 1, i + 1, arr)
@@ -875,7 +884,6 @@ const rolling = (func, n, arr) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Function} func Function to caclulate cumulative statistics
  * @param {Array} arr Series to calculate cumulative statistics for
  * @return {Number}
@@ -902,7 +910,6 @@ const cumulative = (func, arr) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {Function} func Function to caclulate cumulative statistics
  * @param {Array} arr Series to calculate cumulative statistics for
  * @return {Number}
@@ -936,7 +943,6 @@ const describe = arr => {
  *
  * @func
  * @memberOf Z
- * @category Manipulation
  * @param {df} dfLeft First dataframe
  * @param {df} dfRight Second dataframe
  * @param {String} leftOn Left column to join on
@@ -1017,7 +1023,6 @@ const merge = (dfLeft, dfRight, leftOn, rightOn, leftSuffix, rightSuffix) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
@@ -1046,7 +1051,6 @@ const gbSum = (col, groupByObj) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
@@ -1073,7 +1077,6 @@ const gbMean = (col, groupByObj) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
@@ -1103,7 +1106,6 @@ const gbStd = (col, groupByObj) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
@@ -1129,7 +1131,6 @@ const gbCount = (col, groupByObj) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
@@ -1162,7 +1163,6 @@ const gbMin = (col, groupByObj) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
@@ -1195,7 +1195,6 @@ const gbMax = (col, groupByObj) => {
  *
  * @func
  * @memberOf Z
- * @category Analysis
  * @param {String} col Column within the groups to be analyzed
  * @param {Object} groupByObj Object grouped by a column
  * @return {df} Dataframe with the calculated statistics
@@ -1273,3 +1272,32 @@ module.exports = {
   skew: skew,
   kurt: kurt,
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jan 13 2019 14:45:30 GMT+0100 (CET) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/jquery-3.1.1.min.js"></script>
+
+<script src="scripts/search.js"></script>
+
+
+
+
+</body>
+</html>
