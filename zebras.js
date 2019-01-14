@@ -157,13 +157,12 @@ const printTail = (n, df) => {
   return print(truncated)
 }
 
-
 /**
  * Return dataframe with first n rows of input dataframe.
  *
  * @func
  * @memberOf Z
- * @category Manipulation 
+ * @category Manipulation
  * @param {Number} n Number of rows to print
  * @param {df} dataframe
  * @return {df} Zebras dataframe
@@ -184,10 +183,10 @@ const head = (n, df) => {
  *
  * @func
  * @memberOf Z
- * @category Manipulation 
+ * @category Manipulation
  * @param {Number} n Number of rows to print
  * @param {df} dataframe
- * @return {df} Zebras dataframe 
+ * @return {df} Zebras dataframe
  * @see Z.slice, z.head
  * @example
  *
@@ -250,7 +249,7 @@ const sort = R.curry((func, df) => {
  * @func
  * @memberOf Z
  * @category Manipulation
- * @param {String} columnName Name of the column to sort by
+ * @param {String} col Name of the column to sort by
  * @param {String} direction Determines direction, pass `asc` for ascending and `desc` for descending
  * @param {df} dataframe Zebras dataframe to sort
  * @return {df} Zebras dataframe
@@ -355,7 +354,7 @@ const pickCols = R.curry((cols, df) => {
  * @func
  * @memberOf Z
  * @category Manipulation
- * @param {String} columnName Name of the column to delete
+ * @param {String} col Name of the column to delete
  * @param {df} dataframe Zebras dataframe
  * @return {df} Zebras dataframe
  * @example
@@ -808,7 +807,7 @@ const valueCounts = R.curry(arr => {
  * @func
  * @memberOf Z
  * @category Manipulation
- * @param {String} columnName Name of the column do add
+ * @param {String} col Name of the column do add
  * @param {Array} arr Array of values for the new column
  * @param {df} dataframe Zebras dataframe to add the new column to
  * @return {df}
@@ -1068,7 +1067,7 @@ const merge = (dfLeft, dfRight, leftOn, rightOn, leftSuffix, rightSuffix) => {
  * @example
  *
  * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
- * Z.gbSum("value", groupBy(d => d.label, df))
+ * Z.gbSum("value", Z.groupBy(d => d.label, df))
  * // [{"group": "A", "sum": 10}, {"group": "B", "sum": 7}, {"group": "C", "sum": 75}]
  */
 const gbSum = (col, groupByObj) => {
@@ -1097,7 +1096,7 @@ const gbSum = (col, groupByObj) => {
  * @example
  *
  * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
- * Z.gbMean("value", groupBy(d => d.label, df))
+ * Z.gbMean("value", Z.groupBy(d => d.label, df))
  * // [{"group": "A", "mean": 5}, {"group": "B", "mean": 3.5}, {"group": "C", "mean": 75}]
  */
 const gbMean = (col, groupByObj) => {
@@ -1124,7 +1123,7 @@ const gbMean = (col, groupByObj) => {
  * @example
  *
  * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
- * Z.gbStd("value", groupBy(d => d.label, df))
+ * Z.gbStd("value", Z.groupBy(d => d.label, df))
  * // [{"group": "A", "std": 2.8284271247461903}, {"group": "B", "std": 2.1213203435596424}, {"group": "C", "std": NaN}]
  */
 const gbStd = (col, groupByObj) => {
@@ -1154,7 +1153,7 @@ const gbStd = (col, groupByObj) => {
  * @example
  *
  * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
- * Z.gbCount("value", groupBy(d => d.label, df))
+ * Z.gbCount("value", Z.groupBy(d => d.label, df))
  * // [{"count": 2, "group": "A"}, {"count": 2, "group": "B"}, {"count": 1, "group": "C"}]
  */
 const gbCount = (col, groupByObj) => {
@@ -1180,7 +1179,7 @@ const gbCount = (col, groupByObj) => {
  * @example
  *
  * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
- * Z.gbMin("value", groupBy(d => d.label, df))
+ * Z.gbMin("value", Z.groupBy(d => d.label, df))
  * // [{"group": "A", "min": 3}, {"group": "B", "min": 2}, {"group": "C", "min": 75}]
  */
 const gbMin = (col, groupByObj) => {
@@ -1213,7 +1212,7 @@ const gbMin = (col, groupByObj) => {
  * @example
  *
  * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
- * Z.gbMax("value", groupBy(d => d.label, df))
+ * Z.gbMax("value", Z.groupBy(d => d.label, df))
  * // [{"group": "A", "max": 7}, {"group": "B", "max": 5}, {"group": "C", "max": 75}]
  */
 const gbMax = (col, groupByObj) => {
@@ -1246,7 +1245,7 @@ const gbMax = (col, groupByObj) => {
  * @example
  *
  * const df = [{"label": "A", "value": 7}, {"label": "A", "value": 3}, {"label": "B", "value": 2},  {"label": "B", "value": 5}, {"label": "C", "value": 75}]
- * Z.gbDescribe("value", groupBy(d => d.label, df))
+ * Z.gbDescribe("value", Z.groupBy(d => d.label, df))
  * // [
  * //   { count: 2, group: "A", max: 7, mean: 5, min: 3, std: 2.8284271247461903, sum: 10 },
  * //   { count: 2, group: "B", max: 5, mean: 3.5, min: 2, std: 2.1213203435596424, sum: 7 },
@@ -1316,5 +1315,5 @@ module.exports = {
   skew: skew,
   kurt: kurt,
   head: head,
-  tail: tail
+  tail: tail,
 }
