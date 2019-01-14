@@ -8,6 +8,7 @@
     "test": "mocha --reporter spec",
     "build:docs": "jsdoc --configure .jsdoc.json",
     "watch:docs": "onchange 'zebras.js' -- npm run build:docs",
+    "watch:test": "onchange 'test/*.js' -- npm run test",
     "serve:docs": "live-server ./docs",
     "dev:docs": "npx run-p watch:docs serve:docs"
   },
