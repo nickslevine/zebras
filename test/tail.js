@@ -9,7 +9,9 @@ describe("tail", function() {
       { label: "B", value: "2010-12-15" },
       { label: "C", value: "2010-12-17" },
     ]
-    assert.deepStrictEqual(Z.tail(2, df).length, 2)
-    assert.deepStrictEqual(Z.tail(2, df).find(d => d.label === "A"), undefined)
+    assert.deepStrictEqual(Z.tail(2, df), [
+      { label: "B", value: "2010-12-15" },
+      { label: "C", value: "2010-12-17" },
+    ])
   })
 })
