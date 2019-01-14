@@ -196,7 +196,7 @@ const head = (n, df) => {
  */
 const tail = (n, df) => {
   const truncated = R.takeLast(n, df)
-  return print(truncated)
+  return truncated
 }
 
 /**
