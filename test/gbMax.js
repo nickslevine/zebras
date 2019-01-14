@@ -3,7 +3,7 @@ const assert = require("assert")
 const Z = require("../zebras.js")
 
 describe("gbMax", function() {
-  it("calculates count for grouped objects", function() {
+  it("calculates max for grouped objects", function() {
     const df = [
       { label: "A", value: 7 },
       { label: "A", value: 3 },
