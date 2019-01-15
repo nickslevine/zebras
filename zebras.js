@@ -214,7 +214,7 @@ const tail = (n, df) => {
  * @example
  *
  * const df = [{"label": "A", "value": 2}, {"label": "B", "value": 10}, {"label": "C", "value": 30}]
- * Z.filter(r => r >= 10, df)
+ * Z.filter(r => r.value >= 10, df)
  * // [{"label": "B", "value": 10}, {"label": "C", "value": 30}]
  */
 const filter = R.curry((func, df) => {
@@ -360,7 +360,7 @@ const pickCols = R.curry((cols, df) => {
  * @example
  *
  * const df = [{"label": "A", "value": 7}, {"label": "B", "value": 2}, {"label": "C", "value": 75}]
- * Z.dropCol(["label"], df)
+ * Z.dropCol("label", df)
  * // [{"value": 7}, {"value": 2}, {"value": 75}]
  */
 const dropCol = R.curry((col, df) => {
@@ -827,7 +827,7 @@ const addCol = R.curry((col, arr, df) => {
 })
 
 /**
- * Create a new array based on columns from existing array.
+ * Create a new array based on columns from existing dataframe.
  *
  * Use to create new columns derived from existing columns in a dataframe.
  *
@@ -836,7 +836,7 @@ const addCol = R.curry((col, arr, df) => {
  * @category Manipulation
  * @param {Function} func Function to create the new column
  * @param {df} dataframe Zebras dataframe to add the new column to
- * @return {df}
+ * @return {Array}
  * @example
  *
  * const temps = [{"date": "1990-05-06", "tempCelsius": 0}, {"date": "1990-05-07", "tempCelsius": 4}]
