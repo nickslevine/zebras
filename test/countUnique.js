@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("countUnique", function() {
-  it("returns number of unique values in the array", function() {
+describe("countUnique", () => {
+  it("returns number of unique values in the array", () => {
     assert.deepStrictEqual(Z.countUnique([7, 7, 2, 30, 30, 56, 75]), 5)
   })
 })

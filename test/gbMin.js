@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("gbMin", function() {
-  it("calculates min for grouped objects", function() {
+describe("gbMin", () => {
+  it("calculates min for grouped objects", () => {
     const df = [
       { label: "A", value: 7 },
       { label: "A", value: 3 },

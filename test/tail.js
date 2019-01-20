@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("tail", function() {
-  it("returns dataframe with last n rows of input dataframe", function() {
+describe("tail", () => {
+  it("returns dataframe with last n rows of input dataframe", () => {
     const df = [
       { label: "A", value: "2010-12-13" },
       { label: "B", value: "2010-12-15" },

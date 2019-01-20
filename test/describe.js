@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("describe", function() {
-  it("returns summary statistis", function() {
+describe("describe", () => {
+  it("returns summary statistis", () => {
     const series = [7, 2, 30, 30, 56, 75]
     assert.deepStrictEqual(Z.describe(series), [
       {

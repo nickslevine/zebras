@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("pipe", function() {
-  it("pipes functions together by performing left-to-right function composition", function() {
+describe("pipe", () => {
+  it("pipes functions together by performing left-to-right function composition", () => {
     const data = [
       { Date: "1997-01-01", Value: "12" },
       { Date: "1997-01-02", Value: "14" },

@@ -2,6 +2,8 @@ const fs = require("fs")
 const R = require("ramda")
 const Table = require("cli-table3")
 
+const isNumeric = require("./src/internal/isNumeric")
+
 /**
  * Data manipulation and analysis library written in JavaScript
  * offering the convenience of pandas or R.
@@ -25,7 +27,7 @@ const readCSV = R.curry(filepath => {
   const dataProcessed = R.pipe(
     R.split("\n"),
     R.map(R.split(",")),
-    R.reject(x => x == "")
+    R.reject(x => x.length === 1 && x[0] === "")
   )(data)
   const headers = R.flatten(R.take(1)(dataProcessed))
   const rows = R.tail(dataProcessed)
@@ -50,7 +52,7 @@ const toCSV = R.curry((filepath, df) => {
   const headers = R.join(",", R.keys(R.nth(0, df)))
   const rows = R.map(R.values, df)
   const rowStrings = R.join("\n", R.map(R.join(","), rows))
-  fs.writeFileSync(filepath, headers + "\n" + rowStrings)
+  fs.writeFileSync(filepath, `${headers}\n${rowStrings}`)
 })
 
 /**
@@ -88,11 +90,11 @@ const toCSV = R.curry((filepath, df) => {
 const print = R.curry(df => {
   const headers = R.keys(df[0])
   const rows = R.map(R.values, df)
-  let printTable = new Table({
+  const printTable = new Table({
     head: headers,
   })
   printTable.push(...rows)
-  return "\n" + printTable.toString()
+  return `\n${printTable.toString()}`
 })
 
 /**
@@ -217,9 +219,7 @@ const tail = (n, df) => {
  * Z.filter(r => r.value >= 10, df)
  * // [{"label": "B", "value": 10}, {"label": "C", "value": 30}]
  */
-const filter = R.curry((func, df) => {
-  return R.filter(func, df)
-})
+const filter = R.curry((func, df) => R.filter(func, df))
 
 /**
  * Sort dataframe rows using custom sorting function.
@@ -239,9 +239,7 @@ const filter = R.curry((func, df) => {
  * Z.sort((a, b) => b.value - a.value, df)
  * // [{ label: "C", value: 75 },{ label: "A", value: 7 },{ label: "B", value: 2 }]
  */
-const sort = R.curry((func, df) => {
-  return R.sort(func, df)
-})
+const sort = R.curry((func, df) => R.sort(func, df))
 
 /**
  * Sort dataframe rows by a column.
@@ -259,15 +257,12 @@ const sort = R.curry((func, df) => {
  * Z.sortByCol("value", "asc", df)
  * // [{"label": "B", "value": 2}, {"label": "A", "value": 7}, {"label": "C", "value": 75}]
  */
-const sortByCol = R.curry((col, direction, df) => {
-  return R.sort((a, b) => {
-    if (direction == "asc") {
-      return a[col] - b[col]
-    } else {
-      return b[col] - a[col]
-    }
-  }, df)
-})
+const sortByCol = R.curry((col, direction, df) =>
+  R.sort(
+    (a, b) => (direction === "asc" ? a[col] - b[col] : b[col] - a[col]),
+    df
+  )
+)
 
 /**
  * Convert columns to numerical type (floats).
@@ -286,12 +281,9 @@ const sortByCol = R.curry((col, direction, df) => {
  */
 const parseNums = R.curry((cols, df) => {
   const convertRow = r => {
-    const converter = (value, key, obj) => {
-      if (R.includes(key, cols)) {
-        return parseFloat(value)
-      } else {
-        return value
-      }
+    const converter = (value, key) => {
+      if (R.includes(key, cols)) return parseFloat(value)
+      return value
     }
     return R.mapObjIndexed(converter, r)
   }
@@ -315,12 +307,9 @@ const parseNums = R.curry((cols, df) => {
  */
 const parseDates = R.curry((cols, df) => {
   const convertRow = r => {
-    const converter = (value, key, obj) => {
-      if (R.includes(key, cols)) {
-        return Date.parse(value)
-      } else {
-        return value
-      }
+    const converter = (value, key) => {
+      if (R.includes(key, cols)) return Date.parse(value)
+      return value
     }
     return R.mapObjIndexed(converter, r)
   }
@@ -344,9 +333,7 @@ const parseDates = R.curry((cols, df) => {
  * Z.pickCols(["value"], df)
  * // [{"value": 7}, {"value": 2}, {"value": 75}]
  */
-const pickCols = R.curry((cols, df) => {
-  return R.map(R.pick(cols), df)
-})
+const pickCols = R.curry((cols, df) => R.map(R.pick(cols), df))
 
 /**
  * Delete a column.
@@ -363,9 +350,7 @@ const pickCols = R.curry((cols, df) => {
  * Z.dropCol("label", df)
  * // [{"value": 7}, {"value": 2}, {"value": 75}]
  */
-const dropCol = R.curry((col, df) => {
-  return R.map(R.dissoc(col), df)
-})
+const dropCol = R.curry((col, df) => R.map(R.dissoc(col), df))
 
 /**
  * Extract a series to an array from a dataframe.
@@ -382,9 +367,7 @@ const dropCol = R.curry((col, df) => {
  * Z.getCol("value", df)
  * // ["2010-12-13", "2010-12-15", "2010-12-17"]
  */
-const getCol = R.curry((col, df) => {
-  return R.map(R.prop(col), df)
-})
+const getCol = R.curry((col, df) => R.map(R.prop(col), df))
 
 /**
  * Mean of series.
@@ -401,7 +384,7 @@ const getCol = R.curry((col, df) => {
  * // 34
  */
 const mean = R.curry(arr => {
-  const filteredArr = R.reject(isNaN, arr)
+  const filteredArr = R.filter(isNumeric, arr)
   return R.mean(filteredArr)
 })
 
@@ -420,7 +403,7 @@ const mean = R.curry(arr => {
  * // 30
  */
 const median = R.curry(arr => {
-  const filteredArr = R.reject(isNaN, arr)
+  const filteredArr = R.filter(isNumeric, arr)
   return R.median(filteredArr)
 })
 
@@ -439,11 +422,11 @@ const median = R.curry(arr => {
  * // 31.36080356113344
  */
 const std = R.curry(arr => {
-  const filteredArr = R.reject(isNaN, arr)
+  const filteredArr = R.filter(isNumeric, arr)
   const sampleMean = R.mean(filteredArr)
   const n = R.length(filteredArr)
   const diffs = R.map(x => x - sampleMean, filteredArr)
-  const diffsSquared = R.map(x => Math.pow(x, 2), diffs)
+  const diffsSquared = R.map(x => x ** 2, diffs)
   const summed = R.sum(diffsSquared)
   return Math.sqrt(R.divide(summed, R.subtract(n, 1)))
 })
@@ -463,12 +446,12 @@ const std = R.curry(arr => {
  * // 0.17542841315728933
  */
 const skew = R.curry(arr => {
-  const filteredArr = R.reject(isNaN, arr)
+  const filteredArr = R.filter(isNumeric, arr)
   const sampleStd = std(filteredArr)
-  const stdCubed = Math.pow(sampleStd, 3)
+  const stdCubed = sampleStd ** 3
   const sampleMean = R.mean(filteredArr)
   const diffs = R.map(x => x - sampleMean, filteredArr)
-  const diffsCubed = R.map(x => Math.pow(x, 3), diffs)
+  const diffsCubed = R.map(x => x ** 3, diffs)
   const summed = R.sum(diffsCubed)
   const n = R.length(filteredArr)
   return summed / n / stdCubed
@@ -489,12 +472,12 @@ const skew = R.curry(arr => {
  * // -2.040541067936147
  */
 const kurt = R.curry(arr => {
-  const filteredArr = R.reject(isNaN, arr)
+  const filteredArr = R.filter(isNumeric, arr)
   const sampleStd = std(filteredArr)
-  const stdFourth = Math.pow(sampleStd, 4)
+  const stdFourth = sampleStd ** 4
   const sampleMean = R.mean(filteredArr)
   const diffs = R.map(x => x - sampleMean, filteredArr)
-  const diffsFourth = R.map(x => Math.pow(x, 4), diffs)
+  const diffsFourth = R.map(x => x ** 4, diffs)
   const summed = R.sum(diffsFourth)
   const n = R.length(filteredArr)
   return summed / n / stdFourth - 3
@@ -520,11 +503,8 @@ const kurt = R.curry(arr => {
 const pctChange = R.curry(arr => {
   const iRange = R.range(0, arr.length)
   const result = R.map(i => {
-    if (i == 0) {
-      return NaN
-    } else {
-      return arr[i] / arr[i - 1] - 1
-    }
+    if (i === 0) return NaN
+    return arr[i] / arr[i - 1] - 1
   }, iRange)
   return result
 })
@@ -546,21 +526,20 @@ const pctChange = R.curry(arr => {
  * // 0.969035563335365
  */
 const corr = R.curry((arr1, arr2) => {
-  if (R.length(arr1) != R.length(arr2)) {
-    return "Arrays are not the same length"
-  } else {
-    const sampleMean1 = R.mean(arr1)
-    const sampleMean2 = R.mean(arr2)
-    const std1 = std(arr1)
-    const std2 = std(arr2)
-    const nMinusOne = R.subtract(R.length(arr1), 1)
-    const rangeArray = R.range(0, R.length(arr1))
-    const products = R.map(x => {
-      return (arr1[x] - sampleMean1) * (arr2[x] - sampleMean2)
-    }, rangeArray)
-    const summedProducts = R.sum(products)
-    return summedProducts / (nMinusOne * std1 * std2)
-  }
+  if (R.length(arr1) !== R.length(arr2)) return "Arrays are not the same length"
+
+  const sampleMean1 = R.mean(arr1)
+  const sampleMean2 = R.mean(arr2)
+  const std1 = std(arr1)
+  const std2 = std(arr2)
+  const nMinusOne = R.subtract(R.length(arr1), 1)
+  const rangeArray = R.range(0, R.length(arr1))
+  const products = R.map(
+    x => (arr1[x] - sampleMean1) * (arr2[x] - sampleMean2),
+    rangeArray
+  )
+  const summedProducts = R.sum(products)
+  return summedProducts / (nMinusOne * std1 * std2)
 })
 
 /**
@@ -587,9 +566,7 @@ const corr = R.curry((arr1, arr2) => {
  * ])(data)
  * // 36.25
  */
-const pipe = R.curry((funcs, df) => {
-  return R.pipe(...funcs)(df)
-})
+const pipe = R.curry((funcs, df) => R.pipe(...funcs)(df))
 
 /**
  * Concatenate two dataframes.
@@ -607,9 +584,7 @@ const pipe = R.curry((funcs, df) => {
  * Z.concat(df1, df2)
  * // [{"label": "A", "value": 7}, {"label": "B", "value": 2}, {"label": "C", "value": 17}, {"label": "D", "value": 2}]
  */
-const concat = R.curry((df1, df2) => {
-  return R.concat(df1, df2)
-})
+const concat = R.curry((df1, df2) => R.concat(df1, df2))
 
 /**
  * Create an object grouped by according to the supplied function.
@@ -626,9 +601,7 @@ const concat = R.curry((df1, df2) => {
  * Z.groupBy(x => x.Day, df)
  * // {"Monday": [{"Day": "Monday", "value": 10}, {"Day": "Monday", "value": 7}], "Tuesday": [{"Day": "Tuesday", "value": 5}]}
  */
-const groupBy = R.curry((func, df) => {
-  return R.groupBy(func, df)
-})
+const groupBy = R.curry((func, df) => R.groupBy(func, df))
 
 /**
  * Get dataframe rows by index.
@@ -646,9 +619,7 @@ const groupBy = R.curry((func, df) => {
  * Z.slice(1, 2, df)
  * // [{"label": "B", "value": 2}]
  */
-const slice = R.curry((start, end, df) => {
-  return R.slice(start, end, df)
-})
+const slice = R.curry((start, end, df) => R.slice(start, end, df))
 
 /**
  * Get unique values in a series.
@@ -664,9 +635,7 @@ const slice = R.curry((start, end, df) => {
  * Z.unique(series)
  * // [7, 2, 30, 56, 75]
  */
-const unique = R.curry(arr => {
-  return R.uniq(arr)
-})
+const unique = R.curry(arr => R.uniq(arr))
 
 /**
  * Sum of series.
@@ -683,7 +652,7 @@ const unique = R.curry(arr => {
  * // 170
  */
 const sum = R.curry(arr => {
-  const filteredArr = R.reject(isNaN, arr)
+  const filteredArr = R.filter(isNumeric, arr)
   return R.sum(filteredArr)
 })
 
@@ -702,7 +671,7 @@ const sum = R.curry(arr => {
  * // 1764000
  */
 const prod = R.curry(arr => {
-  const filteredArr = R.reject(isNaN, arr)
+  const filteredArr = R.filter(isNumeric, arr)
   return R.product(filteredArr)
 })
 
@@ -721,7 +690,7 @@ const prod = R.curry(arr => {
  * // 2
  */
 const min = R.curry(arr => {
-  const filteredArr = R.reject(isNaN, arr)
+  const filteredArr = R.filter(isNumeric, arr)
   return R.apply(Math.min, filteredArr)
 })
 
@@ -740,7 +709,7 @@ const min = R.curry(arr => {
  * // 75
  */
 const max = R.curry(arr => {
-  const filteredArr = R.reject(isNaN, arr)
+  const filteredArr = R.filter(isNumeric, arr)
   return R.apply(Math.max, filteredArr)
 })
 
@@ -758,9 +727,7 @@ const max = R.curry(arr => {
  * Z.getRange(series)
  * // [2, 75]
  */
-const getRange = R.curry(arr => {
-  return [min(arr), max(arr)]
-})
+const getRange = R.curry(arr => [min(arr), max(arr)])
 
 /**
  * Count number of unique values in a series.
@@ -776,9 +743,7 @@ const getRange = R.curry(arr => {
  * Z.countUnique(series)
  * // 5
  */
-const countUnique = R.curry(arr => {
-  return R.length(R.uniq(arr))
-})
+const countUnique = R.curry(arr => R.length(R.uniq(arr)))
 
 /**
  * Count number of occurences of each value in a series.
@@ -794,9 +759,7 @@ const countUnique = R.curry(arr => {
  * Z.valueCounts(series)
  * // {"2": 1, "30": 2, "56": 1, "7": 1, "75": 1}
  */
-const valueCounts = R.curry(arr => {
-  return R.countBy(R.identity, arr)
-})
+const valueCounts = R.curry(arr => R.countBy(R.identity, arr))
 
 /**
  * Add a new column to a dataframe from an array.
@@ -819,11 +782,9 @@ const valueCounts = R.curry(arr => {
  * // [{"date": "2010-12-15", "label": "A", "value": 7}, {"date": "2010-12-16", "label": "B", "value": 2}]
  */
 const addCol = R.curry((col, arr, df) => {
-  if (R.equals(R.length(df), R.length(arr))) {
-    return df.map((row, i) => R.assoc(col, arr[i], row))
-  } else {
+  if (!R.equals(R.length(df), R.length(arr)))
     return "Arrays are not of equal length"
-  }
+  return df.map((row, i) => R.assoc(col, arr[i], row))
 })
 
 /**
@@ -844,9 +805,7 @@ const addCol = R.curry((col, arr, df) => {
  * Z.addCol("tempFahrenheit", fahrenheit, temps)
  * // [{"date": "1990-05-06", "tempCelsius": 0, "tempFahrenheit": 32}, {"date": "1990-05-07", "tempCelsius": 4, "tempFahrenheit": 39.2}]
  */
-const deriveCol = R.curry((func, df) => {
-  return R.map(func, df)
-})
+const deriveCol = R.curry((func, df) => R.map(func, df))
 
 /**
  * Returns a new series with the differences between the values in the order of
@@ -866,11 +825,8 @@ const deriveCol = R.curry((func, df) => {
 const diff = R.curry(arr => {
   const iRange = R.range(0, arr.length)
   const result = R.map(i => {
-    if (i == 0) {
-      return NaN
-    } else {
-      return arr[i] - arr[i - 1]
-    }
+    if (i === 0) return NaN
+    return arr[i] - arr[i - 1]
   }, iRange)
   return result
 })
@@ -898,12 +854,9 @@ const diff = R.curry(arr => {
 const rolling = (func, n, arr) => {
   const iRange = R.range(0, arr.length)
   const result = R.map(i => {
-    if (i + 1 < n) {
-      return "NotANumber"
-    } else {
-      const truncated = R.slice(i - n + 1, i + 1, arr)
-      return func(truncated)
-    }
+    if (i + 1 < n) return "NotANumber"
+    const truncated = R.slice(i - n + 1, i + 1, arr)
+    return func(truncated)
   }, iRange)
   return result
 }
@@ -954,19 +907,17 @@ const cumulative = (func, arr) => {
  * Z.describe(series)
  * // [{"count": 6, "countUnique": 5, "max": "75.00000", "mean": "33.33333", "median": "30.00000", "min": "2.00000", "std": "28.09745"}]
  */
-const describe = arr => {
-  return [
-    {
-      count: arr.length,
-      countUnique: countUnique(arr),
-      min: min(arr).toFixed(5),
-      max: max(arr).toFixed(5),
-      median: median(arr).toFixed(5),
-      mean: mean(arr).toFixed(5),
-      std: std(arr).toFixed(5),
-    },
-  ]
-}
+const describe = arr => [
+  {
+    count: arr.length,
+    countUnique: countUnique(arr),
+    min: min(arr).toFixed(5),
+    max: max(arr).toFixed(5),
+    median: median(arr).toFixed(5),
+    mean: mean(arr).toFixed(5),
+    std: std(arr).toFixed(5),
+  },
+]
 
 /**
  * Join two dataframes on a column.
@@ -1005,18 +956,17 @@ const merge = (dfLeft, dfRight, leftOn, rightOn, leftSuffix, rightSuffix) => {
     R.intersection(colsLeft, colsRight)
   )
 
-  const renameCol = (oldColName, suffix, { [oldColName]: old, ...others }) => {
-    return {
-      [oldColName + suffix]: old,
-      ...others,
-    }
-  }
+  const renameCol = (oldColName, suffix, { [oldColName]: old, ...others }) => ({
+    [oldColName + suffix]: old,
+    ...others,
+  })
 
   const renameDuplicateColumns = (cols, arr, suffix) => {
-    for (let c of cols) {
-      arr = arr.map(r => renameCol(c, suffix, r))
-    }
-    return arr
+    let renamed = arr
+    cols.forEach(c => {
+      renamed = arr.map(r => renameCol(c, suffix, r))
+    })
+    return renamed
   }
 
   const dfLeftUpdated = renameDuplicateColumns(intersection, dfLeft, leftSuffix)
@@ -1034,10 +984,10 @@ const merge = (dfLeft, dfRight, leftOn, rightOn, leftSuffix, rightSuffix) => {
   const index = R.keys(dfLeftGrouped)
   const fillRow = (row, cols) => {
     const rowCols = R.keys(row)
-    const diff = R.difference(cols, rowCols)
-    for (let c of diff) {
-      row[c] = undefined
-    }
+    const filledRow = row
+    R.difference(cols, rowCols).forEach(c => {
+      filledRow[c] = undefined
+    })
     return row
   }
   return index.map(i => {
@@ -1075,7 +1025,7 @@ const gbSum = (col, groupByObj) => {
   const result = groups.map(i => {
     const df = groupByObj[i]
     const arr = getCol(col, df)
-    const arrFiltered = R.reject(isNaN, arr)
+    const arrFiltered = R.filter(isNumeric, arr)
     return { group: i, sum: R.sum(arrFiltered) }
   })
   return result
@@ -1129,9 +1079,9 @@ const gbMean = (col, groupByObj) => {
 const gbStd = (col, groupByObj) => {
   const groups = R.keys(groupByObj)
   const result = groups.map(g => {
-    const arr = R.reject(isNaN, getCol(col, groupByObj[g]))
+    const arr = R.filter(isNumeric, getCol(col, groupByObj[g]))
     const avg = R.mean(arr)
-    const arrSquaredDiffs = R.map(x => Math.pow(x - avg, 2), arr)
+    const arrSquaredDiffs = R.map(x => (x - avg) ** 2, arr)
     const sumSquaredDiffs = R.sum(arrSquaredDiffs)
     return { group: g, std: Math.sqrt(sumSquaredDiffs / (arr.length - 1)) }
   })
@@ -1158,10 +1108,7 @@ const gbStd = (col, groupByObj) => {
  */
 const gbCount = (col, groupByObj) => {
   const groups = R.keys(groupByObj)
-  const result = groups.map(g => {
-    return { group: g, count: groupByObj[g].length }
-  })
-  return result
+  return groups.map(g => ({ group: g, count: groupByObj[g].length }))
 }
 
 /**
@@ -1184,16 +1131,14 @@ const gbCount = (col, groupByObj) => {
  */
 const gbMin = (col, groupByObj) => {
   const groups = R.keys(groupByObj)
-  const result = groups.map(g => {
-    return {
-      group: g,
-      min: R.reduce(
-        (acc, value) => R.min(acc, value[col]),
-        Infinity,
-        groupByObj[g]
-      ),
-    }
-  })
+  const result = groups.map(g => ({
+    group: g,
+    min: R.reduce(
+      (acc, value) => R.min(acc, value[col]),
+      Infinity,
+      groupByObj[g]
+    ),
+  }))
   return result
 }
 
@@ -1217,16 +1162,14 @@ const gbMin = (col, groupByObj) => {
  */
 const gbMax = (col, groupByObj) => {
   const groups = R.keys(groupByObj)
-  const result = groups.map(g => {
-    return {
-      group: g,
-      max: R.reduce(
-        (acc, value) => R.max(acc, value[col]),
-        -Infinity,
-        groupByObj[g]
-      ),
-    }
-  })
+  const result = groups.map(g => ({
+    group: g,
+    max: R.reduce(
+      (acc, value) => R.max(acc, value[col]),
+      -Infinity,
+      groupByObj[g]
+    ),
+  }))
   return result
 }
 
@@ -1268,52 +1211,52 @@ const gbDescribe = (col, groupByObj) => {
 }
 
 module.exports = {
-  readCSV: readCSV,
-  toCSV: toCSV,
-  filter: filter,
-  parseNums: parseNums,
-  pickCols: pickCols,
-  getCol: getCol,
-  mean: mean,
-  median: median,
-  std: std,
-  pipe: pipe,
-  concat: concat,
-  groupBy: groupBy,
-  slice: slice,
-  unique: unique,
-  countUnique: countUnique,
-  corr: corr,
-  min: min,
-  max: max,
-  getRange: getRange,
-  dropCol: dropCol,
-  valueCounts: valueCounts,
-  addCol: addCol,
-  deriveCol: deriveCol,
-  print: print,
-  printHead: printHead,
-  printTail: printTail,
-  pctChange: pctChange,
-  rolling: rolling,
-  parseDates: parseDates,
-  sort: sort,
-  sortByCol: sortByCol,
-  describe: describe,
-  merge: merge,
-  gbSum: gbSum,
-  gbMean: gbMean,
-  gbCount: gbCount,
-  gbMin: gbMin,
-  gbMax: gbMax,
-  gbStd: gbStd,
-  gbDescribe: gbDescribe,
-  cumulative: cumulative,
-  sum: sum,
-  prod: prod,
-  diff: diff,
-  skew: skew,
-  kurt: kurt,
-  head: head,
-  tail: tail,
+  readCSV,
+  toCSV,
+  filter,
+  parseNums,
+  pickCols,
+  getCol,
+  mean,
+  median,
+  std,
+  pipe,
+  concat,
+  groupBy,
+  slice,
+  unique,
+  countUnique,
+  corr,
+  min,
+  max,
+  getRange,
+  dropCol,
+  valueCounts,
+  addCol,
+  deriveCol,
+  print,
+  printHead,
+  printTail,
+  pctChange,
+  rolling,
+  parseDates,
+  sort,
+  sortByCol,
+  describe,
+  merge,
+  gbSum,
+  gbMean,
+  gbCount,
+  gbMin,
+  gbMax,
+  gbStd,
+  gbDescribe,
+  cumulative,
+  sum,
+  prod,
+  diff,
+  skew,
+  kurt,
+  head,
+  tail,
 }

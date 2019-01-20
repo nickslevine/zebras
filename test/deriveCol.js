@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("deriveCol", function() {
-  it("creates a new dataframe based on columns from existing dataframe.", function() {
+describe("deriveCol", () => {
+  it("creates a new dataframe based on columns from existing dataframe.", () => {
     const temps = [
       { date: "1990-05-06", tempCelsius: 0 },
       { date: "1990-05-07", tempCelsius: 4 },

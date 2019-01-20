@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("parseDates", function() {
-  it("converts columns to datestamp", function() {
+describe("parseDates", () => {
+  it("converts columns to datestamp", () => {
     const df = [
       { label: "A", value: "2010-12-13" },
       { label: "B", value: "2010-12-15" },

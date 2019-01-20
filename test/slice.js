@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("slice", function() {
-  it("gets dataframe rows by index", function() {
+describe("slice", () => {
+  it("gets dataframe rows by index", () => {
     const df = [
       { label: "A", value: 7 },
       { label: "B", value: 2 },

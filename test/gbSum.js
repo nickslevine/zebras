@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("gbSum", function() {
-  it("calculates sums for grouped objects", function() {
+describe("gbSum", () => {
+  it("calculates sums for grouped objects", () => {
     const df = [
       { label: "A", value: 7 },
       { label: "A", value: 3 },

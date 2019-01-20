@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("pickCols", function() {
-  it("selects a subset of columns", function() {
+describe("pickCols", () => {
+  it("selects a subset of columns", () => {
     const df = [
       { label: "A", value: 10, date: "2010-12-13" },
       { label: "B", value: 13, date: "2010-12-15" },

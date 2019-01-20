@@ -3,8 +3,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("readCSV", function() {
-  it("synchronously reads a CSV file", function() {
+describe("readCSV", () => {
+  it("synchronously reads a CSV file", () => {
     assert.deepStrictEqual(
       Z.readCSV(path.join(__dirname, "data/test_read.csv")),
       [
