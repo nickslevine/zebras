@@ -163,7 +163,7 @@ const printTail = (n, df) => {
  * @func
  * @memberOf Z
  * @category Manipulation
- * @param {Number} n Number of rows to print
+ * @param {Number} n Number of rows to select from start of df
  * @param {df} dataframe
  * @return {df} Zebras dataframe
  * @see Z.slice, Z.tail
@@ -184,7 +184,7 @@ const head = (n, df) => {
  * @func
  * @memberOf Z
  * @category Manipulation
- * @param {Number} n Number of rows to print
+ * @param {Number} n Number of rows to select from bottom of df
  * @param {df} dataframe
  * @return {df} Zebras dataframe
  * @see Z.slice, z.head
@@ -304,7 +304,7 @@ const parseNums = R.curry((cols, df) => {
  * @func
  * @memberOf Z
  * @category Manipulation
- * @param {Array} columnNames Array of column names to convert
+ * @param {Array} cols Array of column names to convert
  * @param {df} dataframe Zebras dataframe to parse
  * @return {df} Zebras dataframe
  * @example
@@ -335,7 +335,7 @@ const parseDates = R.curry((cols, df) => {
  * @func
  * @memberOf Z
  * @category Manipulation
- * @param {Array} columnNames Array of column names to pick
+ * @param {Array} cols Array of column names to pick
  * @param {df} dataframe Zebras dataframe
  * @return {df} Zebras dataframe
  * @example
@@ -888,7 +888,7 @@ const diff = R.curry(arr => {
  * @param {Function} func Function to caclulate rolling statistics
  * @param {Number} n Range (?)
  * @param {Array} arr Series to calculate rolling statistics for
- * @return {Number}
+ * @return {Array}
  * @example
  *
  * const series = [7, 2, 30, 30, 56, 75]
@@ -920,7 +920,7 @@ const rolling = (func, n, arr) => {
  * @category Analysis
  * @param {Function} func Function to caclulate cumulative statistics
  * @param {Array} arr Series to calculate cumulative statistics for
- * @return {Number}
+ * @return {Array}
  * @example
  *
  * const series = [7, 2, 30, 30, 56, 75]

@@ -4,3 +4,4 @@ node_modules
 index.js
 coverage
 .nyc_output
+index.ts

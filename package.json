@@ -25,6 +25,7 @@
   "license": "ISC",
   "repository": "https://github.com/nickslevine/zebras",
   "dependencies": {
+    "@types/node": "^10.12.18",
     "cli-table3": "^0.5.1",
     "ramda": "^0.26.1"
   },
