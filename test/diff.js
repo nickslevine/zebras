@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("diff", function() {
-  it("calculates differences between values in the order of the input series", function() {
+describe("diff", () => {
+  it("calculates differences between values in the order of the input series", () => {
     assert.deepStrictEqual(Z.diff([7, 2, 30, 30, 56, 75]), [
       NaN,
       -5,

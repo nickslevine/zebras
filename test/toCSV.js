@@ -3,8 +3,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("toCSV", function() {
-  it("synchronously writes a CSV file", function() {
+describe("toCSV", () => {
+  it("synchronously writes a CSV file", () => {
     const df = [
       { label: "C", value: "3" },
       { label: "B", value: "2" },

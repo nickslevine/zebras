@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("merge", function() {
-  it("joins two dataframes on a column", function() {
+describe("merge", () => {
+  it("joins two dataframes on a column", () => {
     const df1 = [
       { label: "A", value: 7 },
       { label: "B", value: 2 },

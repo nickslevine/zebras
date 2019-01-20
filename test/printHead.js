@@ -1,10 +1,9 @@
-const path = require("path")
 const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("printHead", function() {
-  it("prints first n rows of dataframe as an ASCII table", function() {
+describe("printHead", () => {
+  it("prints first n rows of dataframe as an ASCII table", () => {
     const df = [{ label: "C", value: "3" }, { label: "B", value: "2" }]
 
     assert.strictEqual(

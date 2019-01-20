@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("sort", function() {
-  it("sorts dataframe rows according to a sorting function", function() {
+describe("sort", () => {
+  it("sorts dataframe rows according to a sorting function", () => {
     const df = [
       { label: "A", value: 7 },
       { label: "B", value: 2 },

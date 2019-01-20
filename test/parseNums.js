@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("parseNums", function() {
-  it("converts columns to numerical type (floats)", function() {
+describe("parseNums", () => {
+  it("converts columns to numerical type (floats)", () => {
     const df = [
       { label: "A", value: "7" },
       { label: "B", value: "-2" },

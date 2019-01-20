@@ -2,8 +2,8 @@ const assert = require("assert")
 
 const Z = require("../zebras.js")
 
-describe("groupBy", function() {
-  it("creates an object grouped by according to the supplied function", function() {
+describe("groupBy", () => {
+  it("creates an object grouped by according to the supplied function", () => {
     assert.deepStrictEqual(
       Z.groupBy(x => x.Day, [
         { Day: "Monday", value: 10 },
