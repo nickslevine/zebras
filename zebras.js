@@ -24,14 +24,20 @@ const isNumeric = require("./src/internal/isNumeric")
  */
 const readCSV = R.curry(filepath => {
   const data = fs.readFileSync(filepath).toString("utf8")
-  const dataProcessed = R.pipe(
-    R.split("\n"),
-    R.map(R.split(",")),
-    R.reject(x => x.length === 1 && x[0] === "")
-  )(data)
-  const headers = R.flatten(R.take(1)(dataProcessed))
-  const rows = R.tail(dataProcessed)
-  const df = R.map(r => R.zipObj(headers)(r), rows)
+  const dataSplit = data.split("\n")
+  const headers = dataSplit[0].split(",")
+  let df = []
+  for (let r of dataSplit) {
+    const rowSplit = r.trim().split(",")
+    let rowObject = {}
+    for (let i = 0; i < rowSplit.length; i++) {
+      if (headers.length == rowSplit.length) {
+        rowObject[headers[i]] = rowSplit[i]
+      }
+    }
+    df.push(rowObject)
+  }
+  console.log("testing")
   return df
 })
 
