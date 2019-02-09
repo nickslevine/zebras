@@ -27,8 +27,8 @@ const readCSV = R.curry(filepath => {
   const dataSplit = data.split("\n")
   const headers = dataSplit[0].split(",")
   let df = []
-  for (let r of dataSplit) {
-    const rowSplit = r.trim().split(",")
+  for (let r = 0; r < dataSplit.length; r++) {
+    const rowSplit = dataSplit[r].trim().split(",")
     let rowObject = {}
     for (let i = 0; i < rowSplit.length; i++) {
       if (headers.length == rowSplit.length) {
@@ -37,7 +37,6 @@ const readCSV = R.curry(filepath => {
     }
     df.push(rowObject)
   }
-  console.log("testing")
   return df
 })
 
