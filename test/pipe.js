@@ -1,6 +1,6 @@
 const assert = require("assert")
 
-const Z = require("../zebras.js")
+const Z = require("../src/index.js")
 
 describe("pipe", () => {
   it("pipes functions together by performing left-to-right function composition", () => {

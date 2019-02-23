@@ -1,6 +1,6 @@
 const assert = require("assert")
 
-const Z = require("../zebras.js")
+const Z = require("../src/index.js")
 
 describe("countUnique", () => {
   it("returns number of unique values in the array", () => {

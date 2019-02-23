@@ -1,6 +1,6 @@
 const assert = require("assert")
 
-const Z = require("../zebras.js")
+const Z = require("../src/index.js")
 
 describe("deriveCol", () => {
   it("creates a new dataframe based on columns from existing dataframe.", () => {

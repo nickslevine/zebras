@@ -2,13 +2,16 @@
   "name": "zebras",
   "version": "0.0.13",
   "description": "Functional JS data analysis library built with Ramda",
-  "main": "zebras.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "browser": "dist/index.umd.js",
   "unpkg": "zebras.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha --timeout=3000 --recursive",
+    "build": "cross-env NODE_ENV=production rollup -c",
+    "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout=3000 --recursive  --require @babel/register",
     "build:docs": "jsdoc --configure .jsdoc.json",
-    "watch:docs": "onchange 'zebras.js' -- npm run build:docs",
-    "watch:test": "onchange 'test/*.js' -- npm run test",
+    "watch:docs": "onchange 'src/**/*.js' -- npm run build:docs",
+    "watch:test": "onchange 'test/**/.js' 'src/**/*.js' -- npm run test",
     "serve:docs": "live-server ./docs",
     "dev:docs": "npx run-p watch:docs serve:docs"
   },
@@ -27,9 +30,14 @@
   "dependencies": {
     "@types/node": "^10.12.18",
     "cli-table3": "^0.5.1",
+    "csv-parse": "^4.3.1",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/register": "^7.0.0",
+    "cross-env": "^5.2.0",
     "docdash": "^1.0.2",
     "eslint": "^5.12.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -45,7 +53,15 @@
     "npm-run-all": "^4.1.5",
     "nyc": "^13.1.0",
     "onchange": "^5.2.0",
-    "prettier": "^1.15.3"
+    "prettier": "^1.15.3",
+    "rollup": "^1.1.1",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup-plugin-uglify": "^6.0.2",
+    "rollup-plugin-uglify-es": "0.0.1"
   },
   "prettier": {
     "semi": false,
