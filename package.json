@@ -18,7 +18,8 @@
     "watch:test": "onchange 'test/**/.js' 'source/**/*.js' -- npm run test",
     "serve:docs": "live-server ./docs",
     "dev:docs": "npx run-p watch:docs serve:docs",
-    "clean": "rimraf es/* src/* dist/* coverage/*"
+    "clean": "rimraf es/* src/* dist/* coverage/*",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "data",
