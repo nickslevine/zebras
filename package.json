@@ -1,6 +1,6 @@
 {
   "name": "zebras",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Functional JS data analysis library built with Ramda",
   "main": "src/index.js",
   "module": "es/index.js",
