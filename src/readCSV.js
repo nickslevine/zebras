@@ -1,6 +1,15 @@
-import fs from "fs"
+"use strict";
 
-import { curry } from "ramda"
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _fs = _interopRequireDefault(require("fs"));
+
+var _ramda = require("ramda");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Synchronously reads a CSV file.
@@ -14,26 +23,31 @@ import { curry } from "ramda"
  *
  * Z.readCSV(filepath)
  */
-const readCSV = curry(filepath => {
+var readCSV = (0, _ramda.curry)(function (filepath) {
   try {
-    const data = fs.readFileSync(filepath).toString("utf8")
-    const dataSplit = data.split("\n")
-    const headers = dataSplit[0].split(",")
-    const df = []
-    for (let r = 1; r < dataSplit.length; r += 1) {
-      const rowSplit = dataSplit[r].trim().split(",")
-      const rowObject = {}
+    var data = _fs.default.readFileSync(filepath).toString("utf8");
+
+    var dataSplit = data.split("\n");
+    var headers = dataSplit[0].split(",");
+    var df = [];
+
+    for (var r = 1; r < dataSplit.length; r += 1) {
+      var rowSplit = dataSplit[r].trim().split(",");
+      var rowObject = {};
+
       if (headers.length === rowSplit.length) {
-        for (let i = 0; i < rowSplit.length; i += 1) {
-          rowObject[headers[i]] = rowSplit[i]
+        for (var i = 0; i < rowSplit.length; i += 1) {
+          rowObject[headers[i]] = rowSplit[i];
         }
-        df.push(rowObject)
+
+        df.push(rowObject);
       }
     }
-    return df
-  } catch (error) {
-    return error
-  }
-})
 
-export default readCSV
+    return df;
+  } catch (error) {
+    return error;
+  }
+});
+var _default = readCSV;
+exports.default = _default;

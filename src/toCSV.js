@@ -1,6 +1,15 @@
-import fs from "fs"
+"use strict";
 
-import { curry, join, keys, nth, map, values } from "ramda"
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _fs = _interopRequireDefault(require("fs"));
+
+var _ramda = require("ramda");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Synchronously writes a dataframe to a CSV file.
@@ -15,16 +24,18 @@ import { curry, join, keys, nth, map, values } from "ramda"
  *
  * Z.toCSV(filepath, df)
  */
-const toCSV = curry((filepath, df) => {
+var toCSV = (0, _ramda.curry)(function (filepath, df) {
   try {
-    const headers = join(",", keys(nth(0, df)))
-    const rows = map(values, df)
-    const rowStrings = join("\n", map(join(","), rows))
-    fs.writeFileSync(filepath, `${headers}\n${rowStrings}`)
-    return df
-  } catch (error) {
-    return error
-  }
-})
+    var headers = (0, _ramda.join)(",", (0, _ramda.keys)((0, _ramda.nth)(0, df)));
+    var rows = (0, _ramda.map)(_ramda.values, df);
+    var rowStrings = (0, _ramda.join)("\n", (0, _ramda.map)((0, _ramda.join)(","), rows));
 
-export default toCSV
+    _fs.default.writeFileSync(filepath, "".concat(headers, "\n").concat(rowStrings));
+
+    return df;
+  } catch (error) {
+    return error;
+  }
+});
+var _default = toCSV;
+exports.default = _default;

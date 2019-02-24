@@ -1,6 +1,15 @@
-import { curry, range, map, mean, subtract, sum } from "ramda"
+"use strict";
 
-import std from "./std"
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
+
+var _std = _interopRequireDefault(require("./std"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Correlation between two series.
@@ -18,21 +27,19 @@ import std from "./std"
  * Z.corr(series1, series2)
  * // 0.969035563335365
  */
-const corr = curry((arr1, arr2) => {
-  if (arr1.length !== arr2.length) return "Arrays are not the same length"
-
-  const sampleMean1 = mean(arr1)
-  const sampleMean2 = mean(arr2)
-  const std1 = std(arr1)
-  const std2 = std(arr2)
-  const nMinusOne = subtract(arr1.length, 1)
-  const rangeArray = range(0, arr1.length)
-  const products = map(
-    x => (arr1[x] - sampleMean1) * (arr2[x] - sampleMean2),
-    rangeArray
-  )
-  const summedProducts = sum(products)
-  return summedProducts / (nMinusOne * std1 * std2)
-})
-
-export default corr
+var corr = (0, _ramda.curry)(function (arr1, arr2) {
+  if (arr1.length !== arr2.length) return "Arrays are not the same length";
+  var sampleMean1 = (0, _ramda.mean)(arr1);
+  var sampleMean2 = (0, _ramda.mean)(arr2);
+  var std1 = (0, _std.default)(arr1);
+  var std2 = (0, _std.default)(arr2);
+  var nMinusOne = (0, _ramda.subtract)(arr1.length, 1);
+  var rangeArray = (0, _ramda.range)(0, arr1.length);
+  var products = (0, _ramda.map)(function (x) {
+    return (arr1[x] - sampleMean1) * (arr2[x] - sampleMean2);
+  }, rangeArray);
+  var summedProducts = (0, _ramda.sum)(products);
+  return summedProducts / (nMinusOne * std1 * std2);
+});
+var _default = corr;
+exports.default = _default;

@@ -1,6 +1,15 @@
-import { curry, filter, median as _median } from "ramda"
+"use strict";
 
-import isNumeric from "./internal/isNumeric"
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
+
+var _isNumeric = _interopRequireDefault(require("./internal/isNumeric"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Median of series.
@@ -16,9 +25,9 @@ import isNumeric from "./internal/isNumeric"
  * Z.median(series)
  * // 30
  */
-const median = curry(arr => {
-  const filteredArr = filter(isNumeric, arr)
-  return _median(filteredArr)
-})
-
-export default median
+var median = (0, _ramda.curry)(function (arr) {
+  var filteredArr = (0, _ramda.filter)(_isNumeric.default, arr);
+  return (0, _ramda.median)(filteredArr);
+});
+var _default = median;
+exports.default = _default;

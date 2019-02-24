@@ -1,4 +1,11 @@
-import { curry, countBy, identity } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Count number of occurences of each value in a series.
@@ -14,6 +21,8 @@ import { curry, countBy, identity } from "ramda"
  * Z.valueCounts(series)
  * // {"2": 1, "30": 2, "56": 1, "7": 1, "75": 1}
  */
-const valueCounts = curry(arr => countBy(identity, arr))
-
-export default valueCounts
+var valueCounts = (0, _ramda.curry)(function (arr) {
+  return (0, _ramda.countBy)(_ramda.identity, arr);
+});
+var _default = valueCounts;
+exports.default = _default;

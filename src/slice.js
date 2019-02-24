@@ -1,4 +1,11 @@
-import { curry, slice as _slice } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Get dataframe rows by index.
@@ -16,6 +23,8 @@ import { curry, slice as _slice } from "ramda"
  * Z.slice(1, 2, df)
  * // [{"label": "B", "value": 2}]
  */
-const slice = curry((start, end, df) => _slice(start, end, df))
-
-export default slice
+var slice = (0, _ramda.curry)(function (start, end, df) {
+  return (0, _ramda.slice)(start, end, df);
+});
+var _default = slice;
+exports.default = _default;

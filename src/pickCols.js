@@ -1,4 +1,11 @@
-import { curry, pick, map } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Select a subset of columns.
@@ -17,6 +24,8 @@ import { curry, pick, map } from "ramda"
  * Z.pickCols(["value"], df)
  * // [{"value": 7}, {"value": 2}, {"value": 75}]
  */
-const pickCols = curry((cols, df) => map(pick(cols), df))
-
-export default pickCols
+var pickCols = (0, _ramda.curry)(function (cols, df) {
+  return (0, _ramda.map)((0, _ramda.pick)(cols), df);
+});
+var _default = pickCols;
+exports.default = _default;

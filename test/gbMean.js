@@ -1,6 +1,6 @@
 const assert = require("assert")
 
-const Z = require("../src/index.js")
+const Z = require("../source/index.js")
 
 describe("gbMean", () => {
   it("calculates mean for grouped objects", () => {

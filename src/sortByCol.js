@@ -1,4 +1,11 @@
-import { curry, sort } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Sort dataframe rows by a column.
@@ -16,8 +23,10 @@ import { curry, sort } from "ramda"
  * Z.sortByCol("value", "asc", df)
  * // [{"label": "B", "value": 2}, {"label": "A", "value": 7}, {"label": "C", "value": 75}]
  */
-const sortByCol = curry((col, direction, df) =>
-  sort((a, b) => (direction === "asc" ? a[col] - b[col] : b[col] - a[col]), df)
-)
-
-export default sortByCol
+var sortByCol = (0, _ramda.curry)(function (col, direction, df) {
+  return (0, _ramda.sort)(function (a, b) {
+    return direction === "asc" ? a[col] - b[col] : b[col] - a[col];
+  }, df);
+});
+var _default = sortByCol;
+exports.default = _default;

@@ -1,4 +1,11 @@
-import { curry, prop, map } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Extract a series to an array from a dataframe.
@@ -15,6 +22,8 @@ import { curry, prop, map } from "ramda"
  * Z.getCol("value", df)
  * // ["2010-12-13", "2010-12-15", "2010-12-17"]
  */
-const getCol = curry((col, df) => map(prop(col), df))
-
-export default getCol
+var getCol = (0, _ramda.curry)(function (col, df) {
+  return (0, _ramda.map)((0, _ramda.prop)(col), df);
+});
+var _default = getCol;
+exports.default = _default;

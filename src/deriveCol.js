@@ -1,4 +1,11 @@
-import { curry, map } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Create a new array based on columns from existing dataframe.
@@ -18,6 +25,8 @@ import { curry, map } from "ramda"
  * Z.deriveCol("tempFahrenheit", fahrenheit, temps)
  * // [{"date": "1990-05-06", "tempCelsius": 0, "tempFahrenheit": 32}, {"date": "1990-05-07", "tempCelsius": 4, "tempFahrenheit": 39.2}]
  */
-const deriveCol = curry((func, df) => map(func, df))
-
-export default deriveCol
+var deriveCol = (0, _ramda.curry)(function (func, df) {
+  return (0, _ramda.map)(func, df);
+});
+var _default = deriveCol;
+exports.default = _default;

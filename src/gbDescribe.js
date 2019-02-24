@@ -1,10 +1,25 @@
-import merge from "./merge"
-import gbMin from "./gbMin"
-import gbMax from "./gbMax"
-import gbCount from "./gbCount"
-import gbSum from "./gbSum"
-import gbMean from "./gbMean"
-import gbStd from "./gbStd"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _merge = _interopRequireDefault(require("./merge"));
+
+var _gbMin = _interopRequireDefault(require("./gbMin"));
+
+var _gbMax = _interopRequireDefault(require("./gbMax"));
+
+var _gbCount = _interopRequireDefault(require("./gbCount"));
+
+var _gbSum = _interopRequireDefault(require("./gbSum"));
+
+var _gbMean = _interopRequireDefault(require("./gbMean"));
+
+var _gbStd = _interopRequireDefault(require("./gbStd"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Describe grouped objects.
@@ -28,19 +43,20 @@ import gbStd from "./gbStd"
  * //   { count: 1, group: "C", max: 75, mean: 75, min: 75, std: NaN, sum: 75 },
  * // ]
  */
-const gbDescribe = (col, groupByObj) => {
-  const mins = gbMin(col, groupByObj)
-  const maxes = gbMax(col, groupByObj)
-  const counts = gbCount(col, groupByObj)
-  const sums = gbSum(col, groupByObj)
-  const means = gbMean(col, groupByObj)
-  const stds = gbStd(col, groupByObj)
-  const df1 = merge(mins, maxes, "group", "group", "--", "--")
-  const df2 = merge(df1, counts, "group", "group", "--", "--")
-  const df3 = merge(df2, sums, "group", "group", "--", "--")
-  const df4 = merge(df3, means, "group", "group", "--", "--")
-  const df5 = merge(df4, stds, "group", "group", "--", "--")
-  return df5
-}
+var gbDescribe = function gbDescribe(col, groupByObj) {
+  var mins = (0, _gbMin.default)(col, groupByObj);
+  var maxes = (0, _gbMax.default)(col, groupByObj);
+  var counts = (0, _gbCount.default)(col, groupByObj);
+  var sums = (0, _gbSum.default)(col, groupByObj);
+  var means = (0, _gbMean.default)(col, groupByObj);
+  var stds = (0, _gbStd.default)(col, groupByObj);
+  var df1 = (0, _merge.default)(mins, maxes, "group", "group", "--", "--");
+  var df2 = (0, _merge.default)(df1, counts, "group", "group", "--", "--");
+  var df3 = (0, _merge.default)(df2, sums, "group", "group", "--", "--");
+  var df4 = (0, _merge.default)(df3, means, "group", "group", "--", "--");
+  var df5 = (0, _merge.default)(df4, stds, "group", "group", "--", "--");
+  return df5;
+};
 
-export default gbDescribe
+var _default = gbDescribe;
+exports.default = _default;

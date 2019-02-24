@@ -1,3 +1,10 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
 /**
  * Checks if the input value is numeric, either is a number or can be parsed
  * as a number
@@ -15,6 +22,9 @@
  * isNumeric(""); //=> false
  * isNumeric("a"); //=> false
  */
-const isNumeric = x => !Number.isNaN(parseFloat(x))
+var isNumeric = function isNumeric(x) {
+  return !Number.isNaN(parseFloat(x));
+};
 
-export default isNumeric
+var _default = isNumeric;
+exports.default = _default;

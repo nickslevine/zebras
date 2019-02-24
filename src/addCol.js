@@ -1,4 +1,11 @@
-import { curry, assoc } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Add a new column to a dataframe from an array.
@@ -20,18 +27,17 @@ import { curry, assoc } from "ramda"
  * Z.addCol("date", series, df)
  * // [{"date": "2010-12-15", "label": "A", "value": 7}, {"date": "2010-12-16", "label": "B", "value": 2}]
  */
-const addCol = curry((col, arr, df) => {
-  if (df.length !== arr.length) return "Arrays are not of equal length"
-  return df.map((row, i) => assoc(col, arr[i], row))
-})
+var addCol = (0, _ramda.curry)(function (col, arr, df) {
+  if (df.length !== arr.length) return "Arrays are not of equal length";
+  return df.map(function (row, i) {
+    return (0, _ramda.assoc)(col, arr[i], row);
+  });
+});
 
-const sransiansiRegex = () => {
-  const pattern = [
-    "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[a-zA-Z\\d]*)*)?\\u0007)",
-    "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PRZcf-ntqry=><~]))",
-  ].join("|")
+var sransiansiRegex = function sransiansiRegex() {
+  var pattern = ["[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[a-zA-Z\\d]*)*)?\\u0007)", "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PRZcf-ntqry=><~]))"].join("|");
+  return new RegExp(pattern, "g");
+};
 
-  return new RegExp(pattern, "g")
-}
-
-export default addCol
+var _default = addCol;
+exports.default = _default;

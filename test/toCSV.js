@@ -1,7 +1,7 @@
 const path = require("path")
 const assert = require("assert")
 
-const Z = require("../src/index.js")
+const Z = require("../source/index.js")
 
 describe("toCSV", () => {
   const df = [

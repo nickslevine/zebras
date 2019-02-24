@@ -1,4 +1,11 @@
-import { takeLast } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Return a dataframe with the last n rows of input dataframe.
@@ -16,9 +23,10 @@ import { takeLast } from "ramda"
  * // returns a new dataframe with the last 3 lines of `df`
  *
  */
-const tail = (n, df) => {
-  const truncated = takeLast(n, df)
-  return truncated
-}
+var tail = function tail(n, df) {
+  var truncated = (0, _ramda.takeLast)(n, df);
+  return truncated;
+};
 
-export default tail
+var _default = tail;
+exports.default = _default;

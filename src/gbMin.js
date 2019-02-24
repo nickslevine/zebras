@@ -1,4 +1,11 @@
-import { keys, reduce, min } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Calculate min for grouped objects.
@@ -18,13 +25,18 @@ import { keys, reduce, min } from "ramda"
  * Z.gbMin("value", Z.groupBy(d => d.label, df))
  * // [{"group": "A", "min": 3}, {"group": "B", "min": 2}, {"group": "C", "min": 75}]
  */
-const gbMin = (col, groupByObj) => {
-  const groups = keys(groupByObj)
-  const result = groups.map(g => ({
-    group: g,
-    min: reduce((acc, value) => min(acc, value[col]), Infinity, groupByObj[g]),
-  }))
-  return result
-}
+var gbMin = function gbMin(col, groupByObj) {
+  var groups = (0, _ramda.keys)(groupByObj);
+  var result = groups.map(function (g) {
+    return {
+      group: g,
+      min: (0, _ramda.reduce)(function (acc, value) {
+        return (0, _ramda.min)(acc, value[col]);
+      }, Infinity, groupByObj[g])
+    };
+  });
+  return result;
+};
 
-export default gbMin
+var _default = gbMin;
+exports.default = _default;

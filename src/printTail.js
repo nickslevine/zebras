@@ -1,6 +1,15 @@
-import { takeLast } from "ramda"
+"use strict";
 
-import print from "./print"
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
+
+var _print = _interopRequireDefault(require("./print"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Print last n rows of dataframe.
@@ -28,9 +37,10 @@ import print from "./print"
  * └────────────┴───────┴───────┴───────┴───────┴───────────┴─────────┘
  *
  */
-const printTail = (n, df) => {
-  const truncated = takeLast(n, df)
-  return print(truncated)
-}
+var printTail = function printTail(n, df) {
+  var truncated = (0, _ramda.takeLast)(n, df);
+  return (0, _print.default)(truncated);
+};
 
-export default printTail
+var _default = printTail;
+exports.default = _default;

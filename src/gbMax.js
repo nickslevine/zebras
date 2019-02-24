@@ -1,4 +1,11 @@
-import { keys, reduce, max } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Calculate max for grouped objects.
@@ -18,13 +25,18 @@ import { keys, reduce, max } from "ramda"
  * Z.gbMax("value", Z.groupBy(d => d.label, df))
  * // [{"group": "A", "max": 7}, {"group": "B", "max": 5}, {"group": "C", "max": 75}]
  */
-const gbMax = (col, groupByObj) => {
-  const groups = keys(groupByObj)
-  const result = groups.map(g => ({
-    group: g,
-    max: reduce((acc, value) => max(acc, value[col]), -Infinity, groupByObj[g]),
-  }))
-  return result
-}
+var gbMax = function gbMax(col, groupByObj) {
+  var groups = (0, _ramda.keys)(groupByObj);
+  var result = groups.map(function (g) {
+    return {
+      group: g,
+      max: (0, _ramda.reduce)(function (acc, value) {
+        return (0, _ramda.max)(acc, value[col]);
+      }, -Infinity, groupByObj[g])
+    };
+  });
+  return result;
+};
 
-export default gbMax
+var _default = gbMax;
+exports.default = _default;

@@ -1,4 +1,11 @@
-import { curry, filter as _filter } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Filter dataframe rows by using a filtering function.
@@ -18,6 +25,8 @@ import { curry, filter as _filter } from "ramda"
  * Z.filter(r => r.value >= 10, df)
  * // [{"label": "B", "value": 10}, {"label": "C", "value": 30}]
  */
-const filter = curry((func, df) => _filter(func, df))
-
-export default filter
+var filter = (0, _ramda.curry)(function (func, df) {
+  return (0, _ramda.filter)(func, df);
+});
+var _default = filter;
+exports.default = _default;

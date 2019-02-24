@@ -1,6 +1,6 @@
 const assert = require("assert")
 
-const Z = require("../src/index.js")
+const Z = require("../source/index.js")
 
 describe("tail", () => {
   it("returns dataframe with last n rows of input dataframe", () => {

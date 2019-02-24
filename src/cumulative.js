@@ -1,4 +1,11 @@
-import { slice, map, range } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Calculate cumulative statistics.
@@ -19,13 +26,14 @@ import { slice, map, range } from "ramda"
  * Z.cumulative(Z.mean, series)
  * // [7, 4.5, 13, 17.25, 25, 33.333333333333336]
  */
-const cumulative = (func, arr) => {
-  const iRange = range(0, arr.length)
-  const result = map(i => {
-    const truncated = slice(0, i + 1, arr)
-    return func(truncated)
-  }, iRange)
-  return result
-}
+var cumulative = function cumulative(func, arr) {
+  var iRange = (0, _ramda.range)(0, arr.length);
+  var result = (0, _ramda.map)(function (i) {
+    var truncated = (0, _ramda.slice)(0, i + 1, arr);
+    return func(truncated);
+  }, iRange);
+  return result;
+};
 
-export default cumulative
+var _default = cumulative;
+exports.default = _default;

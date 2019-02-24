@@ -1,6 +1,15 @@
-import { curry, filter, apply } from "ramda"
+"use strict";
 
-import isNumeric from "./internal/isNumeric"
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
+
+var _isNumeric = _interopRequireDefault(require("./internal/isNumeric"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Min of series.
@@ -16,9 +25,9 @@ import isNumeric from "./internal/isNumeric"
  * Z.min(series)
  * // 2
  */
-const min = curry(arr => {
-  const filteredArr = filter(isNumeric, arr)
-  return apply(Math.min, filteredArr)
-})
-
-export default min
+var min = (0, _ramda.curry)(function (arr) {
+  var filteredArr = (0, _ramda.filter)(_isNumeric.default, arr);
+  return (0, _ramda.apply)(Math.min, filteredArr);
+});
+var _default = min;
+exports.default = _default;

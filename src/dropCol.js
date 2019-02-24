@@ -1,4 +1,11 @@
-import { curry, dissoc, map } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Delete a column.
@@ -15,6 +22,8 @@ import { curry, dissoc, map } from "ramda"
  * Z.dropCol("label", df)
  * // [{"value": 7}, {"value": 2}, {"value": 75}]
  */
-const dropCol = curry((col, df) => map(dissoc(col), df))
-
-export default dropCol
+var dropCol = (0, _ramda.curry)(function (col, df) {
+  return (0, _ramda.map)((0, _ramda.dissoc)(col), df);
+});
+var _default = dropCol;
+exports.default = _default;

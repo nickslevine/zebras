@@ -1,4 +1,11 @@
-import { curry, uniq } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Get unique values in a series.
@@ -14,6 +21,8 @@ import { curry, uniq } from "ramda"
  * Z.unique(series)
  * // [7, 2, 30, 56, 75]
  */
-const unique = curry(arr => uniq(arr))
-
-export default unique
+var unique = (0, _ramda.curry)(function (arr) {
+  return (0, _ramda.uniq)(arr);
+});
+var _default = unique;
+exports.default = _default;

@@ -1,4 +1,11 @@
-import { curry, length, uniq } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Count number of unique values in a series.
@@ -14,6 +21,8 @@ import { curry, length, uniq } from "ramda"
  * Z.countUnique(series)
  * // 5
  */
-const countUnique = curry(arr => length(uniq(arr)))
-
-export default countUnique
+var countUnique = (0, _ramda.curry)(function (arr) {
+  return (0, _ramda.length)((0, _ramda.uniq)(arr));
+});
+var _default = countUnique;
+exports.default = _default;

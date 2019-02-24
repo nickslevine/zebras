@@ -1,4 +1,11 @@
-import { take } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Return dataframe with first n rows of input dataframe.
@@ -16,9 +23,10 @@ import { take } from "ramda"
  * // returns a new dataframe with the first 3 lines of `df`
  *
  */
-const head = (n, df) => {
-  const truncated = take(n, df)
-  return truncated
-}
+var head = function head(n, df) {
+  var truncated = (0, _ramda.take)(n, df);
+  return truncated;
+};
 
-export default head
+var _default = head;
+exports.default = _default;

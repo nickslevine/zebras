@@ -1,6 +1,15 @@
-import { curry, filter, product } from "ramda"
+"use strict";
 
-import isNumeric from "./internal/isNumeric"
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
+
+var _isNumeric = _interopRequireDefault(require("./internal/isNumeric"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Product of series.
@@ -16,9 +25,9 @@ import isNumeric from "./internal/isNumeric"
  * Z.prod(series)
  * // 1764000
  */
-const prod = curry(arr => {
-  const filteredArr = filter(isNumeric, arr)
-  return product(filteredArr)
-})
-
-export default prod
+var prod = (0, _ramda.curry)(function (arr) {
+  var filteredArr = (0, _ramda.filter)(_isNumeric.default, arr);
+  return (0, _ramda.product)(filteredArr);
+});
+var _default = prod;
+exports.default = _default;

@@ -1,4 +1,11 @@
-import { keys } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Calculate count for grouped objects.
@@ -18,9 +25,15 @@ import { keys } from "ramda"
  * Z.gbCount("value", Z.groupBy(d => d.label, df))
  * // [{"count": 2, "group": "A"}, {"count": 2, "group": "B"}, {"count": 1, "group": "C"}]
  */
-const gbCount = (col, groupByObj) => {
-  const groups = keys(groupByObj)
-  return groups.map(g => ({ group: g, count: groupByObj[g].length }))
-}
+var gbCount = function gbCount(col, groupByObj) {
+  var groups = (0, _ramda.keys)(groupByObj);
+  return groups.map(function (g) {
+    return {
+      group: g,
+      count: groupByObj[g].length
+    };
+  });
+};
 
-export default gbCount
+var _default = gbCount;
+exports.default = _default;

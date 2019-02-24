@@ -1,4 +1,11 @@
-import { curry, groupBy as _groupBy } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Create an object grouped by according to the supplied function.
@@ -15,6 +22,8 @@ import { curry, groupBy as _groupBy } from "ramda"
  * Z.groupBy(x => x.Day, df)
  * // {"Monday": [{"Day": "Monday", "value": 10}, {"Day": "Monday", "value": 7}], "Tuesday": [{"Day": "Tuesday", "value": 5}]}
  */
-const groupBy = curry((func, df) => _groupBy(func, df))
-
-export default groupBy
+var groupBy = (0, _ramda.curry)(function (func, df) {
+  return (0, _ramda.groupBy)(func, df);
+});
+var _default = groupBy;
+exports.default = _default;

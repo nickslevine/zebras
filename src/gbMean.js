@@ -1,4 +1,13 @@
-import gbSum from "./gbSum"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _gbSum = _interopRequireDefault(require("./gbSum"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Calculate mean for grouped objects.
@@ -18,13 +27,17 @@ import gbSum from "./gbSum"
  * Z.gbMean("value", Z.groupBy(d => d.label, df))
  * // [{"group": "A", "mean": 5}, {"group": "B", "mean": 3.5}, {"group": "C", "mean": 75}]
  */
-const gbMean = (col, groupByObj) => {
-  const summed = gbSum(col, groupByObj)
-  const result = summed.map(i => {
-    const count = groupByObj[i.group].length
-    return { group: i.group, mean: i.sum / count }
-  })
-  return result
-}
+var gbMean = function gbMean(col, groupByObj) {
+  var summed = (0, _gbSum.default)(col, groupByObj);
+  var result = summed.map(function (i) {
+    var count = groupByObj[i.group].length;
+    return {
+      group: i.group,
+      mean: i.sum / count
+    };
+  });
+  return result;
+};
 
-export default gbMean
+var _default = gbMean;
+exports.default = _default;

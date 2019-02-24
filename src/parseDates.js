@@ -1,4 +1,11 @@
-import { curry, includes, mapObjIndexed, map } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
 
 /**
  * Convert columns to datestamp.
@@ -15,15 +22,17 @@ import { curry, includes, mapObjIndexed, map } from "ramda"
  * Z.parseDates(["value"], df)
  * // [{"label": "A", "value": 1292198400000}, {"label": "B", "value": 1292371200000}, {"label": "C", "value": 1292544000000}]
  */
-const parseDates = curry((cols, df) => {
-  const convertRow = r => {
-    const converter = (value, key) => {
-      if (includes(key, cols)) return Date.parse(value)
-      return value
-    }
-    return mapObjIndexed(converter, r)
-  }
-  return map(convertRow, df)
-})
+var parseDates = (0, _ramda.curry)(function (cols, df) {
+  var convertRow = function convertRow(r) {
+    var converter = function converter(value, key) {
+      if ((0, _ramda.includes)(key, cols)) return Date.parse(value);
+      return value;
+    };
 
-export default parseDates
+    return (0, _ramda.mapObjIndexed)(converter, r);
+  };
+
+  return (0, _ramda.map)(convertRow, df);
+});
+var _default = parseDates;
+exports.default = _default;

@@ -1,7 +1,17 @@
-import { curry, filter, mean, map, sum } from "ramda"
+"use strict";
 
-import isNumeric from "./internal/isNumeric"
-import std from "./std"
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
+
+var _isNumeric = _interopRequireDefault(require("./internal/isNumeric"));
+
+var _std = _interopRequireDefault(require("./std"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Kurtosis of a series.
@@ -17,16 +27,20 @@ import std from "./std"
  * Z.kurt(series)
  * // -2.040541067936147
  */
-const kurt = curry(arr => {
-  const filteredArr = filter(isNumeric, arr)
-  const sampleStd = std(filteredArr)
-  const stdFourth = sampleStd ** 4
-  const sampleMean = mean(filteredArr)
-  const diffs = map(x => x - sampleMean, filteredArr)
-  const diffsFourth = map(x => x ** 4, diffs)
-  const summed = sum(diffsFourth)
-  const n = filteredArr.length
-  return summed / n / stdFourth - 3
-})
-
-export default kurt
+var kurt = (0, _ramda.curry)(function (arr) {
+  var filteredArr = (0, _ramda.filter)(_isNumeric.default, arr);
+  var sampleStd = (0, _std.default)(filteredArr);
+  var stdFourth = Math.pow(sampleStd, 4);
+  var sampleMean = (0, _ramda.mean)(filteredArr);
+  var diffs = (0, _ramda.map)(function (x) {
+    return x - sampleMean;
+  }, filteredArr);
+  var diffsFourth = (0, _ramda.map)(function (x) {
+    return Math.pow(x, 4);
+  }, diffs);
+  var summed = (0, _ramda.sum)(diffsFourth);
+  var n = filteredArr.length;
+  return summed / n / stdFourth - 3;
+});
+var _default = kurt;
+exports.default = _default;

@@ -2,16 +2,18 @@
   "name": "zebras",
   "version": "0.0.13",
   "description": "Functional JS data analysis library built with Ramda",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.es.js",
-  "browser": "dist/index.umd.js",
+  "main": "src/index.js",
+  "module": "es/index.js",
   "unpkg": "zebras.js",
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c",
+    "build:es": "cross-env NODE_ENV=es babel source --out-dir es",
+    "build:cjs": "cross-env NODE_ENV=cjs babel source --out-dir src",
+    "build:umd": "cross-env NODE_ENV=production rollup -c",
+    "build": "npm run build:es && npm run build:cjs && npm run build:umd",
     "test": "cross-env NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout=3000 --recursive  --require @babel/register",
     "build:docs": "jsdoc --configure .jsdoc.json",
-    "watch:docs": "onchange 'src/**/*.js' -- npm run build:docs",
-    "watch:test": "onchange 'test/**/.js' 'src/**/*.js' -- npm run test",
+    "watch:docs": "onchange 'source/**/*.js' -- npm run build:docs",
+    "watch:test": "onchange 'test/**/.js' 'source/**/*.js' -- npm run test",
     "serve:docs": "live-server ./docs",
     "dev:docs": "npx run-p watch:docs serve:docs"
   },
@@ -24,6 +26,11 @@
     "csv",
     "r"
   ],
+  "files": [
+    "es",
+    "src",
+    "dist"
+  ],
   "author": "Nick Levine",
   "license": "ISC",
   "repository": "https://github.com/nickslevine/zebras",
@@ -34,6 +41,7 @@
     "ramda": "^0.26.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
     "@babel/register": "^7.0.0",
@@ -56,12 +64,11 @@
     "prettier": "^1.15.3",
     "rollup": "^1.1.1",
     "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-babel-minify": "^7.0.0",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-globals": "^1.4.0",
-    "rollup-plugin-node-resolve": "^4.0.0",
-    "rollup-plugin-uglify": "^6.0.2",
-    "rollup-plugin-uglify-es": "0.0.1"
+    "rollup-plugin-node-resolve": "^4.0.0"
   },
   "prettier": {
     "semi": false,

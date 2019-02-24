@@ -1,6 +1,15 @@
-import { curry, filter, mean as _mean } from "ramda"
+"use strict";
 
-import isNumeric from "./internal/isNumeric"
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
+
+var _isNumeric = _interopRequireDefault(require("./internal/isNumeric"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Mean of series.
@@ -16,9 +25,9 @@ import isNumeric from "./internal/isNumeric"
  * Z.mean(series)
  * // 34
  */
-const mean = curry(arr => {
-  const filteredArr = filter(isNumeric, arr)
-  return _mean(filteredArr)
-})
-
-export default mean
+var mean = (0, _ramda.curry)(function (arr) {
+  var filteredArr = (0, _ramda.filter)(_isNumeric.default, arr);
+  return (0, _ramda.mean)(filteredArr);
+});
+var _default = mean;
+exports.default = _default;

@@ -1,5 +1,23 @@
-import Table from "cli-table3"
-import { curry, keys, map, values } from "ramda"
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _cliTable = _interopRequireDefault(require("cli-table3"));
+
+var _ramda = require("ramda");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 /**
  * Prints dataframe.
@@ -33,14 +51,14 @@ import { curry, keys, map, values } from "ramda"
  * └────────────┴───────┴───────┴───────┴───────┴───────────┴─────────┘
  *
  */
-const print = curry(df => {
-  const headers = keys(df[0])
-  const rows = map(values, df)
-  const printTable = new Table({
-    head: headers,
-  })
-  printTable.push(...rows)
-  return `\n${printTable.toString()}`
-})
-
-export default print
+var print = (0, _ramda.curry)(function (df) {
+  var headers = (0, _ramda.keys)(df[0]);
+  var rows = (0, _ramda.map)(_ramda.values, df);
+  var printTable = new _cliTable.default({
+    head: headers
+  });
+  printTable.push.apply(printTable, _toConsumableArray(rows));
+  return "\n".concat(printTable.toString());
+});
+var _default = print;
+exports.default = _default;

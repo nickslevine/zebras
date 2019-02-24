@@ -1,6 +1,15 @@
-import { curry, filter, apply } from "ramda"
+"use strict";
 
-import isNumeric from "./internal/isNumeric"
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
+
+var _isNumeric = _interopRequireDefault(require("./internal/isNumeric"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Max of series.
@@ -16,9 +25,9 @@ import isNumeric from "./internal/isNumeric"
  * Z.max(series)
  * // 75
  */
-const max = curry(arr => {
-  const filteredArr = filter(isNumeric, arr)
-  return apply(Math.max, filteredArr)
-})
-
-export default max
+var max = (0, _ramda.curry)(function (arr) {
+  var filteredArr = (0, _ramda.filter)(_isNumeric.default, arr);
+  return (0, _ramda.apply)(Math.max, filteredArr);
+});
+var _default = max;
+exports.default = _default;

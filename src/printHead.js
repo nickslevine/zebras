@@ -1,6 +1,15 @@
-import { take } from "ramda"
+"use strict";
 
-import print from "./print"
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ramda = require("ramda");
+
+var _print = _interopRequireDefault(require("./print"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Print first n rows of dataframe.
@@ -28,9 +37,10 @@ import print from "./print"
  * └────────────┴───────┴───────┴───────┴───────┴───────────┴─────────┘
  *
  */
-const printHead = (n, df) => {
-  const truncated = take(n, df)
-  return print(truncated)
-}
+var printHead = function printHead(n, df) {
+  var truncated = (0, _ramda.take)(n, df);
+  return (0, _print.default)(truncated);
+};
 
-export default printHead
+var _default = printHead;
+exports.default = _default;
