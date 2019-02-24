@@ -10,7 +10,7 @@ export default [
     input: "source/index.js",
     output: {
       file: "dist/index.umd.js",
-      format: "iife",
+      format: "umd",
       name: "Z",
       exports: "named",
     },
