@@ -4,8 +4,10 @@
   "description": "Functional JS data analysis library built with Ramda",
   "main": "src/index.js",
   "module": "es/index.js",
-  "unpkg": "zebras.js",
+  "unpkg": "dist/index.umd.js",
+  "jsdelivr": "dist/index.umd.js",
   "scripts": {
+    "prebuild": "npm run clean",
     "build:es": "cross-env NODE_ENV=es babel source --out-dir es",
     "build:cjs": "cross-env NODE_ENV=cjs babel source --out-dir src",
     "build:umd": "cross-env NODE_ENV=production rollup -c",
@@ -15,7 +17,8 @@
     "watch:docs": "onchange 'source/**/*.js' -- npm run build:docs",
     "watch:test": "onchange 'test/**/.js' 'source/**/*.js' -- npm run test",
     "serve:docs": "live-server ./docs",
-    "dev:docs": "npx run-p watch:docs serve:docs"
+    "dev:docs": "npx run-p watch:docs serve:docs",
+    "clean": "rimraf es/* src/* dist/* coverage/*"
   },
   "keywords": [
     "data",
@@ -64,6 +67,7 @@
     "nyc": "^13.1.0",
     "onchange": "^5.2.0",
     "prettier": "^1.15.3",
+    "rimraf": "^2.6.3",
     "rollup": "^1.1.1",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-babel-minify": "^7.0.0",
