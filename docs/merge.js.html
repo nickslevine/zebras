@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>readCSV.js - Documentation</title>
+    <title>merge.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -33,7 +33,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">readCSV.js</h1>
+    <h1 class="page-title">merge.js</h1>
     
 
     
@@ -43,45 +43,102 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import fs from "fs"
+            <pre class="prettyprint source linenums"><code>import {
+  keys,
+  filter,
+  includes,
+  intersection,
+  groupBy,
+  prop,
+  difference,
+} from "ramda"
 
-import { curry } from "ramda"
+const renameCol = (oldColName, suffix, { [oldColName]: old, ...others }) => ({
+  [oldColName + suffix]: old,
+  ...others,
+})
+
+const renameDuplicateColumns = (cols, arr, suffix) => {
+  let renamed = arr
+  cols.forEach(c => {
+    renamed = arr.map(r => renameCol(c, suffix, r))
+  })
+  return renamed
+}
+
+const fillRow = (row, cols) => {
+  const rowCols = keys(row)
+  const filledRow = row
+  difference(cols, rowCols).forEach(c => {
+    filledRow[c] = undefined
+  })
+  return row
+}
 
 /**
- * Synchronously reads a CSV file.
+ * Join two dataframes on a column.
+ *
+ * Performs a left join on two dataframes.
+ * The 'On' arguments set which column in each df to join on.
+ * The 'Suffix' arguments determine what the suffix should be when the two
+ * dataframes have overlapping column names besides the one being joined on.
  *
  * @func
  * @memberOf Z
- * @category IO
- * @param {String} filepath File path for the CSV file to read
- * @return {df} Zebras dataframe
+ * @category Manipulation
+ * @param {df} dfLeft First dataframe
+ * @param {df} dfRight Second dataframe
+ * @param {String} leftOn Left column to join on
+ * @param {String} rightOn Right column to join on
+ * @param {String} leftSuffix Left suffix for overlapping column names
+ * @param {String} rightSuffix Right suffix for overlapping column names
+ * @return {df} Joined dataframe
  * @example
  *
- * Z.readCSV(filepath)
+ * const df1 = [{"label": "A", "value": 7}, {"label": "B", "value": 2}, {"label": "C", "value": 75}]
+ * const df2 = [{"label": "A", "value": "2010-12-13"}, {"label": "B", "value": "2010-12-15"}, {"label": "C", "value": "2010-12-17"}]
+ * Z.merge(df1, df2, "label", "label", "_df1", "_df2")
+ * // [
+ * //   { label: "A", value_df1: 7, value_df2: "2010-12-13" },
+ * //   { label: "B", value_df1: 2, value_df2: "2010-12-15" },
+ * //   { label: "C", value_df1: 75, value_df2: "2010-12-17" },
+ * // ]
  */
-const readCSV = curry(filepath => {
-  try {
-    const data = fs.readFileSync(filepath).toString("utf8")
-    const dataSplit = data.split("\n")
-    const headers = dataSplit[0].split(",")
-    const df = []
-    for (let r = 1; r &lt; dataSplit.length; r += 1) {
-      const rowSplit = dataSplit[r].trim().split(",")
-      const rowObject = {}
-      if (headers.length === rowSplit.length) {
-        for (let i = 0; i &lt; rowSplit.length; i += 1) {
-          rowObject[headers[i]] = rowSplit[i]
-        }
-        df.push(rowObject)
-      }
-    }
-    return df
-  } catch (error) {
-    return error
-  }
-})
+const merge = (dfLeft, dfRight, leftOn, rightOn, leftSuffix, rightSuffix) => {
+  const colsLeft = keys(dfLeft[0])
+  const colsRight = keys(dfRight[0])
+  const intersected = filter(
+    x => !includes(x, [leftOn, rightOn]),
+    intersection(colsLeft, colsRight)
+  )
 
-export default readCSV
+  const dfLeftUpdated = renameDuplicateColumns(intersected, dfLeft, leftSuffix)
+  const dfRightUpdated = renameDuplicateColumns(
+    intersected,
+    dfRight,
+    rightSuffix
+  )
+  const colsLeftUpdated = keys(dfLeftUpdated[0])
+  const colsRightUpdated = keys(dfRightUpdated[0])
+
+  const colsAll = Array.from(new Set([...colsLeftUpdated, ...colsRightUpdated]))
+  const dfLeftGrouped = groupBy(prop(leftOn), dfLeftUpdated)
+  const dfRightGrouped = groupBy(prop(rightOn), dfRightUpdated)
+  const index = keys(dfLeftGrouped)
+
+  return index.map(i => {
+    try {
+      return fillRow(
+        { ...dfLeftGrouped[i]["0"], ...dfRightGrouped[i]["0"] },
+        colsAll
+      )
+    } catch (err) {
+      return fillRow({ ...dfLeftGrouped[i]["0"] }, colsAll)
+    }
+  })
+}
+
+export default merge
 </code></pre>
         </article>
     </section>

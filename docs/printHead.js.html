@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>readCSV.js - Documentation</title>
+    <title>printHead.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -33,7 +33,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">readCSV.js</h1>
+    <h1 class="page-title">printHead.js</h1>
     
 
     
@@ -43,45 +43,42 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import fs from "fs"
+            <pre class="prettyprint source linenums"><code>import { take } from "ramda"
 
-import { curry } from "ramda"
+import print from "./print"
 
 /**
- * Synchronously reads a CSV file.
+ * Print first n rows of dataframe.
  *
  * @func
  * @memberOf Z
  * @category IO
- * @param {String} filepath File path for the CSV file to read
- * @return {df} Zebras dataframe
+ * @param {Number} n Number of rows to print
+ * @param {df} dataframe
+ * @return {String} First `n` rows of dataframe as an ASCII table
+ * @see Z.print, Z.printTail
  * @example
  *
- * Z.readCSV(filepath)
+ * Z.printHead(3, df)
+ *
+ * // will output an ASCII table like this:
+ * ┌────────────┬───────┬───────┬───────┬───────┬───────────┬─────────┐
+ * │ Date       │ Open  │ High  │ Low   │ Close │ Adj Close │ Volume  │
+ * ├────────────┼───────┼───────┼───────┼───────┼───────────┼─────────┤
+ * │ 1950-01-05 │ 16.93 │ 16.93 │ 16.93 │ 16.93 │ 16.93     │ 2550000 │
+ * ├────────────┼───────┼───────┼───────┼───────┼───────────┼─────────┤
+ * │ 1950-01-06 │ 16.98 │ 16.98 │ 16.98 │ 16.98 │ 16.98     │ 2010000 │
+ * ├────────────┼───────┼───────┼───────┼───────┼───────────┼─────────┤
+ * │ 1950-01-09 │ 17.08 │ 17.08 │ 17.08 │ 17.08 │ 17.08     │ 2520000 │
+ * └────────────┴───────┴───────┴───────┴───────┴───────────┴─────────┘
+ *
  */
-const readCSV = curry(filepath => {
-  try {
-    const data = fs.readFileSync(filepath).toString("utf8")
-    const dataSplit = data.split("\n")
-    const headers = dataSplit[0].split(",")
-    const df = []
-    for (let r = 1; r &lt; dataSplit.length; r += 1) {
-      const rowSplit = dataSplit[r].trim().split(",")
-      const rowObject = {}
-      if (headers.length === rowSplit.length) {
-        for (let i = 0; i &lt; rowSplit.length; i += 1) {
-          rowObject[headers[i]] = rowSplit[i]
-        }
-        df.push(rowObject)
-      }
-    }
-    return df
-  } catch (error) {
-    return error
-  }
-})
+const printHead = (n, df) => {
+  const truncated = take(n, df)
+  return print(truncated)
+}
 
-export default readCSV
+export default printHead
 </code></pre>
         </article>
     </section>

@@ -4,7 +4,8 @@
     "dictionaries": ["jsdoc"]
   },
   "source": {
-    "include": ["zebras.js", "README.md"]
+    "include": ["./source", "README.md"],
+    "exclude": ["./source/internal"]
   },
   "plugins": ["plugins/markdown"],
   "templates": {

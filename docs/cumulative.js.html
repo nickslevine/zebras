@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>readCSV.js - Documentation</title>
+    <title>cumulative.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -33,7 +33,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">readCSV.js</h1>
+    <h1 class="page-title">cumulative.js</h1>
     
 
     
@@ -43,45 +43,37 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import fs from "fs"
-
-import { curry } from "ramda"
+            <pre class="prettyprint source linenums"><code>import { slice, map, range } from "ramda"
 
 /**
- * Synchronously reads a CSV file.
+ * Calculate cumulative statistics.
+ *
+ * Calculate statistics over a cumulative window from the start of the array.
+ * Works wtih z.min, z.max, z.mean, z.std, z.sum, z.prod, etc., or any other
+ * function that takes an array as a single argument.
  *
  * @func
  * @memberOf Z
- * @category IO
- * @param {String} filepath File path for the CSV file to read
- * @return {df} Zebras dataframe
+ * @category Analysis
+ * @param {Function} func Function to caclulate cumulative statistics
+ * @param {Array} arr Series to calculate cumulative statistics for
+ * @return {Array}
  * @example
  *
- * Z.readCSV(filepath)
+ * const series = [7, 2, 30, 30, 56, 75]
+ * Z.cumulative(Z.mean, series)
+ * // [7, 4.5, 13, 17.25, 25, 33.333333333333336]
  */
-const readCSV = curry(filepath => {
-  try {
-    const data = fs.readFileSync(filepath).toString("utf8")
-    const dataSplit = data.split("\n")
-    const headers = dataSplit[0].split(",")
-    const df = []
-    for (let r = 1; r &lt; dataSplit.length; r += 1) {
-      const rowSplit = dataSplit[r].trim().split(",")
-      const rowObject = {}
-      if (headers.length === rowSplit.length) {
-        for (let i = 0; i &lt; rowSplit.length; i += 1) {
-          rowObject[headers[i]] = rowSplit[i]
-        }
-        df.push(rowObject)
-      }
-    }
-    return df
-  } catch (error) {
-    return error
-  }
-})
+const cumulative = (func, arr) => {
+  const iRange = range(0, arr.length)
+  const result = map(i => {
+    const truncated = slice(0, i + 1, arr)
+    return func(truncated)
+  }, iRange)
+  return result
+}
 
-export default readCSV
+export default cumulative
 </code></pre>
         </article>
     </section>

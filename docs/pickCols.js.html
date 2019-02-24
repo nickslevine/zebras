@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>readCSV.js - Documentation</title>
+    <title>pickCols.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -33,7 +33,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">readCSV.js</h1>
+    <h1 class="page-title">pickCols.js</h1>
     
 
     
@@ -43,45 +43,28 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import fs from "fs"
-
-import { curry } from "ramda"
+            <pre class="prettyprint source linenums"><code>import { curry, pick, map } from "ramda"
 
 /**
- * Synchronously reads a CSV file.
+ * Select a subset of columns.
+ *
+ * Accepts an array with the names of the columns to retain.
  *
  * @func
  * @memberOf Z
- * @category IO
- * @param {String} filepath File path for the CSV file to read
+ * @category Manipulation
+ * @param {Array} cols Array of column names to pick
+ * @param {df} dataframe Zebras dataframe
  * @return {df} Zebras dataframe
  * @example
  *
- * Z.readCSV(filepath)
+ * const df = [{"label": "A", "value": 7}, {"label": "B", "value": 2}, {"label": "C", "value": 75}]
+ * Z.pickCols(["value"], df)
+ * // [{"value": 7}, {"value": 2}, {"value": 75}]
  */
-const readCSV = curry(filepath => {
-  try {
-    const data = fs.readFileSync(filepath).toString("utf8")
-    const dataSplit = data.split("\n")
-    const headers = dataSplit[0].split(",")
-    const df = []
-    for (let r = 1; r &lt; dataSplit.length; r += 1) {
-      const rowSplit = dataSplit[r].trim().split(",")
-      const rowObject = {}
-      if (headers.length === rowSplit.length) {
-        for (let i = 0; i &lt; rowSplit.length; i += 1) {
-          rowObject[headers[i]] = rowSplit[i]
-        }
-        df.push(rowObject)
-      }
-    }
-    return df
-  } catch (error) {
-    return error
-  }
-})
+const pickCols = curry((cols, df) => map(pick(cols), df))
 
-export default readCSV
+export default pickCols
 </code></pre>
         </article>
     </section>

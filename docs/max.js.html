@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>readCSV.js - Documentation</title>
+    <title>max.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -33,7 +33,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">readCSV.js</h1>
+    <h1 class="page-title">max.js</h1>
     
 
     
@@ -43,45 +43,30 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import fs from "fs"
+            <pre class="prettyprint source linenums"><code>import { curry, filter, apply } from "ramda"
 
-import { curry } from "ramda"
+import isNumeric from "./internal/isNumeric"
 
 /**
- * Synchronously reads a CSV file.
+ * Max of series.
  *
  * @func
  * @memberOf Z
- * @category IO
- * @param {String} filepath File path for the CSV file to read
- * @return {df} Zebras dataframe
+ * @category Analysis
+ * @param {Array} arr Array of values
+ * @return {Number}
  * @example
  *
- * Z.readCSV(filepath)
+ * const series = [7, 2, 30, 56, 75]
+ * Z.max(series)
+ * // 75
  */
-const readCSV = curry(filepath => {
-  try {
-    const data = fs.readFileSync(filepath).toString("utf8")
-    const dataSplit = data.split("\n")
-    const headers = dataSplit[0].split(",")
-    const df = []
-    for (let r = 1; r &lt; dataSplit.length; r += 1) {
-      const rowSplit = dataSplit[r].trim().split(",")
-      const rowObject = {}
-      if (headers.length === rowSplit.length) {
-        for (let i = 0; i &lt; rowSplit.length; i += 1) {
-          rowObject[headers[i]] = rowSplit[i]
-        }
-        df.push(rowObject)
-      }
-    }
-    return df
-  } catch (error) {
-    return error
-  }
+const max = curry(arr => {
+  const filteredArr = filter(isNumeric, arr)
+  return apply(Math.max, filteredArr)
 })
 
-export default readCSV
+export default max
 </code></pre>
         </article>
     </section>
