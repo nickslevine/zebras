@@ -35,7 +35,7 @@ const z = require("zebras")
 ### Online in an Observable notebook
 
 ```javascript
-z = require("https://bundle.run/zebras")
+z = require("zebras")
 ```
 
 ## Example Usage
