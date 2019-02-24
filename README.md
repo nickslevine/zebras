@@ -1,6 +1,6 @@
 # zebras - data analysis library for javascript
 
-<img src="https://travis-ci.org/nickslevine/zebras.svg?branch=master">
+<img src="https://travis-ci.org/nickslevine/zebras.svg?branch=master"> [![Coverage Status](https://coveralls.io/repos/github/nickslevine/zebras/badge.svg?branch=master)](https://coveralls.io/github/nickslevine/zebras?branch=master)
 
 <div align="center"><img src ="code_example.png" width = "60%" /></div>
 
