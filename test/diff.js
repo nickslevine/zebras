@@ -1,6 +1,6 @@
 const assert = require("assert")
 
-const Z = require("../zebras.js")
+const Z = require("../source/index.js")
 
 describe("diff", () => {
   it("calculates differences between values in the order of the input series", () => {

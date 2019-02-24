@@ -1,0 +1,46 @@
+{
+  "env": {
+    "production": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": { "ie": "10" },
+            "modules": false
+          }
+        ]
+      ]
+    },
+    "es": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": { "ie": "10" },
+            "modules": false
+          }
+        ]
+      ]
+    },
+    "cjs": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "modules": "commonjs"
+          }
+        ]
+      ]
+    },
+    "test": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "modules": "commonjs"
+          }
+        ]
+      ]
+    }
+  }
+}

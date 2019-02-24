@@ -17,4 +17,4 @@
  */
 const isNumeric = x => !Number.isNaN(parseFloat(x))
 
-module.exports = isNumeric
+export default isNumeric

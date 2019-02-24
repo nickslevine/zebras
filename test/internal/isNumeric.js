@@ -1,6 +1,6 @@
 const assert = require("assert")
 
-const isNumeric = require("../../src/internal/isNumeric")
+const isNumeric = require("../../source/internal/isNumeric").default
 
 describe("isNumeric", () => {
   it("checks if a value is numeric (number or can be parsed as number)", () => {

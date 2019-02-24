@@ -1,7 +1,7 @@
 const path = require("path")
 const assert = require("assert")
 
-const Z = require("../zebras.js")
+const Z = require("../source/index.js")
 
 describe("readCSV", () => {
   it("synchronously reads a CSV file", () => {
@@ -13,5 +13,11 @@ describe("readCSV", () => {
         { label: "C", value: "3" },
       ]
     )
+  })
+  it("gracefully handles failures", () => {
+    const r = Z.readCSV(path.join(__dirname, "data/missing_file.csv"))
+    assert.strictEqual(typeof r, "object")
+    assert.strictEqual(r.code, "ENOENT")
+    assert.strictEqual(r.errno, -2)
   })
 })

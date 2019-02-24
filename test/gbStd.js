@@ -1,6 +1,6 @@
 const assert = require("assert")
 
-const Z = require("../zebras.js")
+const Z = require("../source/index.js")
 
 describe("gbStd", () => {
   it("calculates std for grouped objects", () => {
