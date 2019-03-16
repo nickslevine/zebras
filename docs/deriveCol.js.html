@@ -60,7 +60,7 @@
  *
  * const temps = [{"date": "1990-05-06", "tempCelsius": 0}, {"date": "1990-05-07", "tempCelsius": 4}]
  * const fahrenheit = Z.deriveCol((r) => r.tempCelsius * 1.8 + 32, temps)
- * Z.deriveCol("tempFahrenheit", fahrenheit, temps)
+ * Z.addCol("tempFahrenheit", fahrenheit, temps)
  * // [{"date": "1990-05-06", "tempCelsius": 0, "tempFahrenheit": 32}, {"date": "1990-05-07", "tempCelsius": 4, "tempFahrenheit": 39.2}]
  */
 const deriveCol = curry((func, df) => map(func, df))
