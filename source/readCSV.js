@@ -17,7 +17,11 @@ import { curry } from "ramda"
 const readCSV = curry(filepath => {
   try {
     const data = fs.readFileSync(filepath).toString("utf8")
-    const dataSplit = data.split("\n")
+    const commasStripped = data.replace(
+      /,(?!(?:[^"]*"[^"]*")*[^"]*$)/g,
+      "<COMMA>"
+    );
+    const dataSplit = commasStripped.split("\n")
     const headers = dataSplit[0].split(",")
     const df = []
     for (let r = 1; r < dataSplit.length; r += 1) {
