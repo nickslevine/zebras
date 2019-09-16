@@ -1,3 +1,4 @@
+import { curry } from "ramda"
 import gbSum from "./gbSum"
 
 /**
@@ -18,13 +19,13 @@ import gbSum from "./gbSum"
  * Z.gbMean("value", Z.groupBy(d => d.label, df))
  * // [{"group": "A", "mean": 5}, {"group": "B", "mean": 3.5}, {"group": "C", "mean": 75}]
  */
-const gbMean = (col, groupByObj) => {
+const gbMean = curry((col, groupByObj) => {
   const summed = gbSum(col, groupByObj)
   const result = summed.map(i => {
     const count = groupByObj[i.group].length
     return { group: i.group, mean: i.sum / count }
   })
   return result
-}
+})
 
 export default gbMean
