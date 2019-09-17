@@ -5,6 +5,7 @@ import gbCount from "./gbCount"
 import gbSum from "./gbSum"
 import gbMean from "./gbMean"
 import gbStd from "./gbStd"
+import { curry } from "ramda"
 
 /**
  * Describe grouped objects.
@@ -28,7 +29,7 @@ import gbStd from "./gbStd"
  * //   { count: 1, group: "C", max: 75, mean: 75, min: 75, std: NaN, sum: 75 },
  * // ]
  */
-const gbDescribe = (col, groupByObj) => {
+const gbDescribe = curry((col, groupByObj) => {
   const mins = gbMin(col, groupByObj)
   const maxes = gbMax(col, groupByObj)
   const counts = gbCount(col, groupByObj)
@@ -41,6 +42,6 @@ const gbDescribe = (col, groupByObj) => {
   const df4 = merge(df3, means, "group", "group", "--", "--")
   const df5 = merge(df4, stds, "group", "group", "--", "--")
   return df5
-}
+})
 
 export default gbDescribe
