@@ -1,4 +1,4 @@
-import { keys, filter, sum, mean, map } from "ramda"
+import { keys, filter, sum, mean, map, curry } from "ramda"
 
 import isNumeric from "./internal/isNumeric"
 import getCol from "./getCol"
@@ -21,7 +21,7 @@ import getCol from "./getCol"
  * Z.gbStd("value", Z.groupBy(d => d.label, df))
  * // [{"group": "A", "std": 2.8284271247461903}, {"group": "B", "std": 2.1213203435596424}, {"group": "C", "std": NaN}]
  */
-const gbStd = (col, groupByObj) => {
+const gbStd = curry((col, groupByObj) => {
   const groups = keys(groupByObj)
   const result = groups.map(g => {
     const arr = filter(isNumeric, getCol(col, groupByObj[g]))
@@ -31,6 +31,6 @@ const gbStd = (col, groupByObj) => {
     return { group: g, std: Math.sqrt(sumSquaredDiffs / (arr.length - 1)) }
   })
   return result
-}
+})
 
 export default gbStd

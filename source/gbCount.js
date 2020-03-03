@@ -1,4 +1,4 @@
-import { keys } from "ramda"
+import { keys, curry } from "ramda"
 
 /**
  * Calculate count for grouped objects.
@@ -18,9 +18,9 @@ import { keys } from "ramda"
  * Z.gbCount("value", Z.groupBy(d => d.label, df))
  * // [{"count": 2, "group": "A"}, {"count": 2, "group": "B"}, {"count": 1, "group": "C"}]
  */
-const gbCount = (col, groupByObj) => {
+const gbCount = curry((col, groupByObj) => {
   const groups = keys(groupByObj)
   return groups.map(g => ({ group: g, count: groupByObj[g].length }))
-}
+})
 
 export default gbCount

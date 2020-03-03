@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>readCSV.js - Documentation</title>
+    <title>addCol.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -33,7 +33,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">readCSV.js</h1>
+    <h1 class="page-title">addCol.js</h1>
     
 
     
@@ -43,45 +43,43 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import fs from "fs"
-
-import { curry } from "ramda"
+            <pre class="prettyprint source linenums"><code>import { curry, assoc } from "ramda"
 
 /**
- * Synchronously reads a CSV file.
+ * Add a new column to a dataframe from an array.
+ *
+ * Use this function to add an array as a new column in a dataframe.
+ * Make sure the array has the same length as the number of rows in the dataframe.
  *
  * @func
  * @memberOf Z
- * @category IO
- * @param {String} filepath File path for the CSV file to read
- * @return {df} Zebras dataframe
+ * @category Manipulation
+ * @param {String} col Name of the column do add
+ * @param {Array} arr Array of values for the new column
+ * @param {df} dataframe Zebras dataframe to add the new column to
+ * @return {df}
  * @example
  *
- * Z.readCSV(filepath)
+ * const df = [{"label": "A", "value": 7}, {"label": "B", "value": 2}]
+ * const series = ["2010-12-15", "2010-12-16"]
+ * Z.addCol("date", series, df)
+ * // [{"date": "2010-12-15", "label": "A", "value": 7}, {"date": "2010-12-16", "label": "B", "value": 2}]
  */
-const readCSV = curry(filepath => {
-  try {
-    const data = fs.readFileSync(filepath).toString("utf8")
-    const dataSplit = data.split("\n")
-    const headers = dataSplit[0].split(",")
-    const df = []
-    for (let r = 1; r &lt; dataSplit.length; r += 1) {
-      const rowSplit = dataSplit[r].trim().split(",")
-      const rowObject = {}
-      if (headers.length === rowSplit.length) {
-        for (let i = 0; i &lt; rowSplit.length; i += 1) {
-          rowObject[headers[i]] = rowSplit[i]
-        }
-        df.push(rowObject)
-      }
-    }
-    return df
-  } catch (error) {
-    return error
-  }
+const addCol = curry((col, arr, df) => {
+  if (df.length !== arr.length) return "Arrays are not of equal length"
+  return df.map((row, i) => assoc(col, arr[i], row))
 })
 
-export default readCSV
+const sransiansiRegex = () => {
+  const pattern = [
+    "[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[a-zA-Z\\d]*)*)?\\u0007)",
+    "(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PRZcf-ntqry=>&lt;~]))",
+  ].join("|")
+
+  return new RegExp(pattern, "g")
+}
+
+export default addCol
 </code></pre>
         </article>
     </section>

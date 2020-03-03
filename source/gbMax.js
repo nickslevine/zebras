@@ -1,4 +1,4 @@
-import { keys, reduce, max } from "ramda"
+import { keys, reduce, max, curry } from "ramda"
 
 /**
  * Calculate max for grouped objects.
@@ -18,13 +18,13 @@ import { keys, reduce, max } from "ramda"
  * Z.gbMax("value", Z.groupBy(d => d.label, df))
  * // [{"group": "A", "max": 7}, {"group": "B", "max": 5}, {"group": "C", "max": 75}]
  */
-const gbMax = (col, groupByObj) => {
+const gbMax = curry((col, groupByObj) => {
   const groups = keys(groupByObj)
   const result = groups.map(g => ({
     group: g,
     max: reduce((acc, value) => max(acc, value[col]), -Infinity, groupByObj[g]),
   }))
   return result
-}
+})
 
 export default gbMax

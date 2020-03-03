@@ -1,4 +1,4 @@
-import { keys, reduce, min } from "ramda"
+import { keys, reduce, min, curry } from "ramda"
 
 /**
  * Calculate min for grouped objects.
@@ -18,13 +18,13 @@ import { keys, reduce, min } from "ramda"
  * Z.gbMin("value", Z.groupBy(d => d.label, df))
  * // [{"group": "A", "min": 3}, {"group": "B", "min": 2}, {"group": "C", "min": 75}]
  */
-const gbMin = (col, groupByObj) => {
+const gbMin = curry((col, groupByObj) => {
   const groups = keys(groupByObj)
   const result = groups.map(g => ({
     group: g,
     min: reduce((acc, value) => min(acc, value[col]), Infinity, groupByObj[g]),
   }))
   return result
-}
+})
 
 export default gbMin

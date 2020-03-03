@@ -63,7 +63,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line5">line 5</a>
+        <a href="index.js.html">index.js</a>, <a href="index.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -143,7 +143,7 @@ offering the convenience of pandas or R.</p></div>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line821">line 821</a>
+        <a href="addCol.js.html">addCol.js</a>, <a href="addCol.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -350,7 +350,7 @@ Z.addCol("date", series, df)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line610">line 610</a>
+        <a href="concat.js.html">concat.js</a>, <a href="concat.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -536,7 +536,7 @@ Z.concat(df1, df2)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line548">line 548</a>
+        <a href="corr.js.html">corr.js</a>, <a href="corr.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -718,7 +718,7 @@ Z.corr(series1, series2)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line779">line 779</a>
+        <a href="countUnique.js.html">countUnique.js</a>, <a href="countUnique.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -864,7 +864,7 @@ Z.countUnique(series)
 
     
 
-    <h4 class="name" id=".cumulative"><span class="type-signature">(static) </span>cumulative<span class="signature">(func, arr)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id=".cumulative"><span class="type-signature">(static) </span>cumulative<span class="signature">(func, arr)</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
 
@@ -876,7 +876,7 @@ Z.countUnique(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line930">line 930</a>
+        <a href="cumulative.js.html">cumulative.js</a>, <a href="cumulative.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -1034,7 +1034,7 @@ Z.cumulative(Z.mean, series)
     </dt>
     <dd>
         
-<span class="param-type">Number</span>
+<span class="param-type">Array</span>
 
 
     </dd>
@@ -1048,7 +1048,7 @@ Z.cumulative(Z.mean, series)
 
     
 
-    <h4 class="name" id=".deriveCol"><span class="type-signature">(static) </span>deriveCol<span class="signature">(func, dataframe)</span><span class="type-signature"> &rarr; {df}</span></h4>
+    <h4 class="name" id=".deriveCol"><span class="type-signature">(static) </span>deriveCol<span class="signature">(func, dataframe)</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
 
@@ -1060,7 +1060,7 @@ Z.cumulative(Z.mean, series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line847">line 847</a>
+        <a href="deriveCol.js.html">deriveCol.js</a>, <a href="deriveCol.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -1100,7 +1100,7 @@ Z.cumulative(Z.mean, series)
 
 
 <div class="description">
-    <p>Create a new array based on columns from existing array.</p>
+    <p>Create a new array based on columns from existing dataframe.</p>
 <p>Use to create new columns derived from existing columns in a dataframe.</p>
 </div>
 
@@ -1116,7 +1116,7 @@ Z.cumulative(Z.mean, series)
     
     <pre class="prettyprint"><code>const temps = [{"date": "1990-05-06", "tempCelsius": 0}, {"date": "1990-05-07", "tempCelsius": 4}]
 const fahrenheit = Z.deriveCol((r) => r.tempCelsius * 1.8 + 32, temps)
-Z.addCol("tempFahrenheit", fahrenheit, temps)
+Z.deriveCol("tempFahrenheit", fahrenheit, temps)
 // [{"date": "1990-05-06", "tempCelsius": 0, "tempFahrenheit": 32}, {"date": "1990-05-07", "tempCelsius": 4, "tempFahrenheit": 39.2}]</code></pre>
 
 
@@ -1217,7 +1217,7 @@ Z.addCol("tempFahrenheit", fahrenheit, temps)
     </dt>
     <dd>
         
-<span class="param-type">df</span>
+<span class="param-type">Array</span>
 
 
     </dd>
@@ -1243,7 +1243,7 @@ Z.addCol("tempFahrenheit", fahrenheit, temps)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line957">line 957</a>
+        <a href="describe.js.html">describe.js</a>, <a href="describe.js.html#line26">line 26</a>
     </li></ul></dd>
     
 
@@ -1426,7 +1426,7 @@ Z.describe(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line866">line 866</a>
+        <a href="diff.js.html">diff.js</a>, <a href="diff.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -1585,7 +1585,7 @@ Z.diff(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line366">line 366</a>
+        <a href="dropCol.js.html">dropCol.js</a>, <a href="dropCol.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -1639,7 +1639,7 @@ Z.diff(series)
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>const df = [{"label": "A", "value": 7}, {"label": "B", "value": 2}, {"label": "C", "value": 75}]
-Z.dropCol(["label"], df)
+Z.dropCol("label", df)
 // [{"value": 7}, {"value": 2}, {"value": 75}]</code></pre>
 
 
@@ -1770,7 +1770,7 @@ Z.dropCol(["label"], df)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line220">line 220</a>
+        <a href="filter.js.html">filter.js</a>, <a href="filter.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -1826,7 +1826,7 @@ dataframe are returned.</p>
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>const df = [{"label": "A", "value": 2}, {"label": "B", "value": 10}, {"label": "C", "value": 30}]
-Z.filter(r => r >= 10, df)
+Z.filter(r => r.value >= 10, df)
 // [{"label": "B", "value": 10}, {"label": "C", "value": 30}]</code></pre>
 
 
@@ -1957,7 +1957,7 @@ Z.filter(r => r >= 10, df)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line1159">line 1159</a>
+        <a href="gbCount.js.html">gbCount.js</a>, <a href="gbCount.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -2150,7 +2150,7 @@ Z.gbCount("value", Z.groupBy(d => d.label, df))
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line1255">line 1255</a>
+        <a href="gbDescribe.js.html">gbDescribe.js</a>, <a href="gbDescribe.js.html#line31">line 31</a>
     </li></ul></dd>
     
 
@@ -2347,7 +2347,7 @@ Z.gbDescribe("value", Z.groupBy(d => d.label, df))
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line1218">line 1218</a>
+        <a href="gbMax.js.html">gbMax.js</a>, <a href="gbMax.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -2540,7 +2540,7 @@ Z.gbMax("value", Z.groupBy(d => d.label, df))
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line1102">line 1102</a>
+        <a href="gbMean.js.html">gbMean.js</a>, <a href="gbMean.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -2733,7 +2733,7 @@ Z.gbMean("value", Z.groupBy(d => d.label, df))
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line1185">line 1185</a>
+        <a href="gbMin.js.html">gbMin.js</a>, <a href="gbMin.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -2926,7 +2926,7 @@ Z.gbMin("value", Z.groupBy(d => d.label, df))
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line1129">line 1129</a>
+        <a href="gbStd.js.html">gbStd.js</a>, <a href="gbStd.js.html#line24">line 24</a>
     </li></ul></dd>
     
 
@@ -3119,7 +3119,7 @@ Z.gbStd("value", Z.groupBy(d => d.label, df))
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line1073">line 1073</a>
+        <a href="gbSum.js.html">gbSum.js</a>, <a href="gbSum.js.html#line24">line 24</a>
     </li></ul></dd>
     
 
@@ -3312,7 +3312,7 @@ Z.gbSum("value", Z.groupBy(d => d.label, df))
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line385">line 385</a>
+        <a href="getCol.js.html">getCol.js</a>, <a href="getCol.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -3497,7 +3497,7 @@ Z.getCol("value", df)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line761">line 761</a>
+        <a href="getRange.js.html">getRange.js</a>, <a href="getRange.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -3659,7 +3659,7 @@ Z.getRange(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line629">line 629</a>
+        <a href="groupBy.js.html">groupBy.js</a>, <a href="groupBy.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -3840,7 +3840,7 @@ Z.groupBy(x => x.Day, df)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line176">line 176</a>
+        <a href="head.js.html">head.js</a>, <a href="head.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -3947,7 +3947,7 @@ Z.groupBy(x => x.Day, df)
 
             
 
-            <td class="description last"><p>Number of rows to print</p></td>
+            <td class="description last"><p>Number of rows to select from start of df</p></td>
         </tr>
 
     
@@ -4031,7 +4031,7 @@ Z.groupBy(x => x.Day, df)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line491">line 491</a>
+        <a href="kurt.js.html">kurt.js</a>, <a href="kurt.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -4189,7 +4189,7 @@ Z.kurt(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line742">line 742</a>
+        <a href="max.js.html">max.js</a>, <a href="max.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -4347,7 +4347,7 @@ Z.max(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line403">line 403</a>
+        <a href="mean.js.html">mean.js</a>, <a href="mean.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -4505,7 +4505,7 @@ Z.mean(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line422">line 422</a>
+        <a href="median.js.html">median.js</a>, <a href="median.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -4663,7 +4663,7 @@ Z.median(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line1000">line 1000</a>
+        <a href="merge.js.html">merge.js</a>, <a href="merge.js.html#line62">line 62</a>
     </li></ul></dd>
     
 
@@ -4949,7 +4949,7 @@ Z.merge(df1, df2, "label", "label", "_df1", "_df2")
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line723">line 723</a>
+        <a href="min.js.html">min.js</a>, <a href="min.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -5095,7 +5095,7 @@ Z.min(series)
 
     
 
-    <h4 class="name" id=".parseDates"><span class="type-signature">(static) </span>parseDates<span class="signature">(columnNames, dataframe)</span><span class="type-signature"> &rarr; {df}</span></h4>
+    <h4 class="name" id=".parseDates"><span class="type-signature">(static) </span>parseDates<span class="signature">(cols, dataframe)</span><span class="type-signature"> &rarr; {df}</span></h4>
 
     
 
@@ -5107,7 +5107,7 @@ Z.min(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line316">line 316</a>
+        <a href="parseDates.js.html">parseDates.js</a>, <a href="parseDates.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -5192,7 +5192,7 @@ Z.parseDates(["value"], df)
 
         <tr>
             
-                <td class="name"><code>columnNames</code></td>
+                <td class="name"><code>cols</code></td>
             
 
             <td class="type">
@@ -5292,7 +5292,7 @@ Z.parseDates(["value"], df)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line287">line 287</a>
+        <a href="parseNums.js.html">parseNums.js</a>, <a href="parseNums.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -5477,7 +5477,7 @@ Z.parseNums(["value"], df)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line520">line 520</a>
+        <a href="pctChange.js.html">pctChange.js</a>, <a href="pctChange.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -5625,7 +5625,7 @@ Z.pctChange(series)
 
     
 
-    <h4 class="name" id=".pickCols"><span class="type-signature">(static) </span>pickCols<span class="signature">(columnNames, dataframe)</span><span class="type-signature"> &rarr; {df}</span></h4>
+    <h4 class="name" id=".pickCols"><span class="type-signature">(static) </span>pickCols<span class="signature">(cols, dataframe)</span><span class="type-signature"> &rarr; {df}</span></h4>
 
     
 
@@ -5637,7 +5637,7 @@ Z.pctChange(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line347">line 347</a>
+        <a href="pickCols.js.html">pickCols.js</a>, <a href="pickCols.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -5723,7 +5723,7 @@ Z.pickCols(["value"], df)
 
         <tr>
             
-                <td class="name"><code>columnNames</code></td>
+                <td class="name"><code>cols</code></td>
             
 
             <td class="type">
@@ -5823,7 +5823,7 @@ Z.pickCols(["value"], df)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line590">line 590</a>
+        <a href="pipe.js.html">pipe.js</a>, <a href="pipe.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -6017,7 +6017,7 @@ Z.pipe([
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line88">line 88</a>
+        <a href="print.js.html">print.js</a>, <a href="print.js.html#line36">line 36</a>
     </li></ul></dd>
     
 
@@ -6195,7 +6195,7 @@ functions in <code>console.log()</code> to display ASCII tables.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line124">line 124</a>
+        <a href="printHead.js.html">printHead.js</a>, <a href="printHead.js.html#line31">line 31</a>
     </li></ul></dd>
     
 
@@ -6396,7 +6396,7 @@ functions in <code>console.log()</code> to display ASCII tables.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line155">line 155</a>
+        <a href="printTail.js.html">printTail.js</a>, <a href="printTail.js.html#line31">line 31</a>
     </li></ul></dd>
     
 
@@ -6597,7 +6597,7 @@ functions in <code>console.log()</code> to display ASCII tables.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line704">line 704</a>
+        <a href="prod.js.html">prod.js</a>, <a href="prod.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -6755,7 +6755,7 @@ Z.prod(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line23">line 23</a>
+        <a href="readCSV.js.html">readCSV.js</a>, <a href="readCSV.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -6903,7 +6903,7 @@ Z.prod(series)
 
     
 
-    <h4 class="name" id=".rolling"><span class="type-signature">(static) </span>rolling<span class="signature">(func, n, arr)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id=".rolling"><span class="type-signature">(static) </span>rolling<span class="signature">(func, n, arr)</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
 
@@ -6915,7 +6915,7 @@ Z.prod(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line898">line 898</a>
+        <a href="rolling.js.html">rolling.js</a>, <a href="rolling.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -7096,7 +7096,7 @@ Z.rolling(Z.mean, 2, series)
     </dt>
     <dd>
         
-<span class="param-type">Number</span>
+<span class="param-type">Array</span>
 
 
     </dd>
@@ -7122,7 +7122,7 @@ Z.rolling(Z.mean, 2, series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line465">line 465</a>
+        <a href="skew.js.html">skew.js</a>, <a href="skew.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -7280,7 +7280,7 @@ Z.skew(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line649">line 649</a>
+        <a href="slice.js.html">slice.js</a>, <a href="slice.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -7488,7 +7488,7 @@ Z.slice(1, 2, df)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line242">line 242</a>
+        <a href="sort.js.html">sort.js</a>, <a href="sort.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -7675,7 +7675,7 @@ Z.sort((a, b) => b.value - a.value, df)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line262">line 262</a>
+        <a href="sortByCol.js.html">sortByCol.js</a>, <a href="sortByCol.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -7883,7 +7883,7 @@ Z.sortByCol("value", "asc", df)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line441">line 441</a>
+        <a href="std.js.html">std.js</a>, <a href="std.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -8041,7 +8041,7 @@ Z.std(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line685">line 685</a>
+        <a href="sum.js.html">sum.js</a>, <a href="sum.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -8199,7 +8199,7 @@ Z.sum(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line197">line 197</a>
+        <a href="tail.js.html">tail.js</a>, <a href="tail.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -8306,7 +8306,7 @@ Z.sum(series)
 
             
 
-            <td class="description last"><p>Number of rows to print</p></td>
+            <td class="description last"><p>Number of rows to select from bottom of df</p></td>
         </tr>
 
     
@@ -8390,7 +8390,7 @@ Z.sum(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line49">line 49</a>
+        <a href="toCSV.js.html">toCSV.js</a>, <a href="toCSV.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -8569,7 +8569,7 @@ Z.sum(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line667">line 667</a>
+        <a href="unique.js.html">unique.js</a>, <a href="unique.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -8727,7 +8727,7 @@ Z.unique(series)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="zebras.js.html">zebras.js</a>, <a href="zebras.js.html#line797">line 797</a>
+        <a href="valueCounts.js.html">valueCounts.js</a>, <a href="valueCounts.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -8888,7 +8888,7 @@ Z.valueCounts(series)
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Jan 14 2019 20:33:48 GMT+0100 (CET) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Feb 24 2019 17:29:57 GMT+0100 (CET) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

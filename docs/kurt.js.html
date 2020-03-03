@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>readCSV.js - Documentation</title>
+    <title>kurt.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -33,7 +33,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">readCSV.js</h1>
+    <h1 class="page-title">kurt.js</h1>
     
 
     
@@ -43,45 +43,38 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import fs from "fs"
+            <pre class="prettyprint source linenums"><code>import { curry, filter, mean, map, sum } from "ramda"
 
-import { curry } from "ramda"
+import isNumeric from "./internal/isNumeric"
+import std from "./std"
 
 /**
- * Synchronously reads a CSV file.
+ * Kurtosis of a series.
  *
  * @func
  * @memberOf Z
- * @category IO
- * @param {String} filepath File path for the CSV file to read
- * @return {df} Zebras dataframe
+ * @category Analysis
+ * @param {Array} arr Series to calculate kurtosis for
+ * @return {Number}
  * @example
  *
- * Z.readCSV(filepath)
+ * const series = [7, 2, 30, 56, 75]
+ * Z.kurt(series)
+ * // -2.040541067936147
  */
-const readCSV = curry(filepath => {
-  try {
-    const data = fs.readFileSync(filepath).toString("utf8")
-    const dataSplit = data.split("\n")
-    const headers = dataSplit[0].split(",")
-    const df = []
-    for (let r = 1; r &lt; dataSplit.length; r += 1) {
-      const rowSplit = dataSplit[r].trim().split(",")
-      const rowObject = {}
-      if (headers.length === rowSplit.length) {
-        for (let i = 0; i &lt; rowSplit.length; i += 1) {
-          rowObject[headers[i]] = rowSplit[i]
-        }
-        df.push(rowObject)
-      }
-    }
-    return df
-  } catch (error) {
-    return error
-  }
+const kurt = curry(arr => {
+  const filteredArr = filter(isNumeric, arr)
+  const sampleStd = std(filteredArr)
+  const stdFourth = sampleStd ** 4
+  const sampleMean = mean(filteredArr)
+  const diffs = map(x => x - sampleMean, filteredArr)
+  const diffsFourth = map(x => x ** 4, diffs)
+  const summed = sum(diffsFourth)
+  const n = filteredArr.length
+  return summed / n / stdFourth - 3
 })
 
-export default readCSV
+export default kurt
 </code></pre>
         </article>
     </section>

@@ -1,4 +1,4 @@
-import { keys, filter, sum } from "ramda"
+import { keys, filter, sum, curry } from "ramda"
 
 import isNumeric from "./internal/isNumeric"
 import getCol from "./getCol"
@@ -21,7 +21,7 @@ import getCol from "./getCol"
  * Z.gbSum("value", Z.groupBy(d => d.label, df))
  * // [{"group": "A", "sum": 10}, {"group": "B", "sum": 7}, {"group": "C", "sum": 75}]
  */
-const gbSum = (col, groupByObj) => {
+const gbSum = curry((col, groupByObj) => {
   const groups = keys(groupByObj)
   const result = groups.map(i => {
     const df = groupByObj[i]
@@ -30,6 +30,6 @@ const gbSum = (col, groupByObj) => {
     return { group: i, sum: sum(arrFiltered) }
   })
   return result
-}
+})
 
 export default gbSum

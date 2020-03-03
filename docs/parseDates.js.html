@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>readCSV.js - Documentation</title>
+    <title>parseDates.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -33,7 +33,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">readCSV.js</h1>
+    <h1 class="page-title">parseDates.js</h1>
     
 
     
@@ -43,45 +43,35 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import fs from "fs"
-
-import { curry } from "ramda"
+            <pre class="prettyprint source linenums"><code>import { curry, includes, mapObjIndexed, map } from "ramda"
 
 /**
- * Synchronously reads a CSV file.
+ * Convert columns to datestamp.
  *
  * @func
  * @memberOf Z
- * @category IO
- * @param {String} filepath File path for the CSV file to read
+ * @category Manipulation
+ * @param {Array} cols Array of column names to convert
+ * @param {df} dataframe Zebras dataframe to parse
  * @return {df} Zebras dataframe
  * @example
  *
- * Z.readCSV(filepath)
+ * const df = [{"label": "A", "value": "2010-12-13"}, {"label": "B", "value": "2010-12-15"}, {"label": "C", "value": "2010-12-17"}]
+ * Z.parseDates(["value"], df)
+ * // [{"label": "A", "value": 1292198400000}, {"label": "B", "value": 1292371200000}, {"label": "C", "value": 1292544000000}]
  */
-const readCSV = curry(filepath => {
-  try {
-    const data = fs.readFileSync(filepath).toString("utf8")
-    const dataSplit = data.split("\n")
-    const headers = dataSplit[0].split(",")
-    const df = []
-    for (let r = 1; r &lt; dataSplit.length; r += 1) {
-      const rowSplit = dataSplit[r].trim().split(",")
-      const rowObject = {}
-      if (headers.length === rowSplit.length) {
-        for (let i = 0; i &lt; rowSplit.length; i += 1) {
-          rowObject[headers[i]] = rowSplit[i]
-        }
-        df.push(rowObject)
-      }
+const parseDates = curry((cols, df) => {
+  const convertRow = r => {
+    const converter = (value, key) => {
+      if (includes(key, cols)) return Date.parse(value)
+      return value
     }
-    return df
-  } catch (error) {
-    return error
+    return mapObjIndexed(converter, r)
   }
+  return map(convertRow, df)
 })
 
-export default readCSV
+export default parseDates
 </code></pre>
         </article>
     </section>
