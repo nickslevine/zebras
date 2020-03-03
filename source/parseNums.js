@@ -18,7 +18,7 @@ import { curry, includes, mapObjIndexed, map } from "ramda"
 const parseNums = curry((cols, df) => {
   const convertRow = r => {
     const converter = (value, key) => {
-      if (includes(key, cols)) return parseFloat(value)
+      if (includes(key, cols)) return +value
       return value
     }
     return mapObjIndexed(converter, r)

@@ -15,6 +15,6 @@
  * isNumeric(""); //=> false
  * isNumeric("a"); //=> false
  */
-const isNumeric = x => !Number.isNaN(parseFloat(x))
+const isNumeric = x => !Number.isNaN(+x)
 
 export default isNumeric

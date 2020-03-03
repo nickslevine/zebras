@@ -333,7 +333,7 @@ const parseNums = R.curry((cols, df) => {
   const convertRow = r => {
     const converter = (value, key, obj) => {
       if (R.includes(key, cols)) {
-        return parseFloat(value)
+        return (+value)
       } else {
         return value
       }

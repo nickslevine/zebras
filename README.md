@@ -48,6 +48,8 @@ const speed = z.getCol("speed", parsedData)
 const avgSpeed = z.mean(speed)
 ```
 
+**Note: make sure numerical data imported into Zebras does not contain commas ("2342.5", not "2,342.5") - commas within numbers will throw off the parsing and lead to unexpected results.**
+
 Piping example:
 
 ```javascript
