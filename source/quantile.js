@@ -30,7 +30,7 @@ const quantile = curry((q, arr ) => {
         return sortedArr[length(sortedArr) - 1];
     }
     else if ( q > 1 || q < 0) {
-        throw new TypeError("Quantile must be value between 0 and 1")
+        throw new RangeError("Quantile must be value between 0 and 1")
     }
 
     const i = q * length(sortedArr)
