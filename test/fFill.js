@@ -9,10 +9,15 @@ describe("fFill", () => {
       { label: "B", value: NaN, date: "2010-12-15" },
       { label: "C", value: 15, date: null },
     ]
-    assert.deepStrictEqual(Z.fFill(df), [
+    assert.deepStrictEqual(Z.fFill(df, []), [
       { label: "A", value: 10, date: "2010-12-13" },
       { label: "B", value: 10, date: "2010-12-15" },
       { label: "C", value: 15, date: "2010-12-15" },
+    ])
+    assert.deepStrictEqual(Z.fFill(df, ["value"]), [
+      { label: "A", value: 10, date: "2010-12-13" },
+      { label: "B", value: 10, date: "2010-12-15" },
+      { label: "C", value: 15, date: null },
     ])
   })
 })

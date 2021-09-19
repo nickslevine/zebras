@@ -10,6 +10,8 @@ import { keys, curry, range, map, forEach } from "ramda"
  * @memberOf Z
  * @category Analysis
  * @param {df} df Dataframe to fill NAs
+ * @param {any} fillValue Value to fill with
+ * @param {Array} cols Array of column names to convert. Set to null or [] for all.
  * @return {df}
  * @example
  *
@@ -17,14 +19,18 @@ import { keys, curry, range, map, forEach } from "ramda"
  * Z.fillNA(series, -1)
  * // [{"label": "A", "value": 7}, {"label": "B", "value": -1}, {"label": "C", "value": 75}]
  */
-const fillNA = curry((df, fillValue) => {
+const fillNA = curry((df, fillValue, cols) => {
     return df.map((each) => {
-        keys(each).forEach(col => {
+        var toReturn = {...each}
+        if(!cols || !cols.length) {
+            cols = keys(each)
+        }
+        cols.forEach(col => {
             if(!each[col] && each[col] !== 0) {
-                each[col] = fillValue
+                toReturn[col] = fillValue
             }
         })
-        return each
+        return toReturn
     })
 })
 
