@@ -9,7 +9,7 @@ export type df = ReadonlyArray<object>;
 // IO
 
 export function readCSV(filepath: string): df;
-export function toCSV(df: df, filepath: string): void;
+export function toCSV(filepath: string, df: df): void;
 export function print(df: df): string;
 export function printHead(n: number, df: df): string;
 export function printTail(n: number, df: df): string;
